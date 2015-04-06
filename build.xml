@@ -1,0 +1,222 @@
+﻿<!--
+ * 
+ * Hyperbox - Virtual Infrastructure Manager
+ * Copyright (C) 2015 Maxime Dor
+ * 
+ * http://kamax.io/hbox/
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or 
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+-->
+
+<project name="VirtualBox 4.3 - Server Hypervisor Modules" default="dist">
+	
+	<property file="build.properties" />
+	
+	<property name="api.lib.dir"									value="../hyperbox/src/api/lib" />
+	<property name="api.jar.file"									value="../hyperbox/out/build/jars/hbox-api.jar" />
+	<property name="srv.api.jar.file"								value="../hyperbox/out/build/jars/hbox-srv-api.jar" />
+	<property name="vbox.api.jar.file"								value="../hyperbox/out/build/jars/vbox-api.jar" />
+	<property name="srv.vbox.helper.jar.file"						value="../hyperbox/out/build/jars/hbox-srv-vb-helper.jar" />
+
+	<property name="src.dir"										value="src" />
+	<property name="lib.dir"										value="lib" />
+	<property name="out.dir"										value="out" />
+	
+	<property name="build.dir"										value="${out.dir}/build" />
+	<property name="build.class.dir"								value="${build.dir}/class" />
+	<property name="build.jar.dir"									value="${build.dir}/jar" />
+	
+	<property name="bin.dir"										value="${out.dir}/bin" />
+	
+	<property name="dist.dir"										value="${out.dir}/dist" />
+	
+	<target name="clean">
+		<delete dir="${out.dir}"/>
+	</target>
+	
+	<target name="configure">
+		<exec executable="git" outputProperty="version">
+			<arg line="describe --always"/>
+		</exec>
+	</target>
+	
+	<!-- VirtualBox 5.0 Core connector ======================================================================================================================================================================== -->
+	
+	<property name="srv.hyp.vbox.4_3.hyp.type"						value="vbox" />
+	<property name="srv.hyp.vbox.4_3.hyp.api"						value="4_3" />
+	<property name="srv.hyp.vbox.4_3.hyp.conn"						value="core" />
+	<property name="srv.hyp.vbox.4_3.hyp.id"						value="${srv.hyp.vbox.4_3.hyp.type}-${srv.hyp.vbox.4_3.hyp.api}" />
+	<property name="srv.hyp.vbox.4_3.id"							value="${srv.hyp.vbox.4_3.hyp.id}-${srv.hyp.vbox.4_3.hyp.conn}" />
+	<property name="srv.hyp.vbox.4_3.dir"							value="${src.dir}/core" />
+	<property name="srv.hyp.vbox.4_3.src.dir"						value="${srv.hyp.vbox.4_3.dir}/${src.dir}" />
+	<property name="srv.hyp.vbox.4_3.lib.dir"						value="${srv.hyp.vbox.4_3.dir}/${lib.dir}" />
+	<property name="srv.hyp.vbox.4_3.class.dir"						value="${build.class.dir}/${srv.hyp.vbox.4_3.id}" />
+	<property name="srv.hyp.vbox.4_3.jar.file"						value="${build.jar.dir}/${srv.hyp.vbox.4_3.id}.jar" />
+	
+	<path id="srv.hyp.vbox.4_3.classpath">
+		<pathelement location="${api.jar.file}" />
+		<pathelement location="${srv.api.jar.file}" />
+		<pathelement location="${vbox.api.jar.file}" />
+		<pathelement location="${srv.vbox.helper.jar.file}" />
+		
+		<fileset dir="${srv.hyp.vbox.4_3.lib.dir}" includes="**/*.jar"/>
+		<fileset dir="${api.lib.dir}" includes="**/*.jar"/>
+	</path>
+	
+	<target name="srv.hyp.vbox.4_3.class">
+		<mkdir dir="${srv.hyp.vbox.4_3.class.dir}" />
+
+		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${srv.hyp.vbox.4_3.src.dir}" destdir="${srv.hyp.vbox.4_3.class.dir}" classpathref="srv.hyp.vbox.4_3.classpath" />
+	</target>
+	
+	<target name="srv.hyp.vbox.4_3.jar" depends="srv.hyp.vbox.4_3.class">
+		<jar destfile="${srv.hyp.vbox.4_3.jar.file}">
+			<fileset dir="${srv.hyp.vbox.4_3.class.dir}" />
+		</jar>
+	</target>
+	
+	<!-- ====================================================================================================================================================================================================== -->
+	
+	
+	<!-- VirtualBox 5.0 Web Services connector ================================================================================================================================================================ -->
+	
+	<property name="srv.hyp.vbox.4_3.ws.type"					 	value="ws" />
+	<property name="srv.hyp.vbox.4_3.ws.id"							value="${srv.hyp.vbox.4_3.hyp.id}-${srv.hyp.vbox.4_3.ws.type}" />
+	<property name="srv.hyp.vbox.4_3.ws.desc.filename"				value="${srv.hyp.vbox.4_3.ws.id}.xml" />
+	<property name="srv.hyp.vbox.4_3.ws.dist.zip.filename"			value="${srv.hyp.vbox.4_3.ws.id}.zip" />
+	
+	<property name="srv.hyp.vbox.4_3.ws.dir"						value="${src.dir}/${srv.hyp.vbox.4_3.ws.type}" />
+	<property name="srv.hyp.vbox.4_3.ws.src.dir"					value="${srv.hyp.vbox.4_3.ws.dir}/${src.dir}" />
+	<property name="srv.hyp.vbox.4_3.ws.src.desc.file"				value="${srv.hyp.vbox.4_3.ws.dir}/${srv.hyp.vbox.4_3.ws.desc.filename}" />
+	<property name="srv.hyp.vbox.4_3.ws.lib.dir"					value="${srv.hyp.vbox.4_3.ws.dir}/${lib.dir}" />
+	<property name="srv.hyp.vbox.4_3.ws.class.dir"					value="${build.class.dir}/${srv.hyp.vbox.4_3.ws.id}" />
+	<property name="srv.hyp.vbox.4_3.ws.bin.dir"					value="${bin.dir}/${srv.hyp.vbox.4_3.ws.type}" />
+	<property name="srv.hyp.vbox.4_3.ws.bin.desc.file"				value="${srv.hyp.vbox.4_3.ws.bin.dir}/${srv.hyp.vbox.4_3.ws.desc.filename}" />
+	<property name="srv.hyp.vbox.4_3.ws.bin.pkg.dir"				value="${bin.dir}/${srv.hyp.vbox.4_3.ws.type}/${srv.hyp.vbox.4_3.ws.id}" />
+	<property name="srv.hyp.vbox.4_3.ws.jar.filename"				value="${srv.hyp.vbox.4_3.ws.id}.jar" />
+	<property name="srv.hyp.vbox.4_3.ws.jar.file"					value="${build.jar.dir}/${srv.hyp.vbox.4_3.ws.jar.filename}" />
+	<property name="srv.hyp.vbox.4_3.ws.bin.jar.file"				value="${srv.hyp.vbox.4_3.ws.bin.pkg.dir}/${srv.hyp.vbox.4_3.ws.jar.filename}" />
+	<property name="srv.hyp.vbox.4_3.ws.dist.zip.file"				value="${dist.dir}/${srv.hyp.vbox.4_3.ws.dist.zip.filename}" />
+	
+	
+	<path id="srv.hyp.vbox.4_3.ws.classpath">
+		<path refid="srv.hyp.vbox.4_3.classpath"/>
+		<pathelement location="${srv.hyp.vbox.4_3.jar.file}" />
+		<fileset dir="${srv.hyp.vbox.4_3.ws.lib.dir}" includes="**/*.jar"/>
+	</path>
+	
+	<target name="srv.hyp.vbox.4_3.ws.class" depends="srv.hyp.vbox.4_3.jar">
+		<mkdir dir="${srv.hyp.vbox.4_3.ws.class.dir}" />
+
+		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${srv.hyp.vbox.4_3.ws.src.dir}" destdir="${srv.hyp.vbox.4_3.ws.class.dir}" classpathref="srv.hyp.vbox.4_3.ws.classpath" />
+	</target>
+	
+	<target name="srv.hyp.vbox.4_3.ws.jar" depends="srv.hyp.vbox.4_3.ws.class">
+		<jar destfile="${srv.hyp.vbox.4_3.ws.jar.file}">
+			<fileset dir="${srv.hyp.vbox.4_3.ws.class.dir}" />
+		</jar>
+	</target>
+	
+	<target name="srv.hyp.vbox.4_3.ws.build" depends="srv.hyp.vbox.4_3.ws.jar">
+		<mkdir dir="${srv.hyp.vbox.4_3.ws.bin.pkg.dir}" />
+		<copy file="${srv.hyp.vbox.4_3.ws.src.desc.file}" tofile="${srv.hyp.vbox.4_3.ws.bin.desc.file}" />
+		<copy file="${vbox.api.jar.file}" todir="${srv.hyp.vbox.4_3.ws.bin.pkg.dir}" />
+		<copy file="${srv.vbox.helper.jar.file}" todir="${srv.hyp.vbox.4_3.ws.bin.pkg.dir}" />
+		<copy file="${srv.hyp.vbox.4_3.jar.file}" todir="${srv.hyp.vbox.4_3.ws.bin.pkg.dir}" />
+		<copy file="${srv.hyp.vbox.4_3.ws.jar.file}" tofile="${srv.hyp.vbox.4_3.ws.bin.jar.file}" />
+		<copy todir="${srv.hyp.vbox.4_3.ws.bin.pkg.dir}" flatten="true">
+			<fileset dir="${srv.hyp.vbox.4_3.ws.lib.dir}" includes="**/*.jar" />
+		</copy>
+	</target>
+	
+	<target name="srv.hyp.vbox.4_3.ws.dist" depends="srv.hyp.vbox.4_3.ws.build">
+		<mkdir dir="${dist.dir}" />
+		<zip destfile="${srv.hyp.vbox.4_3.ws.dist.zip.file}">
+			<fileset dir="${srv.hyp.vbox.4_3.ws.bin.dir}" />
+		</zip>
+	</target>
+	
+	<!-- ====================================================================================================================================================================================================== -->
+	
+	
+	<!-- VirtualBox 5.0 XPCOM connector ======================================================================================================================================================================= -->
+	
+	<property name="srv.hyp.vbox.4_3.xpcom.type"					value="xpcom" />
+	<property name="srv.hyp.vbox.4_3.xpcom.id"						value="${srv.hyp.vbox.4_3.hyp.id}-${srv.hyp.vbox.4_3.xpcom.type}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.desc.filename"			value="${srv.hyp.vbox.4_3.xpcom.id}.xml" />
+	<property name="srv.hyp.vbox.4_3.xpcom.dist.zip.filename"		value="${srv.hyp.vbox.4_3.xpcom.id}.zip" />
+	
+	<property name="srv.hyp.vbox.4_3.xpcom.dir"						value="${src.dir}/${srv.hyp.vbox.4_3.xpcom.type}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.src.dir"					value="${srv.hyp.vbox.4_3.xpcom.dir}/${src.dir}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.src.desc.file"			value="${srv.hyp.vbox.4_3.xpcom.dir}/${srv.hyp.vbox.4_3.xpcom.desc.filename}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.lib.dir"					value="${srv.hyp.vbox.4_3.xpcom.dir}/${lib.dir}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.class.dir"				value="${build.class.dir}/${srv.hyp.vbox.4_3.xpcom.id}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.bin.dir"					value="${bin.dir}/${srv.hyp.vbox.4_3.xpcom.type}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.bin.desc.file"			value="${srv.hyp.vbox.4_3.xpcom.bin.dir}/${srv.hyp.vbox.4_3.xpcom.desc.filename}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.bin.pkg.dir"				value="${bin.dir}/${srv.hyp.vbox.4_3.xpcom.type}/${srv.hyp.vbox.4_3.xpcom.id}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.jar.filename"			value="${srv.hyp.vbox.4_3.xpcom.id}.jar" />
+	<property name="srv.hyp.vbox.4_3.xpcom.jar.file"				value="${build.jar.dir}/${srv.hyp.vbox.4_3.xpcom.jar.filename}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.bin.jar.file"			value="${srv.hyp.vbox.4_3.xpcom.bin.pkg.dir}/${srv.hyp.vbox.4_3.xpcom.jar.filename}" />
+	<property name="srv.hyp.vbox.4_3.xpcom.dist.zip.file"			value="${dist.dir}/${srv.hyp.vbox.4_3.xpcom.dist.zip.filename}" />
+	
+	
+	<path id="srv.hyp.vbox.4_3.xpcom.classpath">
+		<path refid="srv.hyp.vbox.4_3.classpath"/>
+		<pathelement location="${srv.hyp.vbox.4_3.jar.file}" />
+		<fileset dir="${srv.hyp.vbox.4_3.xpcom.lib.dir}" includes="**/*.jar"/>
+	</path>
+	
+	<target name="srv.hyp.vbox.4_3.xpcom.class" depends="srv.hyp.vbox.4_3.jar">
+		<mkdir dir="${srv.hyp.vbox.4_3.xpcom.class.dir}" />
+
+		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${srv.hyp.vbox.4_3.xpcom.src.dir}" destdir="${srv.hyp.vbox.4_3.xpcom.class.dir}" classpathref="srv.hyp.vbox.4_3.xpcom.classpath" />
+	</target>
+	
+	<target name="srv.hyp.vbox.4_3.xpcom.jar" depends="srv.hyp.vbox.4_3.xpcom.class">
+		<jar destfile="${srv.hyp.vbox.4_3.xpcom.jar.file}">
+			<fileset dir="${srv.hyp.vbox.4_3.xpcom.class.dir}" />
+		</jar>
+	</target>
+	
+	<target name="srv.hyp.vbox.4_3.xpcom.build" depends="srv.hyp.vbox.4_3.xpcom.jar">
+		<mkdir dir="${srv.hyp.vbox.4_3.xpcom.bin.pkg.dir}" />
+		<copy file="${srv.hyp.vbox.4_3.xpcom.src.desc.file}" tofile="${srv.hyp.vbox.4_3.xpcom.bin.desc.file}" />
+		<copy file="${vbox.api.jar.file}" todir="${srv.hyp.vbox.4_3.xpcom.bin.pkg.dir}" />
+		<copy file="${srv.vbox.helper.jar.file}" todir="${srv.hyp.vbox.4_3.xpcom.bin.pkg.dir}" />
+		<copy file="${srv.hyp.vbox.4_3.jar.file}" todir="${srv.hyp.vbox.4_3.xpcom.bin.pkg.dir}" />
+		<copy file="${srv.hyp.vbox.4_3.xpcom.jar.file}" tofile="${srv.hyp.vbox.4_3.xpcom.bin.jar.file}" />
+		<copy todir="${srv.hyp.vbox.4_3.xpcom.bin.pkg.dir}" flatten="true">
+			<fileset dir="${srv.hyp.vbox.4_3.xpcom.lib.dir}" includes="**/*.jar" />
+		</copy>
+	</target>
+	
+	<target name="srv.hyp.vbox.4_3.xpcom.dist" depends="srv.hyp.vbox.4_3.xpcom.build">
+		<mkdir dir="${dist.dir}" />
+		<zip destfile="${srv.hyp.vbox.4_3.xpcom.dist.zip.file}">
+			<fileset dir="${srv.hyp.vbox.4_3.xpcom.bin.dir}" />
+		</zip>
+	</target>
+	
+	<!-- ====================================================================================================================================================================================================== -->
+	
+	<extension-point name="class" depends="srv.hyp.vbox.4_3.ws.class, srv.hyp.vbox.4_3.xpcom.class" />
+	
+	<extension-point name="jar" depends="srv.hyp.vbox.4_3.ws.jar, srv.hyp.vbox.4_3.xpcom.jar" />
+	
+	<extension-point name="build" depends="srv.hyp.vbox.4_3.ws.build, srv.hyp.vbox.4_3.xpcom.build" />
+	
+	<extension-point name="dist" depends="srv.hyp.vbox.4_3.ws.dist, srv.hyp.vbox.4_3.xpcom.dist" />
+
+</project>

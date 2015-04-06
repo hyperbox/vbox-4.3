@@ -1,0 +1,15 @@
+<module>
+	<id>vbox-4_3-ws</id>
+	<path>vbox-4_3-ws</path>
+	<name>Virtualbox 4.3 WebServices Connector</name>
+	<desc>This module provides the universal WebServices connector for VirtualBox 4.3.</desc>
+	<version>1</version>
+	<vendor>Kamax.io</vendor>
+	<url>http://kamax.io/hbox/</url>
+	<providers>
+		<provider>
+			<type>org.altherian.hboxd.hypervisor._Hypervisor</type>
+			<impl>io.kamax.vbox4_3.VBoxWSHypervisor</impl>
+		</provider>
+	</providers>
+</module>

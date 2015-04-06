@@ -1,0 +1,15 @@
+<module>
+	<id>vbox-4_3-mscom</id>
+	<path>vbox-4_3-mscom</path>
+	<name>VirtualBox 4.3 MSCOM Connector</name>
+	<desc>This module provides the Windows-based MSCOM connector for VirtualBox 4.3</desc>
+	<version>1</version>
+	<vendor>Kamax.io</vendor>
+	<url>http://kamax.io/hbox/</url>
+	<providers>
+		<provider>
+			<type>org.altherian.hboxd.hypervisor._Hypervisor</type>
+			<impl>io.kamax.vbox4_3.VBoxMscomHypervisor</impl>
+		</provider>
+	</providers>
+</module>
