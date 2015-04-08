@@ -24,7 +24,7 @@ import org.altherian.hbox.event._Event;
 import org.altherian.hboxd.event._EventManager;
 import org.altherian.hboxd.service.SimpleLoopService;
 import org.altherian.tool.logging.Logger;
-import org.altherian.vbox.utils.EventBusFactory;
+import io.kamax.vbox.utils.EventBusFactory;
 import io.kamax.vbox4_3.ErrorInterpreter;
 import io.kamax.vbox4_3.VBox;
 import io.kamax.vbox4_3.factory.EventFactory;

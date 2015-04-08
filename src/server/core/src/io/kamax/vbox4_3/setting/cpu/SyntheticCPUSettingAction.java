@@ -23,7 +23,7 @@ package io.kamax.vbox4_3.setting.cpu;
 import org.altherian.hbox.constant.MachineAttribute;
 import org.altherian.setting.BooleanSetting;
 import org.altherian.setting._Setting;
-import org.altherian.vbox.settings.cpu.SyntheticCPUSetting;
+import io.kamax.vbox.settings.cpu.SyntheticCPUSetting;
 import io.kamax.vbox4_3.setting._MachineSettingAction;
 import org.virtualbox_4_3.CPUPropertyType;
 import org.virtualbox_4_3.IMachine;

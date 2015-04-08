@@ -26,7 +26,7 @@ import org.altherian.hbox.constant.MachineAttribute;
 import org.altherian.hboxd.hypervisor.vm.device._RawKeyboard;
 import org.altherian.setting.StringSetting;
 import org.altherian.setting._Setting;
-import org.altherian.vbox.settings.general.KeyboardModeSetting;
+import io.kamax.vbox.settings.general.KeyboardModeSetting;
 import io.kamax.vbox4_3.manager.VBoxSettingManager;
 import java.util.ArrayList;
 import java.util.Arrays;

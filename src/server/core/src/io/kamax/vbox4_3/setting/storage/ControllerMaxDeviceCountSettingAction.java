@@ -23,7 +23,7 @@ package io.kamax.vbox4_3.setting.storage;
 import org.altherian.hbox.constant.StorageControllerAttribute;
 import org.altherian.hbox.exception.HyperboxException;
 import org.altherian.setting._Setting;
-import org.altherian.vbox.settings.storage.ControllerMaxDeviceCountSetting;
+import io.kamax.vbox.settings.storage.ControllerMaxDeviceCountSetting;
 import io.kamax.vbox4_3.setting._StorageControllerSettingAction;
 import org.virtualbox_4_3.IStorageController;
 import org.virtualbox_4_3.LockType;

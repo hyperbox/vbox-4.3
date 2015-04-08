@@ -22,7 +22,7 @@ package io.kamax.vbox4_3.setting.machine;
 
 import org.altherian.hbox.constant.MachineAttribute;
 import org.altherian.setting._Setting;
-import org.altherian.vbox.settings.general.OsTypeSetting;
+import io.kamax.vbox.settings.general.OsTypeSetting;
 import io.kamax.vbox4_3.setting._MachineSettingAction;
 import org.virtualbox_4_3.IMachine;
 import org.virtualbox_4_3.LockType;

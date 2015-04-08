@@ -28,7 +28,6 @@ import org.altherian.hbox.hypervisor.net._NetService;
 import org.altherian.hbox.hypervisor.net._NetService_IP4_DHCP;
 import org.altherian.hboxd.hypervisor.DummyEventManager;
 import org.altherian.hboxd.hypervisor.HypervisorTest;
-import io.kamax.vbox4_3.VBoxWSHypervisor;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

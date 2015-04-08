@@ -24,7 +24,7 @@ import org.altherian.hbox.constant.Firmware;
 import org.altherian.hbox.constant.MachineAttribute;
 import org.altherian.setting.StringSetting;
 import org.altherian.setting._Setting;
-import org.altherian.vbox.settings.motherboard.FirmwareSetting;
+import io.kamax.vbox.settings.motherboard.FirmwareSetting;
 import io.kamax.vbox4_3.data.Mappings;
 import io.kamax.vbox4_3.setting._MachineSettingAction;
 import org.virtualbox_4_3.IMachine;

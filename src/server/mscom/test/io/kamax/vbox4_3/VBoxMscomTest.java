@@ -23,7 +23,6 @@ package io.kamax.vbox4_3;
 import org.altherian.hbox.exception.HyperboxException;
 import org.altherian.hboxd.hypervisor.DummyEventManager;
 import org.altherian.hboxd.hypervisor.HypervisorTest;
-import io.kamax.vbox4_3.VBoxMscomHypervisor;
 import org.junit.BeforeClass;
 
 public class VBoxMscomTest extends HypervisorTest {

@@ -31,7 +31,7 @@ import org.altherian.hbox.comm.io.NetService_NAT_IP6_IO;
 import org.altherian.hbox.constant.NetServiceType;
 import org.altherian.hbox.hypervisor.net._NATRule;
 import org.altherian.hbox.hypervisor.net._NetService;
-import org.altherian.vbox.net.VBoxAdaptor;
+import io.kamax.vbox.net.VBoxAdaptor;
 import io.kamax.vbox4_3.VBox;
 import org.virtualbox_4_3.INATNetwork;
 import org.virtualbox_4_3.NATProtocol;

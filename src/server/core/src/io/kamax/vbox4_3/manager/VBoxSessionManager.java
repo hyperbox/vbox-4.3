@@ -23,7 +23,7 @@ package io.kamax.vbox4_3.manager;
 import net.engio.mbassy.listener.Handler;
 import org.altherian.hboxd.exception.machine.MachineLockingException;
 import org.altherian.tool.logging.Logger;
-import org.altherian.vbox.utils.EventBusFactory;
+import io.kamax.vbox.utils.EventBusFactory;
 import io.kamax.vbox4_3.VBox;
 import java.util.HashMap;
 import java.util.Map;

@@ -23,7 +23,7 @@ package io.kamax.vbox4_3.setting.snapshot;
 import org.altherian.hbox.constant.SnapshotAttribute;
 import org.altherian.hbox.exception.ConfigurationException;
 import org.altherian.setting._Setting;
-import org.altherian.vbox.settings.snapshot.SnapshotUuidSetting;
+import io.kamax.vbox.settings.snapshot.SnapshotUuidSetting;
 import io.kamax.vbox4_3.setting._SnapshotSettingAction;
 import org.virtualbox_4_3.ISnapshot;
 import org.virtualbox_4_3.LockType;

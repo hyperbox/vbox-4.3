@@ -24,7 +24,7 @@ import org.altherian.hbox.constant.EntityType;
 import org.altherian.hbox.constant.MachineAttribute;
 import org.altherian.hboxd.hypervisor.vm.device._RawCPU;
 import org.altherian.setting._Setting;
-import org.altherian.vbox.settings.cpu.CpuCountSetting;
+import io.kamax.vbox.settings.cpu.CpuCountSetting;
 import io.kamax.vbox4_3.manager.VBoxSettingManager;
 import java.util.ArrayList;
 import java.util.Arrays;

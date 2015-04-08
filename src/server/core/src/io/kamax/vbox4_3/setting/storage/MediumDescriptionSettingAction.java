@@ -23,7 +23,7 @@ package io.kamax.vbox4_3.setting.storage;
 import org.altherian.hbox.constant.MediumAttribute;
 import org.altherian.hbox.exception.HyperboxException;
 import org.altherian.setting._Setting;
-import org.altherian.vbox.settings.medium.MediumDescriptionSetting;
+import io.kamax.vbox.settings.medium.MediumDescriptionSetting;
 import io.kamax.vbox4_3.setting._MediumSettingAction;
 import org.virtualbox_4_3.IMedium;
 
