@@ -1,8 +1,8 @@
 /*
- * Hyperbox - Enterprise Virtualization Manager
+ * Hyperbox - Virtual Infrastructure Manager
  * Copyright (C) 2013 Maxime Dor
  * 
- * http://hyperbox.altherian.org
+ * http://kamax.io/hbox/
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
