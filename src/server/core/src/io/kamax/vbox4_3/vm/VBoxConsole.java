@@ -21,16 +21,16 @@
 
 package io.kamax.vbox4_3.vm;
 
-import org.altherian.hbox.constant.EntityType;
-import org.altherian.hbox.constant.MachineAttribute;
-import org.altherian.hbox.exception.ConfigurationException;
-import org.altherian.hbox.exception.HyperboxException;
-import org.altherian.hboxd.hypervisor.vm.device._RawConsole;
-import org.altherian.setting.BooleanSetting;
-import org.altherian.setting.PositiveNumberSetting;
-import org.altherian.setting.StringSetting;
-import org.altherian.setting._Setting;
-import org.altherian.tool.logging.Logger;
+import io.kamax.hbox.constant.EntityType;
+import io.kamax.hbox.constant.MachineAttribute;
+import io.kamax.hbox.exception.ConfigurationException;
+import io.kamax.hbox.exception.HyperboxException;
+import io.kamax.hboxd.hypervisor.vm.device._RawConsole;
+import io.kamax.setting.BooleanSetting;
+import io.kamax.setting.PositiveNumberSetting;
+import io.kamax.setting.StringSetting;
+import io.kamax.setting._Setting;
+import io.kamax.tool.logging.Logger;
 import io.kamax.vbox4_3.manager.VBoxSessionManager;
 import io.kamax.vbox4_3.manager.VBoxSettingManager;
 import java.util.ArrayList;

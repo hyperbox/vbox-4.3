@@ -20,17 +20,17 @@
 
 package io.kamax.vbox4_3.vm;
 
-import org.altherian.hbox.comm.io.NATRuleIO;
-import org.altherian.hbox.comm.io.NetService_NAT_IO;
-import org.altherian.hbox.comm.io.NetService_NAT_IP4_IO;
-import org.altherian.hbox.constant.NetServiceType;
-import org.altherian.hbox.constant.NetworkInterfaceAttribute;
-import org.altherian.hbox.hypervisor.net._NATRule;
-import org.altherian.hbox.hypervisor.net._NetService;
-import org.altherian.hboxd.hypervisor.vm.device._RawNetworkInterface;
-import org.altherian.setting.BooleanSetting;
-import org.altherian.setting.StringSetting;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.comm.io.NATRuleIO;
+import io.kamax.hbox.comm.io.NetService_NAT_IO;
+import io.kamax.hbox.comm.io.NetService_NAT_IP4_IO;
+import io.kamax.hbox.constant.NetServiceType;
+import io.kamax.hbox.constant.NetworkInterfaceAttribute;
+import io.kamax.hbox.hypervisor.net._NATRule;
+import io.kamax.hbox.hypervisor.net._NetService;
+import io.kamax.hboxd.hypervisor.vm.device._RawNetworkInterface;
+import io.kamax.setting.BooleanSetting;
+import io.kamax.setting.StringSetting;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.network.NicAdapterTypeSetting;
 import io.kamax.vbox.settings.network.NicAttachModeSetting;
 import io.kamax.vbox.settings.network.NicAttachNameSetting;

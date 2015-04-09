@@ -20,9 +20,9 @@
 
 package io.kamax.vbox4_3.setting.network;
 
-import org.altherian.hbox.constant.NetworkInterfaceAttribute;
-import org.altherian.setting.BooleanSetting;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.NetworkInterfaceAttribute;
+import io.kamax.setting.BooleanSetting;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.network.NicEnabledSetting;
 import io.kamax.vbox4_3.setting._NetworkInterfaceSettingAction;
 import org.virtualbox_4_3.INetworkAdapter;

@@ -20,10 +20,10 @@
 
 package io.kamax.vbox4_3.setting.snapshot;
 
-import org.altherian.hbox.constant.SnapshotAttribute;
-import org.altherian.hbox.exception.ConfigurationException;
-import org.altherian.setting.PositiveNumberSetting;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.SnapshotAttribute;
+import io.kamax.hbox.exception.ConfigurationException;
+import io.kamax.setting.PositiveNumberSetting;
+import io.kamax.setting._Setting;
 import io.kamax.vbox4_3.setting._SnapshotSettingAction;
 import org.virtualbox_4_3.ISnapshot;
 import org.virtualbox_4_3.LockType;

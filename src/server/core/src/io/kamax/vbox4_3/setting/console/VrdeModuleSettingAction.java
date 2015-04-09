@@ -21,9 +21,9 @@
 
 package io.kamax.vbox4_3.setting.console;
 
-import org.altherian.hbox.constant.MachineAttribute;
-import org.altherian.setting.StringSetting;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.MachineAttribute;
+import io.kamax.setting.StringSetting;
+import io.kamax.setting._Setting;
 import io.kamax.vbox4_3.setting._MachineSettingAction;
 import org.virtualbox_4_3.IMachine;
 import org.virtualbox_4_3.LockType;

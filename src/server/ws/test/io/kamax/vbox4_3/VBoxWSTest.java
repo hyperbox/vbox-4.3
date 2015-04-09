@@ -20,14 +20,14 @@
 
 package io.kamax.vbox4_3;
 
-import org.altherian.hbox.comm.io.NetService_DHCP_IP4_IO;
-import org.altherian.hbox.comm.io.NetService_IP4_IO;
-import org.altherian.hbox.exception.HyperboxException;
-import org.altherian.hbox.hypervisor.net._NetAdaptor;
-import org.altherian.hbox.hypervisor.net._NetService;
-import org.altherian.hbox.hypervisor.net._NetService_IP4_DHCP;
-import org.altherian.hboxd.hypervisor.DummyEventManager;
-import org.altherian.hboxd.hypervisor.HypervisorTest;
+import io.kamax.hbox.comm.io.NetService_DHCP_IP4_IO;
+import io.kamax.hbox.comm.io.NetService_IP4_IO;
+import io.kamax.hbox.exception.HyperboxException;
+import io.kamax.hbox.hypervisor.net._NetAdaptor;
+import io.kamax.hbox.hypervisor.net._NetService;
+import io.kamax.hbox.hypervisor.net._NetService_IP4_DHCP;
+import io.kamax.hboxd.hypervisor.DummyEventManager;
+import io.kamax.hboxd.hypervisor.HypervisorTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

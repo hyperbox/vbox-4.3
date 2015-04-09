@@ -20,16 +20,16 @@
 
 package io.kamax.vbox4_3.factory;
 
-import org.altherian.hbox.comm.io.factory.SettingIoFactory;
-import org.altherian.hbox.constant.EntityType;
-import org.altherian.hbox.constant.KeyboardMode;
-import org.altherian.hbox.constant.MouseMode;
-import org.altherian.hbox.constant.StorageControllerAttribute;
-import org.altherian.hbox.constant.StorageControllerType;
-import org.altherian.hbox.data.Device;
-import org.altherian.hbox.data.Machine;
-import org.altherian.hboxd.hypervisor._RawOsType;
-import org.altherian.setting.StringSetting;
+import io.kamax.hbox.comm.io.factory.SettingIoFactory;
+import io.kamax.hbox.constant.EntityType;
+import io.kamax.hbox.constant.KeyboardMode;
+import io.kamax.hbox.constant.MouseMode;
+import io.kamax.hbox.constant.StorageControllerAttribute;
+import io.kamax.hbox.constant.StorageControllerType;
+import io.kamax.hbox.data.Device;
+import io.kamax.hbox.data.Machine;
+import io.kamax.hboxd.hypervisor._RawOsType;
+import io.kamax.setting.StringSetting;
 import io.kamax.vbox.settings.cpu.PaeSetting;
 import io.kamax.vbox.settings.general.KeyboardModeSetting;
 import io.kamax.vbox.settings.general.MouseModeSetting;

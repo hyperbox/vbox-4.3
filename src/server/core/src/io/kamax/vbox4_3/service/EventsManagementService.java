@@ -20,10 +20,10 @@
 
 package io.kamax.vbox4_3.service;
 
-import org.altherian.hbox.event._Event;
-import org.altherian.hboxd.event._EventManager;
-import org.altherian.hboxd.service.SimpleLoopService;
-import org.altherian.tool.logging.Logger;
+import io.kamax.hbox.event._Event;
+import io.kamax.hboxd.event._EventManager;
+import io.kamax.hboxd.service.SimpleLoopService;
+import io.kamax.tool.logging.Logger;
 import io.kamax.vbox.utils.EventBusFactory;
 import io.kamax.vbox4_3.ErrorInterpreter;
 import io.kamax.vbox4_3.VBox;

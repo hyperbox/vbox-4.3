@@ -20,10 +20,10 @@
 
 package io.kamax.vbox4_3.vm;
 
-import org.altherian.hbox.constant.EntityType;
-import org.altherian.hbox.constant.MachineAttribute;
-import org.altherian.hboxd.hypervisor.vm.device._RawCPU;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.EntityType;
+import io.kamax.hbox.constant.MachineAttribute;
+import io.kamax.hboxd.hypervisor.vm.device._RawCPU;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.cpu.CpuCountSetting;
 import io.kamax.vbox4_3.manager.VBoxSettingManager;
 import java.util.ArrayList;

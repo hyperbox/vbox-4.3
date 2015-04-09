@@ -20,8 +20,8 @@
 
 package io.kamax.vbox4_3.factory.event;
 
-import org.altherian.hbox.event._Event;
-import org.altherian.hboxd.event.machine.MachineDataChangeEvent;
+import io.kamax.hbox.event._Event;
+import io.kamax.hboxd.event.machine.MachineDataChangeEvent;
 import io.kamax.vbox4_3.factory._PreciseEventFactory;
 import org.virtualbox_4_3.IEvent;
 import org.virtualbox_4_3.IMachineDataChangedEvent;

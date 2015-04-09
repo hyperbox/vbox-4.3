@@ -20,7 +20,7 @@
 
 package io.kamax.vbox4_3;
 
-import org.altherian.hboxd.hypervisor.Hypervisor;
+import io.kamax.hboxd.hypervisor.Hypervisor;
 import io.kamax.vbox.VirtualBox;
 import org.virtualbox_4_3.ISession;
 import org.virtualbox_4_3.VirtualBoxManager;

@@ -20,10 +20,10 @@
 
 package io.kamax.vbox4_3.setting.machine;
 
-import org.altherian.hbox.constant.MachineAttribute;
-import org.altherian.hbox.constant.MouseMode;
-import org.altherian.setting.StringSetting;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.MachineAttribute;
+import io.kamax.hbox.constant.MouseMode;
+import io.kamax.setting.StringSetting;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.general.MouseModeSetting;
 import io.kamax.vbox4_3.data.Mappings;
 import io.kamax.vbox4_3.setting._MachineSettingAction;

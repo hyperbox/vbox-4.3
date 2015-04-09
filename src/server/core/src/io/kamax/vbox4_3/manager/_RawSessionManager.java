@@ -20,7 +20,7 @@
 
 package io.kamax.vbox4_3.manager;
 
-import org.altherian.hboxd.exception.machine.MachineLockingException;
+import io.kamax.hboxd.exception.machine.MachineLockingException;
 import org.virtualbox_4_3.IMachine;
 import org.virtualbox_4_3.ISession;
 import org.virtualbox_4_3.LockType;

@@ -20,9 +20,9 @@
 
 package io.kamax.vbox4_3.setting.video;
 
-import org.altherian.hbox.constant.MachineAttribute;
-import org.altherian.setting.PositiveNumberSetting;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.MachineAttribute;
+import io.kamax.setting.PositiveNumberSetting;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.video.MonitorCountSetting;
 import io.kamax.vbox4_3.setting._MachineSettingAction;
 import org.virtualbox_4_3.IMachine;

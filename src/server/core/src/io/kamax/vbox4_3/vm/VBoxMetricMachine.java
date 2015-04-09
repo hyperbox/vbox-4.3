@@ -20,9 +20,9 @@
 
 package io.kamax.vbox4_3.vm;
 
-import org.altherian.hboxd.hypervisor.perf._RawMetric;
-import org.altherian.hboxd.hypervisor.perf._RawMetricMachine;
-import org.altherian.hboxd.hypervisor.vm._RawVM;
+import io.kamax.hboxd.hypervisor.perf._RawMetric;
+import io.kamax.hboxd.hypervisor.perf._RawMetricMachine;
+import io.kamax.hboxd.hypervisor.vm._RawVM;
 import java.util.Date;
 
 public class VBoxMetricMachine implements _RawMetricMachine {

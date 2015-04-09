@@ -8,7 +8,7 @@
 	<url>http://kamax.io/hbox/</url>
 	<providers>
 		<provider>
-			<type>org.altherian.hboxd.hypervisor._Hypervisor</type>
+			<type>io.kamax.hboxd.hypervisor._Hypervisor</type>
 			<impl>io.kamax.vbox4_3.VBoxXpcomHypervisor</impl>
 		</provider>
 	</providers>

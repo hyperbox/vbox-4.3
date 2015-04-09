@@ -20,19 +20,19 @@
 
 package io.kamax.vbox4_3.manager;
 
-import org.altherian.hbox.comm.io.factory.SettingIoFactory;
-import org.altherian.hbox.constant.EntityType;
-import org.altherian.hbox.constant.MachineAttribute;
-import org.altherian.hbox.constant.NetworkInterfaceAttribute;
-import org.altherian.hbox.constant.StorageControllerAttribute;
-import org.altherian.hbox.data.Device;
-import org.altherian.hbox.data.Machine;
-import org.altherian.hbox.exception.ConfigurationException;
-import org.altherian.hbox.exception.HyperboxException;
-import org.altherian.hbox.utils.Settings;
-import org.altherian.hboxd.HBoxServer;
-import org.altherian.setting._Setting;
-import org.altherian.tool.logging.Logger;
+import io.kamax.hbox.comm.io.factory.SettingIoFactory;
+import io.kamax.hbox.constant.EntityType;
+import io.kamax.hbox.constant.MachineAttribute;
+import io.kamax.hbox.constant.NetworkInterfaceAttribute;
+import io.kamax.hbox.constant.StorageControllerAttribute;
+import io.kamax.hbox.data.Device;
+import io.kamax.hbox.data.Machine;
+import io.kamax.hbox.exception.ConfigurationException;
+import io.kamax.hbox.exception.HyperboxException;
+import io.kamax.hbox.utils.Settings;
+import io.kamax.hboxd.HBoxServer;
+import io.kamax.setting._Setting;
+import io.kamax.tool.logging.Logger;
 import io.kamax.vbox4_3.VBox;
 import io.kamax.vbox4_3.setting._MachineSettingAction;
 import io.kamax.vbox4_3.setting._MediumSettingAction;

@@ -20,9 +20,9 @@
 
 package io.kamax.vbox4_3.setting.memory;
 
-import org.altherian.hbox.constant.MachineAttribute;
-import org.altherian.setting._Setting;
-import org.altherian.tool.logging.Logger;
+import io.kamax.hbox.constant.MachineAttribute;
+import io.kamax.setting._Setting;
+import io.kamax.tool.logging.Logger;
 import io.kamax.vbox.settings.memory.MemorySetting;
 import io.kamax.vbox4_3.setting._MachineSettingAction;
 import org.virtualbox_4_3.IMachine;

@@ -20,16 +20,16 @@
 
 package io.kamax.vbox4_3.storage;
 
-import org.altherian.hbox.constant.StorageControllerAttribute;
-import org.altherian.hbox.exception.HyperboxException;
-import org.altherian.hboxd.hypervisor.storage._RawMedium;
-import org.altherian.hboxd.hypervisor.storage._RawMediumAttachment;
-import org.altherian.hboxd.hypervisor.storage._RawStorageController;
-import org.altherian.hboxd.hypervisor.vm._RawVM;
-import org.altherian.setting.PositiveNumberSetting;
-import org.altherian.setting.StringSetting;
-import org.altherian.setting._Setting;
-import org.altherian.tool.logging.Logger;
+import io.kamax.hbox.constant.StorageControllerAttribute;
+import io.kamax.hbox.exception.HyperboxException;
+import io.kamax.hboxd.hypervisor.storage._RawMedium;
+import io.kamax.hboxd.hypervisor.storage._RawMediumAttachment;
+import io.kamax.hboxd.hypervisor.storage._RawStorageController;
+import io.kamax.hboxd.hypervisor.vm._RawVM;
+import io.kamax.setting.PositiveNumberSetting;
+import io.kamax.setting.StringSetting;
+import io.kamax.setting._Setting;
+import io.kamax.tool.logging.Logger;
 import io.kamax.vbox.settings.storage.ControllerNameSetting;
 import io.kamax.vbox.settings.storage.ControllerPortCountSetting;
 import io.kamax.vbox.settings.storage.ControllerSubTypeSetting;

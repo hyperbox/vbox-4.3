@@ -20,7 +20,7 @@
 
 package io.kamax.vbox4_3.host;
 
-import org.altherian.hboxd.hypervisor.host._RawHost;
+import io.kamax.hboxd.hypervisor.host._RawHost;
 import org.virtualbox_4_3.IHost;
 
 public class VBoxHost implements _RawHost {

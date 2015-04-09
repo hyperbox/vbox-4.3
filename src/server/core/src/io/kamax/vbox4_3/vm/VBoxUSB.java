@@ -20,11 +20,11 @@
 
 package io.kamax.vbox4_3.vm;
 
-import org.altherian.hbox.constant.EntityType;
-import org.altherian.hbox.constant.MachineAttribute;
-import org.altherian.hboxd.hypervisor.vm.device._RawUSB;
-import org.altherian.setting.BooleanSetting;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.EntityType;
+import io.kamax.hbox.constant.MachineAttribute;
+import io.kamax.hboxd.hypervisor.vm.device._RawUSB;
+import io.kamax.setting.BooleanSetting;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.usb.UsbEhciSetting;
 import io.kamax.vbox.settings.usb.UsbOhciSetting;
 import io.kamax.vbox4_3.manager.VBoxSettingManager;

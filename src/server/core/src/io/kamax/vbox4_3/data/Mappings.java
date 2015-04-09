@@ -20,15 +20,15 @@
 
 package io.kamax.vbox4_3.data;
 
-import org.altherian.hbox.constant.AudioController;
-import org.altherian.hbox.constant.AudioDriver;
-import org.altherian.hbox.constant.Firmware;
-import org.altherian.hbox.constant.KeyboardMode;
-import org.altherian.hbox.constant.MouseMode;
-import org.altherian.hbox.states.MachineSessionStates;
-import org.altherian.hbox.states.MachineStates;
-import org.altherian.tool.BiEnumMap;
-import org.altherian.tool.logging.Logger;
+import io.kamax.hbox.constant.AudioController;
+import io.kamax.hbox.constant.AudioDriver;
+import io.kamax.hbox.constant.Firmware;
+import io.kamax.hbox.constant.KeyboardMode;
+import io.kamax.hbox.constant.MouseMode;
+import io.kamax.hbox.states.MachineSessionStates;
+import io.kamax.hbox.states.MachineStates;
+import io.kamax.tool.BiEnumMap;
+import io.kamax.tool.logging.Logger;
 import org.virtualbox_4_3.AudioControllerType;
 import org.virtualbox_4_3.AudioDriverType;
 import org.virtualbox_4_3.FirmwareType;

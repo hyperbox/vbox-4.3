@@ -20,11 +20,11 @@
 
 package io.kamax.vbox4_3.vm;
 
-import org.altherian.hbox.constant.SnapshotAttribute;
-import org.altherian.hboxd.event.EventManager;
-import org.altherian.hboxd.event.snapshot.SnapshotChangedEvent;
-import org.altherian.hboxd.hypervisor.vm.snapshot._RawSnapshot;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.SnapshotAttribute;
+import io.kamax.hboxd.event.EventManager;
+import io.kamax.hboxd.event.snapshot.SnapshotChangedEvent;
+import io.kamax.hboxd.hypervisor.vm.snapshot._RawSnapshot;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.snapshot.SnapshotDescriptionSetting;
 import io.kamax.vbox.settings.snapshot.SnapshotNameSetting;
 import io.kamax.vbox4_3.VBox;

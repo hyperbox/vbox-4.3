@@ -21,11 +21,11 @@
 package io.kamax.hboxc.gui.vbox4_3;
 
 import net.miginfocom.swing.MigLayout;
-import org.altherian.hbox.comm.in.HypervisorIn;
-import org.altherian.hbox.comm.io.BooleanSettingIO;
-import org.altherian.hbox.comm.io.StringSettingIO;
-import org.altherian.hbox.comm.out.hypervisor.HypervisorOut;
-import org.altherian.hboxc.front.gui.hypervisor._GlobalConfigureView;
+import io.kamax.hbox.comm.in.HypervisorIn;
+import io.kamax.hbox.comm.io.BooleanSettingIO;
+import io.kamax.hbox.comm.io.StringSettingIO;
+import io.kamax.hbox.comm.out.hypervisor.HypervisorOut;
+import io.kamax.hboxc.gui.hypervisor._GlobalConfigureView;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;

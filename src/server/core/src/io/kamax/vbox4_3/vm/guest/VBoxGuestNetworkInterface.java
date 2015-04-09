@@ -20,7 +20,7 @@
 
 package io.kamax.vbox4_3.vm.guest;
 
-import org.altherian.hboxd.hypervisor.vm.guest._RawGuestNetworkInterface;
+import io.kamax.hboxd.hypervisor.vm.guest._RawGuestNetworkInterface;
 import io.kamax.vbox4_3.VBox;
 import org.virtualbox_4_3.IMachine;
 

@@ -20,14 +20,14 @@
 
 package io.kamax.vbox4_3.storage;
 
-import org.altherian.hbox.constant.MediumAttribute;
-import org.altherian.hbox.exception.HyperboxException;
-import org.altherian.hboxd.hypervisor.storage._RawMedium;
-import org.altherian.hboxd.hypervisor.vm._RawVM;
-import org.altherian.hboxd.task._ProgressTracker;
-import org.altherian.setting.BooleanSetting;
-import org.altherian.setting.PositiveNumberSetting;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.MediumAttribute;
+import io.kamax.hbox.exception.HyperboxException;
+import io.kamax.hboxd.hypervisor.storage._RawMedium;
+import io.kamax.hboxd.hypervisor.vm._RawVM;
+import io.kamax.hboxd.task._ProgressTracker;
+import io.kamax.setting.BooleanSetting;
+import io.kamax.setting.PositiveNumberSetting;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.medium.MediumDescriptionSetting;
 import io.kamax.vbox.settings.medium.MediumLocationSetting;
 import io.kamax.vbox.settings.medium.MediumTypeSetting;

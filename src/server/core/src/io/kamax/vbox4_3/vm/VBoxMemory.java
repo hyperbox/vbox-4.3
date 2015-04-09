@@ -20,12 +20,12 @@
 
 package io.kamax.vbox4_3.vm;
 
-import org.altherian.hbox.constant.EntityType;
-import org.altherian.hbox.constant.MachineAttribute;
-import org.altherian.hboxd.hypervisor.vm.device._RawMemory;
-import org.altherian.setting.BooleanSetting;
-import org.altherian.setting.PositiveNumberSetting;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.EntityType;
+import io.kamax.hbox.constant.MachineAttribute;
+import io.kamax.hboxd.hypervisor.vm.device._RawMemory;
+import io.kamax.setting.BooleanSetting;
+import io.kamax.setting.PositiveNumberSetting;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.memory.LargePagesSetting;
 import io.kamax.vbox.settings.memory.MemorySetting;
 import io.kamax.vbox.settings.memory.NestedPagingSetting;

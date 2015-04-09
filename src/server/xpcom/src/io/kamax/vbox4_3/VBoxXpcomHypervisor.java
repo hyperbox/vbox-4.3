@@ -20,10 +20,10 @@
 
 package io.kamax.vbox4_3;
 
-import org.altherian.hbox.exception.HypervisorException;
-import org.altherian.hboxd.hypervisor.Hypervisor;
-import org.altherian.tool.AxStrings;
-import org.altherian.tool.logging.Logger;
+import io.kamax.hbox.exception.HypervisorException;
+import io.kamax.hboxd.hypervisor.Hypervisor;
+import io.kamax.tool.AxStrings;
+import io.kamax.tool.logging.Logger;
 import io.kamax.vbox.VirtualBox;
 import java.io.File;
 import org.virtualbox_4_3.ISession;

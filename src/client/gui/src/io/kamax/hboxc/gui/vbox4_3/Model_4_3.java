@@ -20,8 +20,8 @@
 
 package io.kamax.hboxc.gui.vbox4_3;
 
-import org.altherian.hboxc.front.gui.hypervisor._GlobalConfigureView;
-import org.altherian.hboxc.front.gui.hypervisor._NetAdaptorConfigureView;
+import io.kamax.hboxc.gui.hypervisor._GlobalConfigureView;
+import io.kamax.hboxc.gui.hypervisor._NetAdaptorConfigureView;
 import io.kamax.hboxc.gui.vbox.GenericModel;
 import io.kamax.vbox.VBoxNetMode;
 import io.kamax.vbox.VirtualBox;

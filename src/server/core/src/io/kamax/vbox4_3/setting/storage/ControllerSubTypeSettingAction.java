@@ -20,8 +20,8 @@
 
 package io.kamax.vbox4_3.setting.storage;
 
-import org.altherian.hbox.constant.StorageControllerAttribute;
-import org.altherian.setting._Setting;
+import io.kamax.hbox.constant.StorageControllerAttribute;
+import io.kamax.setting._Setting;
 import io.kamax.vbox.settings.storage.ControllerSubTypeSetting;
 import io.kamax.vbox4_3.setting._StorageControllerSettingAction;
 import org.virtualbox_4_3.IStorageController;
