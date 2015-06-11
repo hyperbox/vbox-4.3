@@ -168,8 +168,15 @@ public abstract class VBoxHypervisor implements _Hypervisor {
       vbMgr = connect(options);
       VBox.set(this);
 
-      if (!VBox.get().getAPIVersion().contentEquals("4_3")) {
-         throw new HypervisorException("Missmatch API Connector: Server is " + VBox.get().getAPIVersion() + " but the connector handles 4_3");
+      Logger.info("Connected in " + (System.currentTimeMillis() - start) + "ms to " + VBox.get().getHost().getDomainName());
+      Logger.info("VB Version: " + vbMgr.getVBox().getVersion());
+      Logger.info("VB Revision: " + vbMgr.getVBox().getRevision());
+      Logger.info("VB Client API Version: " + vbMgr.getClientAPIVersion());
+      Logger.info("VB Server API Version: " + vbMgr.getVBox().getAPIVersion());
+
+      if (!VBox.get().getAPIVersion().contentEquals(VBox.getManager().getClientAPIVersion())) {
+         throw new HypervisorException("Missmatch API Connector: Server is " + VBox.get().getAPIVersion() + " but the connector handles "
+               + VBox.getManager().getClientAPIVersion());
       }
 
       host = new VBoxHost(VBox.get().getHost());
@@ -197,11 +204,6 @@ public abstract class VBoxHypervisor implements _Hypervisor {
       } catch (ServiceException e) {
          throw new HypervisorException("Unable to start the Event Manager Service : " + e.getMessage());
       }
-
-      Logger.info("Connected in " + (System.currentTimeMillis() - start) + "ms to " + host.getHostname());
-      Logger.info("VB Version: " + vbMgr.getVBox().getVersion());
-      Logger.info("VB Revision: " + vbMgr.getVBox().getRevision());
-      Logger.info("Host OS: " + vbMgr.getVBox().getHost().getOperatingSystem() + " " + vbMgr.getVBox().getHost().getOSVersion());
 
       EventManager.post(new HypervisorConnectedEvent(this));
    }
