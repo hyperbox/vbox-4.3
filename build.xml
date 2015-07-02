@@ -24,7 +24,7 @@
 	
 	<property file="build.properties" />
 	
-	<property name="vbox.base.dir"									value="../vbox-common" />
+	<property name="vbox.base.dir"										value="../vbox-common" />
 	
 	<include file="${vbox.base.dir}/build.xml" as="vbox" />
 	
@@ -37,7 +37,7 @@
 	<property name="out.dist.dir"										value="${out.dirname}/dist" />
 	
 	<target name="clean">
-		<delete dir="${out.dir}"/>
+		<delete dir="${out.dirname}"/>
 	</target>
 	
 	<target name="configure">
@@ -48,39 +48,38 @@
 	
 	<!-- Core connector ======================================================================================================================================================================================= -->
 	
-	<property name="srv.4_3.hyp.type"								value="vbox" />
-	<property name="srv.4_3.hyp.api"								value="4_3" />
-	<property name="srv.4_3.hyp.conn"								value="core" />
-	<property name="srv.4_3.hyp.id"									value="${srv.4_3.hyp.type}-${srv.4_3.hyp.api}" />
-	<property name="srv.4_3.id"										value="${srv.4_3.hyp.id}-${srv.4_3.hyp.conn}" />
-	<property name="srv.4_3.dir"									value="${src.dir}/server/core" />
-	<property name="srv.4_3.src.dir"								value="${srv.4_3.dir}/${src.dir}" />
-	<property name="srv.4_3.lib.dir"								value="${srv.4_3.dir}/${lib.dir}" />
-	<property name="srv.4_3.class.dir"								value="${out.build.class.dir}/${srv.4_3.id}" />
-	<property name="srv.4_3.jar.file"								value="${out.build.jar.dir}/${srv.4_3.id}.jar" />
+	<property name="server.4_3.hyp.type"								value="vbox" />
+	<property name="server.4_3.hyp.api"									value="4_3" />
+	<property name="server.4_3.hyp.conn"								value="core" />
+	<property name="server.4_3.hyp.id"									value="${server.4_3.hyp.type}-${server.4_3.hyp.api}" />
+	<property name="server.4_3.id"										value="server-${server.4_3.hyp.id}-${server.4_3.hyp.conn}" />
+	<property name="server.4_3.dir"										value="${src.dir}/server/${server.4_3.hyp.conn}" />
+	<property name="server.4_3.src.dir"									value="${server.4_3.dir}/${src.dir}" />
+	<property name="server.4_3.lib.dir"									value="${server.4_3.dir}/${lib.dir}" />
+	<property name="server.4_3.class.dir"								value="${out.build.class.dir}/${server.4_3.id}" />
+	<property name="server.4_3.jar.file"								value="${out.build.jar.dir}/${server.4_3.id}.jar" />
 	
-	<path id="srv.4_3.classpath">
-		<pathelement location="${srv.4_3.class.dir}" />
-		<fileset dir="${srv.4_3.lib.dir}" includes="**/*.jar"/>
+	<path id="server.4_3.classpath">
+		<pathelement location="${server.4_3.class.dir}" />
+		<fileset dir="${server.4_3.lib.dir}" includes="**/*.jar"/>
 		<path refid="vbox.server.api.classpath" />
 		<path refid="vbox.api.classpath" />
 		<path refid="server.api.classpath" />
 		<path refid="api.classpath" />
 	</path>
 	
-	<target name="srv.4_3.class">
-		<mkdir dir="${srv.4_3.class.dir}" />
-
-		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${srv.4_3.src.dir}" destdir="${srv.4_3.class.dir}" classpathref="srv.4_3.classpath" />
+	<target name="server.4_3.class">
+		<mkdir dir="${server.4_3.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${server.4_3.src.dir}" destdir="${server.4_3.class.dir}" classpathref="server.4_3.classpath" />
 	</target>
 	
-	<target name="srv.4_3.jar" depends="srv.4_3.class">
-		<jar destfile="${srv.4_3.jar.file}">
-			<fileset dir="${srv.4_3.class.dir}" />
+	<target name="server.4_3.jar" depends="server.4_3.class">
+		<jar destfile="${server.4_3.jar.file}">
+			<fileset dir="${server.4_3.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="srv.4_3.dist">
+	<target name="server.4_3.dist">
 		<mkdir dir="${out.dist.dir}" />
 	</target>
 	
@@ -89,58 +88,58 @@
 	
 	<!-- Web Services connector =============================================================================================================================================================================== -->
 	
-	<property name="srv.4_3.ws.type"							 	value="ws" />
-	<property name="srv.4_3.ws.id"									value="${srv.4_3.hyp.id}-${srv.4_3.ws.type}" />
-	<property name="srv.4_3.ws.desc.filename"						value="${srv.4_3.ws.id}.xml" />
-	<property name="srv.4_3.ws.dist.zip.filename"					value="${srv.4_3.ws.id}.zip" />
+	<property name="server.4_3.ws.type"							 		value="ws" />
+	<property name="server.4_3.ws.conn.id"								value="${server.4_3.hyp.id}-${server.4_3.ws.type}" />
+	<property name="server.4_3.ws.id"									value="server-${server.4_3.hyp.id}-${server.4_3.ws.type}" />
+	<property name="server.4_3.ws.desc.filename"						value="${server.4_3.ws.conn.id}.xml" />
+	<property name="server.4_3.ws.dist.zip.filename"					value="${server.4_3.ws.id}.zip" />
 	
-	<property name="srv.4_3.ws.dir"									value="${src.dir}/server/${srv.4_3.ws.type}" />
-	<property name="srv.4_3.ws.src.dir"								value="${srv.4_3.ws.dir}/${src.dir}" />
-	<property name="srv.4_3.ws.src.desc.file"						value="${srv.4_3.ws.dir}/${srv.4_3.ws.desc.filename}" />
-	<property name="srv.4_3.ws.lib.dir"								value="${srv.4_3.ws.dir}/${lib.dir}" />
-	<property name="srv.4_3.ws.class.dir"							value="${out.build.class.dir}/${srv.4_3.ws.id}" />
-	<property name="srv.4_3.ws.bin.dir"								value="${out.bin.dir}/${srv.4_3.ws.type}" />
-	<property name="srv.4_3.ws.bin.desc.file"						value="${srv.4_3.ws.bin.dir}/${srv.4_3.ws.desc.filename}" />
-	<property name="srv.4_3.ws.bin.pkg.dir"							value="${out.bin.dir}/${srv.4_3.ws.type}/${srv.4_3.ws.id}" />
-	<property name="srv.4_3.ws.jar.filename"						value="${srv.4_3.ws.id}.jar" />
-	<property name="srv.4_3.ws.jar.file"							value="${out.build.jar.dir}/${srv.4_3.ws.jar.filename}" />
-	<property name="srv.4_3.ws.bin.jar.file"						value="${srv.4_3.ws.bin.pkg.dir}/${srv.4_3.ws.jar.filename}" />
-	<property name="srv.4_3.ws.dist.zip.file"						value="${out.dist.dir}/${srv.4_3.ws.dist.zip.filename}" />
+	<property name="server.4_3.ws.dir"									value="${src.dir}/server/${server.4_3.ws.type}" />
+	<property name="server.4_3.ws.src.dir"								value="${server.4_3.ws.dir}/${src.dir}" />
+	<property name="server.4_3.ws.src.desc.file"						value="${server.4_3.ws.dir}/${server.4_3.ws.desc.filename}" />
+	<property name="server.4_3.ws.lib.dir"								value="${server.4_3.ws.dir}/${lib.dir}" />
+	<property name="server.4_3.ws.class.dir"							value="${out.build.class.dir}/${server.4_3.ws.id}" />
+	<property name="server.4_3.ws.bin.dir"								value="${out.bin.dir}/server/${server.4_3.ws.type}" />
+	<property name="server.4_3.ws.bin.desc.file"						value="${server.4_3.ws.bin.dir}/${server.4_3.ws.desc.filename}" />
+	<property name="server.4_3.ws.bin.pkg.dir"							value="${out.bin.dir}/server/${server.4_3.ws.type}/${server.4_3.ws.conn.id}" />
+	<property name="server.4_3.ws.jar.filename"							value="${server.4_3.ws.id}.jar" />
+	<property name="server.4_3.ws.jar.file"								value="${out.build.jar.dir}/${server.4_3.ws.jar.filename}" />
+	<property name="server.4_3.ws.bin.jar.file"							value="${server.4_3.ws.bin.pkg.dir}/${server.4_3.ws.jar.filename}" />
+	<property name="server.4_3.ws.dist.zip.file"						value="${out.dist.dir}/${server.4_3.ws.dist.zip.filename}" />
 	
 	
-	<path id="srv.4_3.ws.classpath">
-		<fileset dir="${srv.4_3.ws.lib.dir}" includes="**/*.jar"/>
-		<pathelement location="${srv.4_3.jar.file}" />
-		<path refid="srv.4_3.classpath"/>
+	<path id="server.4_3.ws.classpath">
+		<fileset dir="${server.4_3.ws.lib.dir}" includes="**/*.jar"/>
+		<pathelement location="${server.4_3.jar.file}" />
+		<path refid="server.4_3.classpath"/>
 	</path>
 	
-	<target name="srv.4_3.ws.class" depends="srv.4_3.jar">
-		<mkdir dir="${srv.4_3.ws.class.dir}" />
-
-		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${srv.4_3.ws.src.dir}" destdir="${srv.4_3.ws.class.dir}" classpathref="srv.4_3.ws.classpath" />
+	<target name="server.4_3.ws.class" depends="server.4_3.jar">
+		<mkdir dir="${server.4_3.ws.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${server.4_3.ws.src.dir}" destdir="${server.4_3.ws.class.dir}" classpathref="server.4_3.ws.classpath" />
 	</target>
 	
-	<target name="srv.4_3.ws.jar" depends="srv.4_3.ws.class">
-		<jar destfile="${srv.4_3.ws.jar.file}">
-			<fileset dir="${srv.4_3.ws.class.dir}" />
+	<target name="server.4_3.ws.jar" depends="server.4_3.ws.class">
+		<jar destfile="${server.4_3.ws.jar.file}">
+			<fileset dir="${server.4_3.ws.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="srv.4_3.ws.build" depends="srv.4_3.ws.jar">
-		<mkdir dir="${srv.4_3.ws.bin.pkg.dir}" />
-		<copy file="${srv.4_3.ws.src.desc.file}" tofile="${srv.4_3.ws.bin.desc.file}" />
-		<copy file="${vbox.api.jar.file}" todir="${srv.4_3.ws.bin.pkg.dir}" />
-		<copy file="${vbox.server.api.jar.file}" todir="${srv.4_3.ws.bin.pkg.dir}" />
-		<copy file="${srv.4_3.jar.file}" todir="${srv.4_3.ws.bin.pkg.dir}" />
-		<copy file="${srv.4_3.ws.jar.file}" tofile="${srv.4_3.ws.bin.jar.file}" />
-		<copy todir="${srv.4_3.ws.bin.pkg.dir}" flatten="true">
-			<fileset dir="${srv.4_3.ws.lib.dir}" includes="**/*.jar" />
+	<target name="server.4_3.ws.build" depends="server.4_3.ws.jar">
+		<mkdir dir="${server.4_3.ws.bin.pkg.dir}" />
+		<copy file="${server.4_3.ws.src.desc.file}" tofile="${server.4_3.ws.bin.desc.file}" />
+		<copy file="${vbox.api.jar.file}" todir="${server.4_3.ws.bin.pkg.dir}" />
+		<copy file="${vbox.server.api.jar.file}" todir="${server.4_3.ws.bin.pkg.dir}" />
+		<copy file="${server.4_3.jar.file}" todir="${server.4_3.ws.bin.pkg.dir}" />
+		<copy file="${server.4_3.ws.jar.file}" tofile="${server.4_3.ws.bin.jar.file}" />
+		<copy todir="${server.4_3.ws.bin.pkg.dir}" flatten="true">
+			<fileset dir="${server.4_3.ws.lib.dir}" includes="**/*.jar" />
 		</copy>
 	</target>
 	
-	<target name="srv.4_3.ws.dist" depends="srv.4_3.ws.build, srv.4_3.dist">
-		<zip destfile="${srv.4_3.ws.dist.zip.file}">
-			<fileset dir="${srv.4_3.ws.bin.dir}" />
+	<target name="server.4_3.ws.dist" depends="server.4_3.ws.build, server.4_3.dist">
+		<zip destfile="${server.4_3.ws.dist.zip.file}">
+			<fileset dir="${server.4_3.ws.bin.dir}" />
 		</zip>
 	</target>
 	
@@ -149,69 +148,69 @@
 	
 	<!-- XPCOM connector ====================================================================================================================================================================================== -->
 	
-	<property name="srv.4_3.xpcom.type"								value="xpcom" />
-	<property name="srv.4_3.xpcom.id"								value="${srv.4_3.hyp.id}-${srv.4_3.xpcom.type}" />
-	<property name="srv.4_3.xpcom.desc.filename"					value="${srv.4_3.xpcom.id}.xml" />
-	<property name="srv.4_3.xpcom.dist.zip.filename"				value="${srv.4_3.xpcom.id}.zip" />
+	<property name="server.4_3.xpcom.type"								value="xpcom" />
+	<property name="server.4_3.xpcom.conn.id"							value="${server.4_3.hyp.id}-${server.4_3.xpcom.type}" />
+	<property name="server.4_3.xpcom.id"								value="server-${server.4_3.hyp.id}-${server.4_3.xpcom.type}" />
+	<property name="server.4_3.xpcom.desc.filename"						value="${server.4_3.xpcom.conn.id}.xml" />
+	<property name="server.4_3.xpcom.dist.zip.filename"					value="${server.4_3.xpcom.id}.zip" />
 	
-	<property name="srv.4_3.xpcom.dir"								value="${src.dir}/server/${srv.4_3.xpcom.type}" />
-	<property name="srv.4_3.xpcom.src.dir"							value="${srv.4_3.xpcom.dir}/${src.dir}" />
-	<property name="srv.4_3.xpcom.src.desc.file"					value="${srv.4_3.xpcom.dir}/${srv.4_3.xpcom.desc.filename}" />
-	<property name="srv.4_3.xpcom.lib.dir"							value="${srv.4_3.xpcom.dir}/${lib.dir}" />
-	<property name="srv.4_3.xpcom.class.dir"						value="${out.build.class.dir}/${srv.4_3.xpcom.id}" />
-	<property name="srv.4_3.xpcom.bin.dir"							value="${out.bin.dir}/${srv.4_3.xpcom.type}" />
-	<property name="srv.4_3.xpcom.bin.desc.file"					value="${srv.4_3.xpcom.bin.dir}/${srv.4_3.xpcom.desc.filename}" />
-	<property name="srv.4_3.xpcom.bin.pkg.dir"						value="${out.bin.dir}/${srv.4_3.xpcom.type}/${srv.4_3.xpcom.id}" />
-	<property name="srv.4_3.xpcom.jar.filename"						value="${srv.4_3.xpcom.id}.jar" />
-	<property name="srv.4_3.xpcom.jar.file"							value="${out.build.jar.dir}/${srv.4_3.xpcom.jar.filename}" />
-	<property name="srv.4_3.xpcom.bin.jar.file"						value="${srv.4_3.xpcom.bin.pkg.dir}/${srv.4_3.xpcom.jar.filename}" />
-	<property name="srv.4_3.xpcom.dist.zip.file"					value="${out.dist.dir}/${srv.4_3.xpcom.dist.zip.filename}" />
+	<property name="server.4_3.xpcom.dir"								value="${src.dir}/server/${server.4_3.xpcom.type}" />
+	<property name="server.4_3.xpcom.src.dir"							value="${server.4_3.xpcom.dir}/${src.dir}" />
+	<property name="server.4_3.xpcom.src.desc.file"						value="${server.4_3.xpcom.dir}/${server.4_3.xpcom.desc.filename}" />
+	<property name="server.4_3.xpcom.lib.dir"							value="${server.4_3.xpcom.dir}/${lib.dir}" />
+	<property name="server.4_3.xpcom.class.dir"							value="${out.build.class.dir}/${server.4_3.xpcom.id}" />
+	<property name="server.4_3.xpcom.bin.dir"							value="${out.bin.dir}/server/${server.4_3.xpcom.type}" />
+	<property name="server.4_3.xpcom.bin.desc.file"						value="${server.4_3.xpcom.bin.dir}/${server.4_3.xpcom.desc.filename}" />
+	<property name="server.4_3.xpcom.bin.pkg.dir"						value="${out.bin.dir}/server/${server.4_3.xpcom.type}/${server.4_3.xpcom.conn.id}" />
+	<property name="server.4_3.xpcom.jar.filename"						value="${server.4_3.xpcom.id}.jar" />
+	<property name="server.4_3.xpcom.jar.file"							value="${out.build.jar.dir}/${server.4_3.xpcom.jar.filename}" />
+	<property name="server.4_3.xpcom.bin.jar.file"						value="${server.4_3.xpcom.bin.pkg.dir}/${server.4_3.xpcom.jar.filename}" />
+	<property name="server.4_3.xpcom.dist.zip.file"						value="${out.dist.dir}/${server.4_3.xpcom.dist.zip.filename}" />
 	
 	
-	<path id="srv.4_3.xpcom.classpath">
-		<fileset dir="${srv.4_3.xpcom.lib.dir}" includes="**/*.jar"/>
-		<pathelement location="${srv.4_3.jar.file}" />
-		<path refid="srv.4_3.classpath"/>
+	<path id="server.4_3.xpcom.classpath">
+		<fileset dir="${server.4_3.xpcom.lib.dir}" includes="**/*.jar"/>
+		<pathelement location="${server.4_3.jar.file}" />
+		<path refid="server.4_3.classpath"/>
 	</path>
 	
-	<target name="srv.4_3.xpcom.class" depends="srv.4_3.jar">
-		<mkdir dir="${srv.4_3.xpcom.class.dir}" />
-
-		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${srv.4_3.xpcom.src.dir}" destdir="${srv.4_3.xpcom.class.dir}" classpathref="srv.4_3.xpcom.classpath" />
+	<target name="server.4_3.xpcom.class" depends="server.4_3.jar">
+		<mkdir dir="${server.4_3.xpcom.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${server.4_3.xpcom.src.dir}" destdir="${server.4_3.xpcom.class.dir}" classpathref="server.4_3.xpcom.classpath" />
 	</target>
 	
-	<target name="srv.4_3.xpcom.jar" depends="srv.4_3.xpcom.class">
-		<jar destfile="${srv.4_3.xpcom.jar.file}">
-			<fileset dir="${srv.4_3.xpcom.class.dir}" />
+	<target name="server.4_3.xpcom.jar" depends="server.4_3.xpcom.class">
+		<jar destfile="${server.4_3.xpcom.jar.file}">
+			<fileset dir="${server.4_3.xpcom.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="srv.4_3.xpcom.build" depends="srv.4_3.xpcom.jar">
-		<mkdir dir="${srv.4_3.xpcom.bin.pkg.dir}" />
-		<copy file="${srv.4_3.xpcom.src.desc.file}" tofile="${srv.4_3.xpcom.bin.desc.file}" />
-		<copy file="${vbox.api.jar.file}" todir="${srv.4_3.xpcom.bin.pkg.dir}" />
-		<copy file="${vbox.server.api.jar.file}" todir="${srv.4_3.xpcom.bin.pkg.dir}" />
-		<copy file="${srv.4_3.jar.file}" todir="${srv.4_3.xpcom.bin.pkg.dir}" />
-		<copy file="${srv.4_3.xpcom.jar.file}" tofile="${srv.4_3.xpcom.bin.jar.file}" />
-		<copy todir="${srv.4_3.xpcom.bin.pkg.dir}" flatten="true">
-			<fileset dir="${srv.4_3.xpcom.lib.dir}" includes="**/*.jar" />
+	<target name="server.4_3.xpcom.build" depends="server.4_3.xpcom.jar">
+		<mkdir dir="${server.4_3.xpcom.bin.pkg.dir}" />
+		<copy file="${server.4_3.xpcom.src.desc.file}" tofile="${server.4_3.xpcom.bin.desc.file}" />
+		<copy file="${vbox.api.jar.file}" todir="${server.4_3.xpcom.bin.pkg.dir}" />
+		<copy file="${vbox.server.api.jar.file}" todir="${server.4_3.xpcom.bin.pkg.dir}" />
+		<copy file="${server.4_3.jar.file}" todir="${server.4_3.xpcom.bin.pkg.dir}" />
+		<copy file="${server.4_3.xpcom.jar.file}" tofile="${server.4_3.xpcom.bin.jar.file}" />
+		<copy todir="${server.4_3.xpcom.bin.pkg.dir}" flatten="true">
+			<fileset dir="${server.4_3.xpcom.lib.dir}" includes="**/*.jar" />
 		</copy>
 	</target>
 	
-	<target name="srv.4_3.xpcom.dist" depends="srv.4_3.xpcom.build, srv.4_3.dist">
-		<zip destfile="${srv.4_3.xpcom.dist.zip.file}">
-			<fileset dir="${srv.4_3.xpcom.bin.dir}" />
+	<target name="server.4_3.xpcom.dist" depends="server.4_3.xpcom.build, server.4_3.dist">
+		<zip destfile="${server.4_3.xpcom.dist.zip.file}">
+			<fileset dir="${server.4_3.xpcom.bin.dir}" />
 		</zip>
 	</target>
 	
 	<!-- ====================================================================================================================================================================================================== -->
 	
-	<extension-point name="class" depends="srv.4_3.ws.class, srv.4_3.xpcom.class" />
+	<extension-point name="class" depends="server.4_3.ws.class, server.4_3.xpcom.class" />
 	
-	<extension-point name="jar" depends="srv.4_3.ws.jar, srv.4_3.xpcom.jar" />
+	<extension-point name="jar" depends="server.4_3.ws.jar, server.4_3.xpcom.jar" />
 	
-	<extension-point name="build" depends="srv.4_3.ws.build, srv.4_3.xpcom.build" />
+	<extension-point name="build" depends="server.4_3.ws.build, server.4_3.xpcom.build" />
 	
-	<extension-point name="dist" depends="srv.4_3.ws.dist, srv.4_3.xpcom.dist" />
+	<extension-point name="dist" depends="server.4_3.ws.dist, server.4_3.xpcom.dist" />
 
 </project>
