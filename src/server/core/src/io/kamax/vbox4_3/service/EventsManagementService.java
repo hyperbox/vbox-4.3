@@ -74,6 +74,7 @@ public final class EventsManagementService extends SimpleLoopService {
    @Override
    protected void doLoop() {
       try {
+         VBox.getManager().waitForEvents(0); // Needed to clear the internal event queue, see https://www.virtualbox.org/ticket/13647
          IEvent rawEvent = VBox.get().getEventSource().getEvent(el, 1000);
          if (rawEvent != null) {
             Logger.debug("Got an event from Virtualbox: " + rawEvent.getClass().getName() + " - " + rawEvent.getType() + " - " + rawEvent);
