@@ -20,7 +20,7 @@
  *  
 -->
 
-<project name="VirtualBox 4.3 - Server Hypervisor Modules" default="dist">
+<project name="VirtualBox 4.3 - Hypervisor Modules" default="dist">
 	
 	<property file="build.properties" />
 	
@@ -46,7 +46,62 @@
 		</exec>
 	</target>
 	
-	<!-- Core connector ======================================================================================================================================================================================= -->
+	<!-- Client - GUI ========================================================================================================================================================================================= -->
+	
+	<property name="client.4_3.gui.conn.id"								value="vbox-4_3-gui" />
+	<property name="client.4_3.gui.id"									value="client-${client.4_3.gui.conn.id}" />
+	<property name="client.4_3.gui.dir"									value="${src.dir}/client/gui" />
+	<property name="client.4_3.gui.src.dir"								value="${client.4_3.gui.dir}/${src.dir}" />
+	<property name="client.4_3.gui.lib.dir"								value="${client.4_3.gui.dir}/${lib.dir}" />
+	<property name="client.4_3.gui.class.dir"							value="${out.build.class.dir}/${client.4_3.gui.id}" />
+	<property name="client.4_3.gui.jar.filename"						value="${client.4_3.gui.id}.jar" />
+	<property name="client.4_3.gui.jar.file"							value="${out.build.jar.dir}/${client.4_3.gui.jar.filename}" />
+	<property name="client.4_3.gui.bin.dir"								value="${out.bin.dir}/client/${client.4_3.gui.id}" />
+	<property name="client.4_3.gui.bin.jar.file"						value="${client.4_3.gui.bin.dir}/${client.4_3.gui.jar.filename}" />
+	<property name="client.4_3.gui.dist.zip.filename"					value="${client.4_3.gui.id}.zip" />
+	<property name="client.4_3.gui.dist.zip.file"						value="${out.dist.dir}/${client.4_3.gui.dist.zip.filename}" />
+	
+	<path id="client.4_3.gui.classpath">
+		<pathelement location="${client.4_3.gui.lib.dir}" />
+		<fileset dir="${client.4_3.gui.lib.dir}" includes="**/*.jar"/>
+		<path refid="vbox.client.gui.classpath" />
+	</path>
+	
+	<target name="client.4_3.gui.class">
+		<mkdir dir="${client.4_3.gui.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${client.4_3.gui.src.dir}" destdir="${client.4_3.gui.class.dir}" classpathref="client.4_3.gui.classpath" />
+	</target>
+	
+	<target name="client.4_3.gui.jar" depends="client.4_3.gui.class">
+		<jar destfile="${client.4_3.gui.jar.file}">
+			<fileset dir="${client.4_3.gui.class.dir}" />
+		</jar>
+	</target>
+	
+	<target name="client.4_3.gui.build" depends="client.4_3.gui.jar">
+		<mkdir dir="${client.4_3.gui.bin.dir}" />
+		<copy file="${client.4_3.gui.jar.file}" todir="${client.4_3.gui.bin.dir}" />
+		<copy file="${vbox.client.gui.jar.file}" todir="${client.4_3.gui.bin.dir}" />
+		<copy file="${vbox.client.api.jar.file}" todir="${client.4_3.gui.bin.dir}" />
+		<copy file="${vbox.api.jar.file}" todir="${client.4_3.gui.bin.dir}" />
+
+		<copy todir="${client.4_3.gui.bin.dir}" flatten="true">
+			<fileset dir="${client.4_3.gui.lib.dir}" includes="**/*.jar" />
+			<fileset dir="${vbox.client.api.lib.dir}" includes="**/*.jar" />
+			<fileset dir="${vbox.api.lib.dir}" includes="**/*.jar" />
+		</copy>
+	</target>
+	
+	<target name="client.4_3.gui.dist" depends="client.4_3.gui.build">
+		<mkdir dir="${out.dist.dir}" />
+		<zip destfile="${client.4_3.gui.dist.zip.file}">
+			<fileset dir="${client.4_3.gui.bin.dir}" />
+		</zip>
+	</target>
+	
+	<!-- ====================================================================================================================================================================================================== -->
+	
+	<!-- Server - Core ======================================================================================================================================================================================== -->
 	
 	<property name="server.4_3.hyp.type"								value="vbox" />
 	<property name="server.4_3.hyp.api"									value="4_3" />
@@ -86,7 +141,7 @@
 	<!-- ====================================================================================================================================================================================================== -->
 	
 	
-	<!-- Web Services connector =============================================================================================================================================================================== -->
+	<!-- Server - Web Services ================================================================================================================================================================================ -->
 	
 	<property name="server.4_3.ws.type"							 		value="ws" />
 	<property name="server.4_3.ws.conn.id"								value="${server.4_3.hyp.id}-${server.4_3.ws.type}" />
@@ -146,7 +201,7 @@
 	<!-- ====================================================================================================================================================================================================== -->
 	
 	
-	<!-- XPCOM connector ====================================================================================================================================================================================== -->
+	<!-- Server - XPCOM ======================================================================================================================================================================================= -->
 	
 	<property name="server.4_3.xpcom.type"								value="xpcom" />
 	<property name="server.4_3.xpcom.conn.id"							value="${server.4_3.hyp.id}-${server.4_3.xpcom.type}" />
@@ -205,12 +260,12 @@
 	
 	<!-- ====================================================================================================================================================================================================== -->
 	
-	<extension-point name="class" depends="server.4_3.ws.class, server.4_3.xpcom.class" />
+	<extension-point name="class" depends="client.4_3.gui.class, server.4_3.ws.class, server.4_3.xpcom.class" />
 	
-	<extension-point name="jar" depends="server.4_3.ws.jar, server.4_3.xpcom.jar" />
+	<extension-point name="jar" depends="client.4_3.gui.jar, server.4_3.ws.jar, server.4_3.xpcom.jar" />
 	
-	<extension-point name="build" depends="server.4_3.ws.build, server.4_3.xpcom.build" />
+	<extension-point name="build" depends="client.4_3.gui.build, server.4_3.ws.build, server.4_3.xpcom.build" />
 	
-	<extension-point name="dist" depends="server.4_3.ws.dist, server.4_3.xpcom.dist" />
+	<extension-point name="dist" depends="client.4_3.gui.dist, server.4_3.ws.dist, server.4_3.xpcom.dist" />
 
 </project>
