@@ -50,9 +50,9 @@
 	
 	<property name="client.4_3.gui.conn.id"								value="vbox-4_3-gui" />
 	<property name="client.4_3.gui.id"									value="client-${client.4_3.gui.conn.id}" />
-	<property name="client.4_3.gui.dir"									value="${src.dir}/client/gui" />
-	<property name="client.4_3.gui.src.dir"								value="${client.4_3.gui.dir}/${src.dir}" />
-	<property name="client.4_3.gui.lib.dir"								value="${client.4_3.gui.dir}/${lib.dir}" />
+	<property name="client.4_3.gui.dir"									value="${src.dirname}/client/gui" />
+	<property name="client.4_3.gui.src.dir"								value="${client.4_3.gui.dir}/${src.dirname}" />
+	<property name="client.4_3.gui.lib.dir"								value="${client.4_3.gui.dir}/${lib.dirname}" />
 	<property name="client.4_3.gui.class.dir"							value="${out.build.class.dir}/${client.4_3.gui.id}" />
 	<property name="client.4_3.gui.jar.filename"						value="${client.4_3.gui.id}.jar" />
 	<property name="client.4_3.gui.jar.file"							value="${out.build.jar.dir}/${client.4_3.gui.jar.filename}" />
@@ -108,9 +108,9 @@
 	<property name="server.4_3.hyp.conn"								value="core" />
 	<property name="server.4_3.hyp.id"									value="${server.4_3.hyp.type}-${server.4_3.hyp.api}" />
 	<property name="server.4_3.id"										value="server-${server.4_3.hyp.id}-${server.4_3.hyp.conn}" />
-	<property name="server.4_3.dir"										value="${src.dir}/server/${server.4_3.hyp.conn}" />
-	<property name="server.4_3.src.dir"									value="${server.4_3.dir}/${src.dir}" />
-	<property name="server.4_3.lib.dir"									value="${server.4_3.dir}/${lib.dir}" />
+	<property name="server.4_3.dir"										value="${src.dirname}/server/${server.4_3.hyp.conn}" />
+	<property name="server.4_3.src.dir"									value="${server.4_3.dir}/${src.dirname}" />
+	<property name="server.4_3.lib.dir"									value="${server.4_3.dir}/${lib.dirname}" />
 	<property name="server.4_3.class.dir"								value="${out.build.class.dir}/${server.4_3.id}" />
 	<property name="server.4_3.jar.file"								value="${out.build.jar.dir}/${server.4_3.id}.jar" />
 	
@@ -149,10 +149,10 @@
 	<property name="server.4_3.ws.desc.filename"						value="${server.4_3.ws.conn.id}.xml" />
 	<property name="server.4_3.ws.dist.zip.filename"					value="${server.4_3.ws.id}.zip" />
 	
-	<property name="server.4_3.ws.dir"									value="${src.dir}/server/${server.4_3.ws.type}" />
-	<property name="server.4_3.ws.src.dir"								value="${server.4_3.ws.dir}/${src.dir}" />
+	<property name="server.4_3.ws.dir"									value="${src.dirname}/server/${server.4_3.ws.type}" />
+	<property name="server.4_3.ws.src.dir"								value="${server.4_3.ws.dir}/${src.dirname}" />
 	<property name="server.4_3.ws.src.desc.file"						value="${server.4_3.ws.dir}/${server.4_3.ws.desc.filename}" />
-	<property name="server.4_3.ws.lib.dir"								value="${server.4_3.ws.dir}/${lib.dir}" />
+	<property name="server.4_3.ws.lib.dir"								value="${server.4_3.ws.dir}/${lib.dirname}" />
 	<property name="server.4_3.ws.class.dir"							value="${out.build.class.dir}/${server.4_3.ws.id}" />
 	<property name="server.4_3.ws.bin.dir"								value="${out.bin.dir}/server/${server.4_3.ws.type}" />
 	<property name="server.4_3.ws.bin.desc.file"						value="${server.4_3.ws.bin.dir}/${server.4_3.ws.desc.filename}" />
@@ -209,10 +209,10 @@
 	<property name="server.4_3.xpcom.desc.filename"						value="${server.4_3.xpcom.conn.id}.xml" />
 	<property name="server.4_3.xpcom.dist.zip.filename"					value="${server.4_3.xpcom.id}.zip" />
 	
-	<property name="server.4_3.xpcom.dir"								value="${src.dir}/server/${server.4_3.xpcom.type}" />
-	<property name="server.4_3.xpcom.src.dir"							value="${server.4_3.xpcom.dir}/${src.dir}" />
+	<property name="server.4_3.xpcom.dir"								value="${src.dirname}/server/${server.4_3.xpcom.type}" />
+	<property name="server.4_3.xpcom.src.dir"							value="${server.4_3.xpcom.dir}/${src.dirname}" />
 	<property name="server.4_3.xpcom.src.desc.file"						value="${server.4_3.xpcom.dir}/${server.4_3.xpcom.desc.filename}" />
-	<property name="server.4_3.xpcom.lib.dir"							value="${server.4_3.xpcom.dir}/${lib.dir}" />
+	<property name="server.4_3.xpcom.lib.dir"							value="${server.4_3.xpcom.dir}/${lib.dirname}" />
 	<property name="server.4_3.xpcom.class.dir"							value="${out.build.class.dir}/${server.4_3.xpcom.id}" />
 	<property name="server.4_3.xpcom.bin.dir"							value="${out.bin.dir}/server/${server.4_3.xpcom.type}" />
 	<property name="server.4_3.xpcom.bin.desc.file"						value="${server.4_3.xpcom.bin.dir}/${server.4_3.xpcom.desc.filename}" />
