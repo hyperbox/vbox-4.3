@@ -119,8 +119,6 @@
 		<fileset dir="${server.4_3.lib.dir}" includes="**/*.jar"/>
 		<path refid="vbox.server.api.classpath" />
 		<path refid="vbox.api.classpath" />
-		<path refid="server.api.classpath" />
-		<path refid="api.classpath" />
 	</path>
 	
 	<target name="server.4_3.class">
