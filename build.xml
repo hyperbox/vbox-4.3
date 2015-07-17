@@ -24,17 +24,22 @@
 	
 	<property file="build.properties" />
 	
-	<property name="vbox.base.dir"										value="../vbox-common" />
+	<property name="vbox.base.dir"												location="../vbox-common" />
 	
 	<include file="${vbox.base.dir}/build.xml" as="vbox" />
 	
-	<property name="out.build.dir"										value="${out.dirname}/build" />
-	<property name="out.build.class.dir"								value="${out.build.dir}/class" />
-	<property name="out.build.jar.dir"									value="${out.build.dir}/jar" />
+	<property name="vbox.4_3.base.dir"											location="." />
+	<condition property="vbox.4_3.out.dir" value="${hbox.out.dir}">
+			<isset property="hbox.out.dir" />
+	</condition>
+	<property name="vbox.4_3.out.dir"											location="${vbox.4_3.base.dir}/${out.dirname}" />
+	<property name="vbox.4_3.out.build.dir"										location="${vbox.4_3.out.dir}/${build.dirname}" />
+	<property name="vbox.4_3.out.build.class.dir"								location="${vbox.4_3.out.build.dir}/${class.dirname}" />
+	<property name="vbox.4_3.out.build.jar.dir"									location="${vbox.4_3.out.build.dir}/${jar.dirname}" />
 	
-	<property name="out.bin.dir"										value="${out.dirname}/bin" />
+	<property name="vbox.4_3.out.bin.dir"										location="${vbox.4_3.out.dir}/${bin.dirname}" />
 	
-	<property name="out.dist.dir"										value="${out.dirname}/dist" />
+	<property name="vbox.4_3.out.dist.dir"										location="${vbox.4_3.out.dir}/${dist.dirname}" />
 	
 	<target name="clean">
 		<delete dir="${out.dirname}"/>
@@ -48,54 +53,60 @@
 	
 	<!-- Client - GUI ========================================================================================================================================================================================= -->
 	
-	<property name="client.4_3.gui.conn.id"								value="vbox-4_3-gui" />
-	<property name="client.4_3.gui.id"									value="client-${client.4_3.gui.conn.id}" />
-	<property name="client.4_3.gui.dir"									value="${src.dirname}/client/gui" />
-	<property name="client.4_3.gui.src.dir"								value="${client.4_3.gui.dir}/${src.dirname}" />
-	<property name="client.4_3.gui.lib.dir"								value="${client.4_3.gui.dir}/${lib.dirname}" />
-	<property name="client.4_3.gui.class.dir"							value="${out.build.class.dir}/${client.4_3.gui.id}" />
-	<property name="client.4_3.gui.jar.filename"						value="${client.4_3.gui.id}.jar" />
-	<property name="client.4_3.gui.jar.file"							value="${out.build.jar.dir}/${client.4_3.gui.jar.filename}" />
-	<property name="client.4_3.gui.bin.dir"								value="${out.bin.dir}/client/${client.4_3.gui.id}" />
-	<property name="client.4_3.gui.bin.jar.file"						value="${client.4_3.gui.bin.dir}/${client.4_3.gui.jar.filename}" />
-	<property name="client.4_3.gui.dist.zip.filename"					value="${client.4_3.gui.id}.zip" />
-	<property name="client.4_3.gui.dist.zip.file"						value="${out.dist.dir}/${client.4_3.gui.dist.zip.filename}" />
+	<property name="vbox.4_3.client.gui.conn.id"								value="${vbox.name}-4_3-${gui.name}" />
+	<property name="vbox.4_3.client.gui.id"										value="${client.name}-${vbox.4_3.client.gui.conn.id}" />
+	<property name="vbox.4_3.client.gui.jar.filename"							value="${vbox.4_3.client.gui.id}.jar" />
+	<property name="vbox.4_3.client.gui.dist.zip.filename"						value="${vbox.4_3.client.gui.id}.zip" />
 	
-	<path id="client.4_3.gui.classpath">
-		<pathelement location="${client.4_3.gui.lib.dir}" />
-		<fileset dir="${client.4_3.gui.lib.dir}" includes="**/*.jar"/>
+	<property name="vbox.4_3.client.gui.dir"									location="${vbox.4_3.base.dir}/${src.dirname}/${client.name}/${gui.name}" />
+	<property name="vbox.4_3.client.gui.src.dir"								location="${vbox.4_3.client.gui.dir}/${src.dirname}" />
+	<property name="vbox.4_3.client.gui.lib.dir"								location="${vbox.4_3.client.gui.dir}/${lib.dirname}" />
+	<property name="vbox.4_3.client.gui.class.dir"								location="${vbox.4_3.out.build.class.dir}/${vbox.4_3.client.gui.id}" />
+	<property name="vbox.4_3.client.gui.jar.file"								location="${vbox.4_3.out.build.jar.dir}/${vbox.4_3.client.gui.jar.filename}" />
+	<property name="vbox.4_3.client.gui.dist.zip.file"							location="${vbox.4_3.out.dist.dir}/${vbox.4_3.client.gui.dist.zip.filename}" />
+	
+	<path id="vbox.4_3.client.gui.classpath">
+		<pathelement location="${vbox.4_3.client.gui.lib.dir}" />
+		<fileset dir="${vbox.4_3.client.gui.lib.dir}" includes="**/*.jar"/>
 		<path refid="vbox.client.gui.classpath" />
 	</path>
 	
-	<target name="client.4_3.gui.class">
-		<mkdir dir="${client.4_3.gui.class.dir}" />
-		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${client.4_3.gui.src.dir}" destdir="${client.4_3.gui.class.dir}" classpathref="client.4_3.gui.classpath" />
+	<target name="vbox.4_3.client.gui.compile" depends="vbox.compile">
+		<mkdir dir="${vbox.4_3.client.gui.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${vbox.4_3.client.gui.src.dir}" destdir="${vbox.4_3.client.gui.class.dir}" classpathref="vbox.4_3.client.gui.classpath" />
 	</target>
 	
-	<target name="client.4_3.gui.jar" depends="client.4_3.gui.class">
-		<jar destfile="${client.4_3.gui.jar.file}">
-			<fileset dir="${client.4_3.gui.class.dir}" />
+	<target name="vbox.4_3.client.gui.build" depends="vbox.4_3.client.gui.compile">
+		<jar destfile="${vbox.4_3.client.gui.jar.file}">
+			<fileset dir="${vbox.4_3.client.gui.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="client.4_3.gui.build" depends="client.4_3.gui.jar">
-		<mkdir dir="${client.4_3.gui.bin.dir}" />
-		<copy file="${client.4_3.gui.jar.file}" todir="${client.4_3.gui.bin.dir}" />
-		<copy file="${vbox.client.gui.jar.file}" todir="${client.4_3.gui.bin.dir}" />
-		<copy file="${vbox.client.api.jar.file}" todir="${client.4_3.gui.bin.dir}" />
-		<copy file="${vbox.api.jar.file}" todir="${client.4_3.gui.bin.dir}" />
+	<target name="vbox.4_3.client.gui.deploy" depends="vbox.api.build, vbox.client.api.build, vbox.client.gui.build, vbox.4_3.client.gui.build">
+		<condition property="vbox.4_3.client.gui.bin.dir" value="${hbox.client.module.deploy.dir}">
+			<isset property="hbox.client.module.deploy.dir" />
+		</condition>
+		<property name="vbox.4_3.client.gui.bin.dir"								location="${vbox.4_3.out.bin.dir}/${client.name}" />
+		<property name="vbox.4_3.client.gui.bin.pkg.dir"							location="${vbox.4_3.client.gui.bin.dir}/${vbox.4_3.client.gui.conn.id}" />
+		<property name="vbox.4_3.client.gui.bin.jar.file"							location="${vbox.4_3.client.gui.bin.pkg.dir}/${vbox.4_3.client.gui.jar.filename}" />
+		
+		<mkdir dir="${vbox.4_3.client.gui.bin.pkg.dir}" />
+		<copy file="${vbox.4_3.client.gui.jar.file}" todir="${vbox.4_3.client.gui.bin.pkg.dir}" />
+		<copy file="${vbox.client.gui.jar.file}" todir="${vbox.4_3.client.gui.bin.pkg.dir}" />
+		<copy file="${vbox.client.api.jar.file}" todir="${vbox.4_3.client.gui.bin.pkg.dir}" />
+		<copy file="${vbox.api.jar.file}" todir="${vbox.4_3.client.gui.bin.pkg.dir}" />
 
-		<copy todir="${client.4_3.gui.bin.dir}" flatten="true">
-			<fileset dir="${client.4_3.gui.lib.dir}" includes="**/*.jar" />
+		<copy todir="${vbox.4_3.client.gui.bin.pkg.dir}" flatten="true">
+			<fileset dir="${vbox.4_3.client.gui.lib.dir}" includes="**/*.jar" />
 			<fileset dir="${vbox.client.api.lib.dir}" includes="**/*.jar" />
 			<fileset dir="${vbox.api.lib.dir}" includes="**/*.jar" />
 		</copy>
 	</target>
 	
-	<target name="client.4_3.gui.dist" depends="client.4_3.gui.build">
-		<mkdir dir="${out.dist.dir}" />
-		<zip destfile="${client.4_3.gui.dist.zip.file}">
-			<fileset dir="${client.4_3.gui.bin.dir}" />
+	<target name="vbox.4_3.client.gui.dist" depends="vbox.4_3.client.gui.deploy">
+		<mkdir dir="${vbox.4_3.out.dist.dir}" />
+		<zip destfile="${vbox.4_3.client.gui.dist.zip.file}">
+			<fileset dir="${vbox.4_3.client.gui.bin.pkg.dir}" />
 		</zip>
 	</target>
 	
@@ -103,37 +114,38 @@
 	
 	<!-- Server - Core ======================================================================================================================================================================================== -->
 	
-	<property name="server.4_3.hyp.type"								value="vbox" />
-	<property name="server.4_3.hyp.api"									value="4_3" />
-	<property name="server.4_3.hyp.conn"								value="core" />
-	<property name="server.4_3.hyp.id"									value="${server.4_3.hyp.type}-${server.4_3.hyp.api}" />
-	<property name="server.4_3.id"										value="server-${server.4_3.hyp.id}-${server.4_3.hyp.conn}" />
-	<property name="server.4_3.dir"										value="${src.dirname}/server/${server.4_3.hyp.conn}" />
-	<property name="server.4_3.src.dir"									value="${server.4_3.dir}/${src.dirname}" />
-	<property name="server.4_3.lib.dir"									value="${server.4_3.dir}/${lib.dirname}" />
-	<property name="server.4_3.class.dir"								value="${out.build.class.dir}/${server.4_3.id}" />
-	<property name="server.4_3.jar.file"								value="${out.build.jar.dir}/${server.4_3.id}.jar" />
+	<property name="vbox.4_3.server.hyp.type"									value="${vbox.name}" />
+	<property name="vbox.4_3.server.hyp.api"									value="4_3" />
+	<property name="vbox.4_3.server.hyp.conn"									value="${core.name}" />
+	<property name="vbox.4_3.server.hyp.id"										value="${vbox.4_3.server.hyp.type}-${vbox.4_3.server.hyp.api}" />
+	<property name="vbox.4_3.server.id"											value="${server.name}-${vbox.4_3.server.hyp.id}-${vbox.4_3.server.hyp.conn}" />
 	
-	<path id="server.4_3.classpath">
-		<pathelement location="${server.4_3.class.dir}" />
-		<fileset dir="${server.4_3.lib.dir}" includes="**/*.jar"/>
+	<property name="vbox.4_3.server.dir"										location="${vbox.4_3.base.dir}/${src.dirname}/${server.name}/${vbox.4_3.server.hyp.conn}" />
+	<property name="vbox.4_3.server.src.dir"									location="${vbox.4_3.server.dir}/${src.dirname}" />
+	<property name="vbox.4_3.server.lib.dir"									location="${vbox.4_3.server.dir}/${lib.dirname}" />
+	<property name="vbox.4_3.server.class.dir"									location="${vbox.4_3.out.build.class.dir}/${vbox.4_3.server.id}" />
+	<property name="vbox.4_3.server.jar.file"									location="${vbox.4_3.out.build.jar.dir}/${vbox.4_3.server.id}.jar" />
+	
+	<path id="vbox.4_3.server.classpath">
+		<pathelement location="${vbox.4_3.server.class.dir}" />
+		<fileset dir="${vbox.4_3.server.lib.dir}" includes="**/*.jar"/>
 		<path refid="vbox.server.api.classpath" />
 		<path refid="vbox.api.classpath" />
 	</path>
 	
-	<target name="server.4_3.class">
-		<mkdir dir="${server.4_3.class.dir}" />
-		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${server.4_3.src.dir}" destdir="${server.4_3.class.dir}" classpathref="server.4_3.classpath" />
+	<target name="vbox.4_3.server.compile">
+		<mkdir dir="${vbox.4_3.server.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.class.dir}" classpathref="vbox.4_3.server.classpath" />
 	</target>
 	
-	<target name="server.4_3.jar" depends="server.4_3.class">
-		<jar destfile="${server.4_3.jar.file}">
-			<fileset dir="${server.4_3.class.dir}" />
+	<target name="vbox.4_3.server.build" depends="vbox.4_3.server.compile">
+		<jar destfile="${vbox.4_3.server.jar.file}">
+			<fileset dir="${vbox.4_3.server.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="server.4_3.dist">
-		<mkdir dir="${out.dist.dir}" />
+	<target name="vbox.4_3.server.dist">
+		<mkdir dir="${vbox.4_3.out.dist.dir}" />
 	</target>
 	
 	<!-- ====================================================================================================================================================================================================== -->
@@ -141,58 +153,62 @@
 	
 	<!-- Server - Web Services ================================================================================================================================================================================ -->
 	
-	<property name="server.4_3.ws.type"							 		value="ws" />
-	<property name="server.4_3.ws.conn.id"								value="${server.4_3.hyp.id}-${server.4_3.ws.type}" />
-	<property name="server.4_3.ws.id"									value="server-${server.4_3.hyp.id}-${server.4_3.ws.type}" />
-	<property name="server.4_3.ws.desc.filename"						value="${server.4_3.ws.conn.id}.xml" />
-	<property name="server.4_3.ws.dist.zip.filename"					value="${server.4_3.ws.id}.zip" />
+	<property name="vbox.4_3.server.ws.type"							 		value="ws" />
+	<property name="vbox.4_3.server.ws.conn.id"									value="${vbox.4_3.server.hyp.id}-${vbox.4_3.server.ws.type}" />
+	<property name="vbox.4_3.server.ws.id"										value="${server.name}-${vbox.4_3.server.hyp.id}-${vbox.4_3.server.ws.type}" />
+	<property name="vbox.4_3.server.ws.desc.filename"							value="${vbox.4_3.server.ws.conn.id}.xml" />
+	<property name="vbox.4_3.server.ws.jar.filename"							value="${vbox.4_3.server.ws.id}.jar" />
+	<property name="vbox.4_3.server.ws.dist.zip.filename"						value="${vbox.4_3.server.ws.id}.zip" />
 	
-	<property name="server.4_3.ws.dir"									value="${src.dirname}/server/${server.4_3.ws.type}" />
-	<property name="server.4_3.ws.src.dir"								value="${server.4_3.ws.dir}/${src.dirname}" />
-	<property name="server.4_3.ws.src.desc.file"						value="${server.4_3.ws.dir}/${server.4_3.ws.desc.filename}" />
-	<property name="server.4_3.ws.lib.dir"								value="${server.4_3.ws.dir}/${lib.dirname}" />
-	<property name="server.4_3.ws.class.dir"							value="${out.build.class.dir}/${server.4_3.ws.id}" />
-	<property name="server.4_3.ws.bin.dir"								value="${out.bin.dir}/server/${server.4_3.ws.type}" />
-	<property name="server.4_3.ws.bin.desc.file"						value="${server.4_3.ws.bin.dir}/${server.4_3.ws.desc.filename}" />
-	<property name="server.4_3.ws.bin.pkg.dir"							value="${out.bin.dir}/server/${server.4_3.ws.type}/${server.4_3.ws.conn.id}" />
-	<property name="server.4_3.ws.jar.filename"							value="${server.4_3.ws.id}.jar" />
-	<property name="server.4_3.ws.jar.file"								value="${out.build.jar.dir}/${server.4_3.ws.jar.filename}" />
-	<property name="server.4_3.ws.bin.jar.file"							value="${server.4_3.ws.bin.pkg.dir}/${server.4_3.ws.jar.filename}" />
-	<property name="server.4_3.ws.dist.zip.file"						value="${out.dist.dir}/${server.4_3.ws.dist.zip.filename}" />
+	<property name="vbox.4_3.server.ws.dir"										location="${vbox.4_3.base.dir}/${src.dirname}/${server.name}/${vbox.4_3.server.ws.type}" />
+	<property name="vbox.4_3.server.ws.src.dir"									location="${vbox.4_3.server.ws.dir}/${src.dirname}" />
+	<property name="vbox.4_3.server.ws.src.desc.file"							location="${vbox.4_3.server.ws.dir}/${vbox.4_3.server.ws.desc.filename}" />
+	<property name="vbox.4_3.server.ws.lib.dir"									location="${vbox.4_3.server.ws.dir}/${lib.dirname}" />
+	<property name="vbox.4_3.server.ws.class.dir"								location="${vbox.4_3.out.build.class.dir}/${vbox.4_3.server.ws.id}" />
+	<property name="vbox.4_3.server.ws.jar.file"								location="${vbox.4_3.out.build.jar.dir}/${vbox.4_3.server.ws.jar.filename}" />
+	<property name="vbox.4_3.server.ws.dist.zip.file"							location="${vbox.4_3.out.dist.dir}/${vbox.4_3.server.ws.dist.zip.filename}" />
 	
 	
-	<path id="server.4_3.ws.classpath">
-		<fileset dir="${server.4_3.ws.lib.dir}" includes="**/*.jar"/>
-		<pathelement location="${server.4_3.jar.file}" />
-		<path refid="server.4_3.classpath"/>
+	<path id="vbox.4_3.server.ws.classpath">
+		<fileset dir="${vbox.4_3.server.ws.lib.dir}" includes="**/*.jar"/>
+		<pathelement location="${vbox.4_3.server.jar.file}" />
+		<path refid="vbox.4_3.server.classpath"/>
 	</path>
 	
-	<target name="server.4_3.ws.class" depends="server.4_3.jar">
-		<mkdir dir="${server.4_3.ws.class.dir}" />
-		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${server.4_3.ws.src.dir}" destdir="${server.4_3.ws.class.dir}" classpathref="server.4_3.ws.classpath" />
+	<target name="vbox.4_3.server.ws.compile" depends="vbox.4_3.server.build">
+		<mkdir dir="${vbox.4_3.server.ws.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${vbox.4_3.server.ws.src.dir}" destdir="${vbox.4_3.server.ws.class.dir}" classpathref="vbox.4_3.server.ws.classpath" />
 	</target>
 	
-	<target name="server.4_3.ws.jar" depends="server.4_3.ws.class">
-		<jar destfile="${server.4_3.ws.jar.file}">
-			<fileset dir="${server.4_3.ws.class.dir}" />
+	<target name="vbox.4_3.server.ws.build" depends="vbox.4_3.server.ws.compile">
+		<jar destfile="${vbox.4_3.server.ws.jar.file}">
+			<fileset dir="${vbox.4_3.server.ws.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="server.4_3.ws.build" depends="server.4_3.ws.jar">
-		<mkdir dir="${server.4_3.ws.bin.pkg.dir}" />
-		<copy file="${server.4_3.ws.src.desc.file}" tofile="${server.4_3.ws.bin.desc.file}" />
-		<copy file="${vbox.api.jar.file}" todir="${server.4_3.ws.bin.pkg.dir}" />
-		<copy file="${vbox.server.api.jar.file}" todir="${server.4_3.ws.bin.pkg.dir}" />
-		<copy file="${server.4_3.jar.file}" todir="${server.4_3.ws.bin.pkg.dir}" />
-		<copy file="${server.4_3.ws.jar.file}" tofile="${server.4_3.ws.bin.jar.file}" />
-		<copy todir="${server.4_3.ws.bin.pkg.dir}" flatten="true">
-			<fileset dir="${server.4_3.ws.lib.dir}" includes="**/*.jar" />
+	<target name="vbox.4_3.server.ws.deploy" depends="vbox.api.build, vbox.server.api.build, vbox.4_3.server.ws.build">
+		<condition property="vbox.4_3.server.ws.bin.dir" value="${hbox.server.module.deploy.dir}">
+			<isset property="hbox.server.module.deploy.dir" />
+		</condition>
+		<property name="vbox.4_3.server.ws.bin.dir"									location="${vbox.4_3.out.bin.dir}/${server.name}/${vbox.4_3.server.ws.type}" />
+		<property name="vbox.4_3.server.ws.bin.desc.file"							location="${vbox.4_3.server.ws.bin.dir}/${vbox.4_3.server.ws.desc.filename}" />
+		<property name="vbox.4_3.server.ws.bin.pkg.dir"								location="${vbox.4_3.server.ws.bin.dir}/${vbox.4_3.server.ws.conn.id}" />
+		<property name="vbox.4_3.server.ws.bin.jar.file"							location="${vbox.4_3.server.ws.bin.pkg.dir}/${vbox.4_3.server.ws.jar.filename}" />
+	
+		<mkdir dir="${vbox.4_3.server.ws.bin.pkg.dir}" />
+		<copy file="${vbox.4_3.server.ws.src.desc.file}" tofile="${vbox.4_3.server.ws.bin.desc.file}" />
+		<copy file="${vbox.api.jar.file}" todir="${vbox.4_3.server.ws.bin.pkg.dir}" />
+		<copy file="${vbox.server.api.jar.file}" todir="${vbox.4_3.server.ws.bin.pkg.dir}" />
+		<copy file="${vbox.4_3.server.jar.file}" todir="${vbox.4_3.server.ws.bin.pkg.dir}" />
+		<copy file="${vbox.4_3.server.ws.jar.file}" tofile="${vbox.4_3.server.ws.bin.jar.file}" />
+		<copy todir="${vbox.4_3.server.ws.bin.pkg.dir}" flatten="true">
+			<fileset dir="${vbox.4_3.server.ws.lib.dir}" includes="**/*.jar" />
 		</copy>
 	</target>
 	
-	<target name="server.4_3.ws.dist" depends="server.4_3.ws.build, server.4_3.dist">
-		<zip destfile="${server.4_3.ws.dist.zip.file}">
-			<fileset dir="${server.4_3.ws.bin.dir}" />
+	<target name="vbox.4_3.server.ws.dist" depends="vbox.4_3.server.ws.deploy, vbox.4_3.server.dist">
+		<zip destfile="${vbox.4_3.server.ws.dist.zip.file}">
+			<fileset dir="${vbox.4_3.server.ws.bin.dir}" />
 		</zip>
 	</target>
 	
@@ -201,69 +217,72 @@
 	
 	<!-- Server - XPCOM ======================================================================================================================================================================================= -->
 	
-	<property name="server.4_3.xpcom.type"								value="xpcom" />
-	<property name="server.4_3.xpcom.conn.id"							value="${server.4_3.hyp.id}-${server.4_3.xpcom.type}" />
-	<property name="server.4_3.xpcom.id"								value="server-${server.4_3.hyp.id}-${server.4_3.xpcom.type}" />
-	<property name="server.4_3.xpcom.desc.filename"						value="${server.4_3.xpcom.conn.id}.xml" />
-	<property name="server.4_3.xpcom.dist.zip.filename"					value="${server.4_3.xpcom.id}.zip" />
+	<property name="vbox.4_3.server.xpcom.type"									value="xpcom" />
+	<property name="vbox.4_3.server.xpcom.conn.id"								value="${vbox.4_3.server.hyp.id}-${vbox.4_3.server.xpcom.type}" />
+	<property name="vbox.4_3.server.xpcom.id"									value="${server.name}-${vbox.4_3.server.hyp.id}-${vbox.4_3.server.xpcom.type}" />
+	<property name="vbox.4_3.server.xpcom.desc.filename"						value="${vbox.4_3.server.xpcom.conn.id}.xml" />
+	<property name="vbox.4_3.server.xpcom.dist.zip.filename"					value="${vbox.4_3.server.xpcom.id}.zip" />
+	<property name="vbox.4_3.server.xpcom.jar.filename"							value="${vbox.4_3.server.xpcom.id}.jar" />
 	
-	<property name="server.4_3.xpcom.dir"								value="${src.dirname}/server/${server.4_3.xpcom.type}" />
-	<property name="server.4_3.xpcom.src.dir"							value="${server.4_3.xpcom.dir}/${src.dirname}" />
-	<property name="server.4_3.xpcom.src.desc.file"						value="${server.4_3.xpcom.dir}/${server.4_3.xpcom.desc.filename}" />
-	<property name="server.4_3.xpcom.lib.dir"							value="${server.4_3.xpcom.dir}/${lib.dirname}" />
-	<property name="server.4_3.xpcom.class.dir"							value="${out.build.class.dir}/${server.4_3.xpcom.id}" />
-	<property name="server.4_3.xpcom.bin.dir"							value="${out.bin.dir}/server/${server.4_3.xpcom.type}" />
-	<property name="server.4_3.xpcom.bin.desc.file"						value="${server.4_3.xpcom.bin.dir}/${server.4_3.xpcom.desc.filename}" />
-	<property name="server.4_3.xpcom.bin.pkg.dir"						value="${out.bin.dir}/server/${server.4_3.xpcom.type}/${server.4_3.xpcom.conn.id}" />
-	<property name="server.4_3.xpcom.jar.filename"						value="${server.4_3.xpcom.id}.jar" />
-	<property name="server.4_3.xpcom.jar.file"							value="${out.build.jar.dir}/${server.4_3.xpcom.jar.filename}" />
-	<property name="server.4_3.xpcom.bin.jar.file"						value="${server.4_3.xpcom.bin.pkg.dir}/${server.4_3.xpcom.jar.filename}" />
-	<property name="server.4_3.xpcom.dist.zip.file"						value="${out.dist.dir}/${server.4_3.xpcom.dist.zip.filename}" />
+	<property name="vbox.4_3.server.xpcom.dir"									location="${vbox.4_3.base.dir}/${src.dirname}/${server.name}/${vbox.4_3.server.xpcom.type}" />
+	<property name="vbox.4_3.server.xpcom.src.dir"								location="${vbox.4_3.server.xpcom.dir}/${src.dirname}" />
+	<property name="vbox.4_3.server.xpcom.src.desc.file"						location="${vbox.4_3.server.xpcom.dir}/${vbox.4_3.server.xpcom.desc.filename}" />
+	<property name="vbox.4_3.server.xpcom.lib.dir"								location="${vbox.4_3.server.xpcom.dir}/${lib.dirname}" />
+	<property name="vbox.4_3.server.xpcom.class.dir"							location="${vbox.4_3.out.build.class.dir}/${vbox.4_3.server.xpcom.id}" />
+	<property name="vbox.4_3.server.xpcom.jar.file"								location="${vbox.4_3.out.build.jar.dir}/${vbox.4_3.server.xpcom.jar.filename}" />
+	<property name="vbox.4_3.server.xpcom.dist.zip.file"						location="${vbox.4_3.out.dist.dir}/${vbox.4_3.server.xpcom.dist.zip.filename}" />
 	
-	
-	<path id="server.4_3.xpcom.classpath">
-		<fileset dir="${server.4_3.xpcom.lib.dir}" includes="**/*.jar"/>
-		<pathelement location="${server.4_3.jar.file}" />
-		<path refid="server.4_3.classpath"/>
+	<path id="vbox.4_3.server.xpcom.classpath">
+		<fileset dir="${vbox.4_3.server.xpcom.lib.dir}" includes="**/*.jar"/>
+		<pathelement location="${vbox.4_3.server.jar.file}" />
+		<path refid="vbox.4_3.server.classpath"/>
 	</path>
 	
-	<target name="server.4_3.xpcom.class" depends="server.4_3.jar">
-		<mkdir dir="${server.4_3.xpcom.class.dir}" />
-		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${server.4_3.xpcom.src.dir}" destdir="${server.4_3.xpcom.class.dir}" classpathref="server.4_3.xpcom.classpath" />
+	<target name="vbox.4_3.server.xpcom.compile" depends="vbox.4_3.server.build">
+		<mkdir dir="${vbox.4_3.server.xpcom.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${vbox.4_3.server.xpcom.src.dir}" destdir="${vbox.4_3.server.xpcom.class.dir}" classpathref="vbox.4_3.server.xpcom.classpath" />
 	</target>
 	
-	<target name="server.4_3.xpcom.jar" depends="server.4_3.xpcom.class">
-		<jar destfile="${server.4_3.xpcom.jar.file}">
-			<fileset dir="${server.4_3.xpcom.class.dir}" />
+	<target name="vbox.4_3.server.xpcom.build" depends="vbox.4_3.server.xpcom.compile">
+		<jar destfile="${vbox.4_3.server.xpcom.jar.file}">
+			<fileset dir="${vbox.4_3.server.xpcom.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="server.4_3.xpcom.build" depends="server.4_3.xpcom.jar">
-		<mkdir dir="${server.4_3.xpcom.bin.pkg.dir}" />
-		<copy file="${server.4_3.xpcom.src.desc.file}" tofile="${server.4_3.xpcom.bin.desc.file}" />
-		<copy file="${vbox.api.jar.file}" todir="${server.4_3.xpcom.bin.pkg.dir}" />
-		<copy file="${vbox.server.api.jar.file}" todir="${server.4_3.xpcom.bin.pkg.dir}" />
-		<copy file="${server.4_3.jar.file}" todir="${server.4_3.xpcom.bin.pkg.dir}" />
-		<copy file="${server.4_3.xpcom.jar.file}" tofile="${server.4_3.xpcom.bin.jar.file}" />
-		<copy todir="${server.4_3.xpcom.bin.pkg.dir}" flatten="true">
-			<fileset dir="${server.4_3.xpcom.lib.dir}" includes="**/*.jar" />
+	<target name="vbox.4_3.server.xpcom.deploy" depends="vbox.4_3.server.xpcom.build">
+		<condition property="vbox.4_3.server.xpcom.bin.dir" value="${hbox.server.module.deploy.dir}">
+			<isset property="hbox.server.module.deploy.dir" />
+		</condition>
+		<property name="vbox.4_3.server.xpcom.bin.dir"								location="${vbox.4_3.out.bin.dir}/${server.name}/${vbox.4_3.server.xpcom.type}" />
+		<property name="vbox.4_3.server.xpcom.bin.desc.file"						location="${vbox.4_3.server.xpcom.bin.dir}/${vbox.4_3.server.xpcom.desc.filename}" />
+		<property name="vbox.4_3.server.xpcom.bin.pkg.dir"							location="${vbox.4_3.server.xpcom.bin.dir}/${vbox.4_3.server.xpcom.conn.id}" />
+		<property name="vbox.4_3.server.xpcom.bin.jar.file"							location="${vbox.4_3.server.xpcom.bin.pkg.dir}/${vbox.4_3.server.xpcom.jar.filename}" />
+	
+		<mkdir dir="${vbox.4_3.server.xpcom.bin.pkg.dir}" />
+		<copy file="${vbox.4_3.server.xpcom.src.desc.file}" tofile="${vbox.4_3.server.xpcom.bin.desc.file}" />
+		<copy file="${vbox.api.jar.file}" todir="${vbox.4_3.server.xpcom.bin.pkg.dir}" />
+		<copy file="${vbox.server.api.jar.file}" todir="${vbox.4_3.server.xpcom.bin.pkg.dir}" />
+		<copy file="${vbox.4_3.server.jar.file}" todir="${vbox.4_3.server.xpcom.bin.pkg.dir}" />
+		<copy file="${vbox.4_3.server.xpcom.jar.file}" tofile="${vbox.4_3.server.xpcom.bin.jar.file}" />
+		<copy todir="${vbox.4_3.server.xpcom.bin.pkg.dir}" flatten="true">
+			<fileset dir="${vbox.4_3.server.xpcom.lib.dir}" includes="**/*.jar" />
 		</copy>
 	</target>
 	
-	<target name="server.4_3.xpcom.dist" depends="server.4_3.xpcom.build, server.4_3.dist">
-		<zip destfile="${server.4_3.xpcom.dist.zip.file}">
-			<fileset dir="${server.4_3.xpcom.bin.dir}" />
+	<target name="vbox.4_3.server.xpcom.dist" depends="vbox.4_3.server.xpcom.deploy, vbox.4_3.server.dist">
+		<zip destfile="${vbox.4_3.server.xpcom.dist.zip.file}">
+			<fileset dir="${vbox.4_3.server.xpcom.bin.dir}" />
 		</zip>
 	</target>
 	
 	<!-- ====================================================================================================================================================================================================== -->
 	
-	<extension-point name="class" depends="client.4_3.gui.class, server.4_3.ws.class, server.4_3.xpcom.class" />
+	<extension-point name="compile" depends="vbox.4_3.client.gui.compile, vbox.4_3.server.ws.compile, vbox.4_3.server.xpcom.compile" />
 	
-	<extension-point name="jar" depends="client.4_3.gui.jar, server.4_3.ws.jar, server.4_3.xpcom.jar" />
+	<extension-point name="build" depends="compile, vbox.4_3.client.gui.build, vbox.4_3.server.ws.build, vbox.4_3.server.xpcom.build" />
 	
-	<extension-point name="build" depends="client.4_3.gui.build, server.4_3.ws.build, server.4_3.xpcom.build" />
+	<extension-point name="deploy" depends="build, vbox.4_3.client.gui.deploy, vbox.4_3.server.ws.deploy, vbox.4_3.server.xpcom.deploy" />
 	
-	<extension-point name="dist" depends="client.4_3.gui.dist, server.4_3.ws.dist, server.4_3.xpcom.dist" />
+	<extension-point name="dist" depends="deploy, vbox.4_3.client.gui.dist, vbox.4_3.server.ws.dist, vbox.4_3.server.xpcom.dist" />
 
 </project>
