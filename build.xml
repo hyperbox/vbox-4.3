@@ -189,7 +189,6 @@
 		<copy file="${vbox.4_3.server.ws.src.desc.file}" tofile="${vbox.4_3.server.ws.bin.desc.file}" />
 		<copy file="${vbox.api.jar.file}" todir="${vbox.4_3.server.ws.bin.pkg.dir}" />
 		<copy file="${vbox.server.api.jar.file}" todir="${vbox.4_3.server.ws.bin.pkg.dir}" />
-		<copy file="${vbox.4_3.server.jar.file}" todir="${vbox.4_3.server.ws.bin.pkg.dir}" />
 		<copy file="${vbox.4_3.server.ws.jar.file}" tofile="${vbox.4_3.server.ws.bin.jar.file}" />
 		<copy todir="${vbox.4_3.server.ws.bin.pkg.dir}" flatten="true">
 			<fileset dir="${vbox.4_3.server.ws.lib.dir}" includes="**/*.jar" />
@@ -252,7 +251,6 @@
 		<copy file="${vbox.4_3.server.xpcom.src.desc.file}" tofile="${vbox.4_3.server.xpcom.bin.desc.file}" />
 		<copy file="${vbox.api.jar.file}" todir="${vbox.4_3.server.xpcom.bin.pkg.dir}" />
 		<copy file="${vbox.server.api.jar.file}" todir="${vbox.4_3.server.xpcom.bin.pkg.dir}" />
-		<copy file="${vbox.4_3.server.jar.file}" todir="${vbox.4_3.server.xpcom.bin.pkg.dir}" />
 		<copy file="${vbox.4_3.server.xpcom.jar.file}" tofile="${vbox.4_3.server.xpcom.bin.jar.file}" />
 		<copy todir="${vbox.4_3.server.xpcom.bin.pkg.dir}" flatten="true">
 			<fileset dir="${vbox.4_3.server.xpcom.lib.dir}" includes="**/*.jar" />
