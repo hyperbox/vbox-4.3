@@ -123,26 +123,16 @@
 	<property name="vbox.4_3.server.dir"										location="${vbox.4_3.base.dir}/${src.dirname}/${server.name}/${vbox.4_3.server.hyp.conn}" />
 	<property name="vbox.4_3.server.src.dir"									location="${vbox.4_3.server.dir}/${src.dirname}" />
 	<property name="vbox.4_3.server.lib.dir"									location="${vbox.4_3.server.dir}/${lib.dirname}" />
-	<property name="vbox.4_3.server.class.dir"									location="${vbox.4_3.out.build.class.dir}/${vbox.4_3.server.id}" />
-	<property name="vbox.4_3.server.jar.file"									location="${vbox.4_3.out.build.jar.dir}/${vbox.4_3.server.id}.jar" />
 	
 	<path id="vbox.4_3.server.classpath">
-		<pathelement location="${vbox.4_3.server.class.dir}" />
 		<fileset dir="${vbox.4_3.server.lib.dir}" includes="**/*.jar"/>
 		<path refid="vbox.server.api.classpath" />
 		<path refid="vbox.api.classpath" />
 	</path>
 	
-	<target name="vbox.4_3.server.compile">
-		<mkdir dir="${vbox.4_3.server.class.dir}" />
-		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.class.dir}" classpathref="vbox.4_3.server.classpath" />
-	</target>
+	<extension-point name="vbox.4_3.server.compile" depends="configure" />
 	
-	<target name="vbox.4_3.server.build" depends="vbox.4_3.server.compile">
-		<jar destfile="${vbox.4_3.server.jar.file}">
-			<fileset dir="${vbox.4_3.server.class.dir}" />
-		</jar>
-	</target>
+	<extension-point  name="vbox.4_3.server.build" depends="vbox.4_3.server.compile" />
 	
 	<target name="vbox.4_3.server.dist">
 		<mkdir dir="${vbox.4_3.out.dist.dir}" />
@@ -171,12 +161,12 @@
 	
 	<path id="vbox.4_3.server.ws.classpath">
 		<fileset dir="${vbox.4_3.server.ws.lib.dir}" includes="**/*.jar"/>
-		<pathelement location="${vbox.4_3.server.jar.file}" />
 		<path refid="vbox.4_3.server.classpath"/>
 	</path>
 	
 	<target name="vbox.4_3.server.ws.compile" depends="vbox.4_3.server.build">
 		<mkdir dir="${vbox.4_3.server.ws.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.ws.class.dir}" classpathref="vbox.4_3.server.ws.classpath" />
 		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${vbox.4_3.server.ws.src.dir}" destdir="${vbox.4_3.server.ws.class.dir}" classpathref="vbox.4_3.server.ws.classpath" />
 	</target>
 	
@@ -234,12 +224,12 @@
 	
 	<path id="vbox.4_3.server.xpcom.classpath">
 		<fileset dir="${vbox.4_3.server.xpcom.lib.dir}" includes="**/*.jar"/>
-		<pathelement location="${vbox.4_3.server.jar.file}" />
 		<path refid="vbox.4_3.server.classpath"/>
 	</path>
 	
 	<target name="vbox.4_3.server.xpcom.compile" depends="vbox.4_3.server.build">
 		<mkdir dir="${vbox.4_3.server.xpcom.class.dir}" />
+		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.xpcom.class.dir}" classpathref="vbox.4_3.server.xpcom.classpath" />
 		<javac source="1.6" target="1.6" debug="on" debuglevel="lines" includeantruntime="false" srcdir="${vbox.4_3.server.xpcom.src.dir}" destdir="${vbox.4_3.server.xpcom.class.dir}" classpathref="vbox.4_3.server.xpcom.classpath" />
 	</target>
 	
