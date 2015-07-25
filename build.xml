@@ -24,9 +24,9 @@
 	
 	<property file="build.properties" />
 	
-	<property name="vbox.base.dir"												location="../vbox-common" />
+	<property name="vbox.common.base.dir"												location="../vbox-common" />
 	
-	<include file="${vbox.base.dir}/build.xml" as="vbox" />
+	<include file="${vbox.common.base.dir}/build.xml" as="vbox.common" />
 	
 	<property name="vbox.4_3.base.dir"											location="." />
 	<condition property="vbox.4_3.out.dir" value="${hbox.out.dir}">
@@ -42,11 +42,11 @@
 	<property name="vbox.4_3.out.dist.dir"										location="${vbox.4_3.out.dir}/${dist.dirname}" />
 	
 	<target name="clean">
-		<delete dir="${out.dirname}"/>
+		<delete dir="${vbox.4_3.out.dir}"/>
 	</target>
 	
 	<target name="configure">
-		<exec executable="git" outputProperty="version">
+		<exec executable="git" dir="${vbox.4_3.base.dir}" outputProperty="version">
 			<arg line="describe --always"/>
 		</exec>
 	</target>
@@ -71,18 +71,18 @@
 		<path refid="vbox.client.gui.classpath" />
 	</path>
 	
-	<target name="vbox.4_3.client.gui.compile" depends="vbox.compile">
+	<target name="client.gui.compile">
 		<mkdir dir="${vbox.4_3.client.gui.class.dir}" />
 		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.client.gui.src.dir}" destdir="${vbox.4_3.client.gui.class.dir}" classpathref="vbox.4_3.client.gui.classpath" />
 	</target>
 	
-	<target name="vbox.4_3.client.gui.build" depends="vbox.4_3.client.gui.compile">
+	<target name="client.gui.build" depends="client.gui.compile">
 		<jar destfile="${vbox.4_3.client.gui.jar.file}">
 			<fileset dir="${vbox.4_3.client.gui.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="vbox.4_3.client.gui.deploy" depends="vbox.api.build, vbox.client.api.build, vbox.client.gui.build, vbox.4_3.client.gui.build">
+	<target name="client.gui.deploy" depends="client.gui.build">
 		<condition property="vbox.4_3.client.gui.bin.dir" value="${hbox.client.module.deploy.dir}">
 			<isset property="hbox.client.module.deploy.dir" />
 		</condition>
@@ -103,7 +103,7 @@
 		</copy>
 	</target>
 	
-	<target name="vbox.4_3.client.gui.dist" depends="vbox.4_3.client.gui.deploy">
+	<target name="client.gui.dist" depends="client.gui.deploy">
 		<mkdir dir="${vbox.4_3.out.dist.dir}" />
 		<zip destfile="${vbox.4_3.client.gui.dist.zip.file}">
 			<fileset dir="${vbox.4_3.client.gui.bin.pkg.dir}" />
@@ -130,11 +130,11 @@
 		<path refid="vbox.api.classpath" />
 	</path>
 	
-	<extension-point name="vbox.4_3.server.compile" depends="configure" />
+	<extension-point name="server.compile" depends="configure" />
 	
-	<extension-point  name="vbox.4_3.server.build" depends="vbox.4_3.server.compile" />
+	<extension-point  name="server.build" depends="server.compile" />
 	
-	<target name="vbox.4_3.server.dist">
+	<target name="server.dist">
 		<mkdir dir="${vbox.4_3.out.dist.dir}" />
 	</target>
 	
@@ -164,19 +164,19 @@
 		<path refid="vbox.4_3.server.classpath"/>
 	</path>
 	
-	<target name="vbox.4_3.server.ws.compile" depends="vbox.4_3.server.build">
+	<target name="server.ws.compile" depends="server.build">
 		<mkdir dir="${vbox.4_3.server.ws.class.dir}" />
 		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.ws.class.dir}" classpathref="vbox.4_3.server.ws.classpath" />
 		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.ws.src.dir}" destdir="${vbox.4_3.server.ws.class.dir}" classpathref="vbox.4_3.server.ws.classpath" />
 	</target>
 	
-	<target name="vbox.4_3.server.ws.build" depends="vbox.4_3.server.ws.compile">
+	<target name="server.ws.build" depends="server.ws.compile">
 		<jar destfile="${vbox.4_3.server.ws.jar.file}">
 			<fileset dir="${vbox.4_3.server.ws.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="vbox.4_3.server.ws.deploy" depends="vbox.api.build, vbox.server.api.build, vbox.4_3.server.ws.build">
+	<target name="server.ws.deploy" depends="server.ws.build">
 		<condition property="vbox.4_3.server.ws.bin.dir" value="${hbox.server.module.deploy.dir}">
 			<isset property="hbox.server.module.deploy.dir" />
 		</condition>
@@ -195,7 +195,7 @@
 		</copy>
 	</target>
 	
-	<target name="vbox.4_3.server.ws.dist" depends="vbox.4_3.server.ws.deploy, vbox.4_3.server.dist">
+	<target name="server.ws.dist" depends="server.ws.deploy, server.dist">
 		<zip destfile="${vbox.4_3.server.ws.dist.zip.file}">
 			<fileset dir="${vbox.4_3.server.ws.bin.dir}" />
 		</zip>
@@ -226,19 +226,19 @@
 		<path refid="vbox.4_3.server.classpath"/>
 	</path>
 	
-	<target name="vbox.4_3.server.xpcom.compile" depends="vbox.4_3.server.build">
+	<target name="server.xpcom.compile" depends="server.build">
 		<mkdir dir="${vbox.4_3.server.xpcom.class.dir}" />
 		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.xpcom.class.dir}" classpathref="vbox.4_3.server.xpcom.classpath" />
 		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.xpcom.src.dir}" destdir="${vbox.4_3.server.xpcom.class.dir}" classpathref="vbox.4_3.server.xpcom.classpath" />
 	</target>
 	
-	<target name="vbox.4_3.server.xpcom.build" depends="vbox.4_3.server.xpcom.compile">
+	<target name="server.xpcom.build" depends="server.xpcom.compile">
 		<jar destfile="${vbox.4_3.server.xpcom.jar.file}">
 			<fileset dir="${vbox.4_3.server.xpcom.class.dir}" />
 		</jar>
 	</target>
 	
-	<target name="vbox.4_3.server.xpcom.deploy" depends="vbox.4_3.server.xpcom.build">
+	<target name="server.xpcom.deploy" depends="server.xpcom.build">
 		<condition property="vbox.4_3.server.xpcom.bin.dir" value="${hbox.server.module.deploy.dir}">
 			<isset property="hbox.server.module.deploy.dir" />
 		</condition>
@@ -257,7 +257,7 @@
 		</copy>
 	</target>
 	
-	<target name="vbox.4_3.server.xpcom.dist" depends="vbox.4_3.server.xpcom.deploy, vbox.4_3.server.dist">
+	<target name="server.xpcom.dist" depends="server.xpcom.deploy, server.dist">
 		<zip destfile="${vbox.4_3.server.xpcom.dist.zip.file}">
 			<fileset dir="${vbox.4_3.server.xpcom.bin.dir}" />
 		</zip>
@@ -265,12 +265,12 @@
 	
 	<!-- ====================================================================================================================================================================================================== -->
 	
-	<extension-point name="compile" depends="vbox.4_3.client.gui.compile, vbox.4_3.server.ws.compile, vbox.4_3.server.xpcom.compile" />
+	<extension-point name="compile" depends="client.gui.compile, server.ws.compile, server.xpcom.compile" />
 	
-	<extension-point name="build" depends="compile, vbox.4_3.client.gui.build, vbox.4_3.server.ws.build, vbox.4_3.server.xpcom.build" />
+	<extension-point name="build" depends="compile, client.gui.build, server.ws.build, server.xpcom.build" />
 	
-	<extension-point name="deploy" depends="build, vbox.4_3.client.gui.deploy, vbox.4_3.server.ws.deploy, vbox.4_3.server.xpcom.deploy" />
+	<extension-point name="deploy" depends="build, client.gui.deploy, server.ws.deploy, server.xpcom.deploy" />
 	
-	<extension-point name="dist" depends="deploy, vbox.4_3.client.gui.dist, vbox.4_3.server.ws.dist, vbox.4_3.server.xpcom.dist" />
+	<extension-point name="dist" depends="deploy, client.gui.dist, server.ws.dist, server.xpcom.dist" />
 
 </project>
