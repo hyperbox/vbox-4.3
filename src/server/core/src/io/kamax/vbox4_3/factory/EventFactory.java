@@ -20,9 +20,9 @@
 
 package io.kamax.vbox4_3.factory;
 
+import io.kamax.hbox.ClassManager;
 import io.kamax.hbox.event._Event;
 import io.kamax.hbox.exception.HyperboxException;
-import io.kamax.hboxd.HBoxServer;
 import io.kamax.tool.logging.Logger;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +40,7 @@ public class EventFactory {
       try {
          Logger.debug("Current class loader: " + EventFactory.class.getClassLoader());
          Logger.debug("Interface class loader: " + _PreciseEventFactory.class.getClassLoader());
-         Set<_PreciseEventFactory> factoriesSet = HBoxServer.getAllOrFail(_PreciseEventFactory.class);
+         Set<_PreciseEventFactory> factoriesSet = ClassManager.getAllOrFail(_PreciseEventFactory.class);
          for (_PreciseEventFactory factory : factoriesSet) {
             factories.put(factory.getType(), factory);
          }

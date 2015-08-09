@@ -20,6 +20,7 @@
 
 package io.kamax.vbox4_3.manager;
 
+import io.kamax.hbox.ClassManager;
 import io.kamax.hbox.comm.io.factory.SettingIoFactory;
 import io.kamax.hbox.constant.EntityType;
 import io.kamax.hbox.constant.MachineAttribute;
@@ -30,7 +31,6 @@ import io.kamax.hbox.data.Machine;
 import io.kamax.hbox.exception.ConfigurationException;
 import io.kamax.hbox.exception.HyperboxException;
 import io.kamax.hbox.utils.Settings;
-import io.kamax.hboxd.HBoxServer;
 import io.kamax.setting._Setting;
 import io.kamax.tool.logging.Logger;
 import io.kamax.vbox4_3.VBox;
@@ -110,7 +110,7 @@ public class VBoxSettingManager {
    private static void loadSnapshotActions() throws HyperboxException {
       snapshotActions = new HashMap<String, _SnapshotSettingAction>();
 
-      Set<_SnapshotSettingAction> subTypes = HBoxServer.getAllOrFail(_SnapshotSettingAction.class);
+      Set<_SnapshotSettingAction> subTypes = ClassManager.getAllOrFail(_SnapshotSettingAction.class);
       for (_SnapshotSettingAction item : subTypes) {
          snapshotActions.put(item.getSettingName(), item);
          Logger.debug("Linking " + item.getSettingName() + " to " + item.getClass().getSimpleName());
@@ -170,7 +170,7 @@ public class VBoxSettingManager {
    private static void loadMachineActions() throws HyperboxException {
       vmActions = new HashMap<String, _MachineSettingAction>();
 
-      Set<_MachineSettingAction> subTypes = HBoxServer.getAllOrFail(_MachineSettingAction.class);
+      Set<_MachineSettingAction> subTypes = ClassManager.getAllOrFail(_MachineSettingAction.class);
       for (_MachineSettingAction item : subTypes) {
          vmActions.put(item.getSettingName(), item);
       }
@@ -254,7 +254,7 @@ public class VBoxSettingManager {
             break;
          }
       }
-      
+
       lockAuto(vm.getUuid(), lockType);
        */
       lockAuto(vm.getUuid());
@@ -293,7 +293,7 @@ public class VBoxSettingManager {
       nicActions = new HashMap<String, _NetworkInterfaceSettingAction>();
 
       // TODO replace with .getAtLeastOneOrFail()
-      Set<_NetworkInterfaceSettingAction> subTypes = HBoxServer.getAllOrFail(_NetworkInterfaceSettingAction.class);
+      Set<_NetworkInterfaceSettingAction> subTypes = ClassManager.getAllOrFail(_NetworkInterfaceSettingAction.class);
       for (_NetworkInterfaceSettingAction item : subTypes) {
          nicActions.put(item.getSettingName(), item);
       }
@@ -330,7 +330,7 @@ public class VBoxSettingManager {
             break;
          }
       }
-      
+
       lockAuto(nic.getMachineUuid(), lockType);
        */
 
@@ -371,7 +371,7 @@ public class VBoxSettingManager {
    private static void loadStrCtrlActions() throws HyperboxException {
       sctActions = new HashMap<String, _StorageControllerSettingAction>();
 
-      Set<_StorageControllerSettingAction> subTypes = HBoxServer.getAllOrFail(_StorageControllerSettingAction.class);
+      Set<_StorageControllerSettingAction> subTypes = ClassManager.getAllOrFail(_StorageControllerSettingAction.class);
       for (_StorageControllerSettingAction item : subTypes) {
          sctActions.put(item.getSettingName(), item);
       }
@@ -408,7 +408,7 @@ public class VBoxSettingManager {
             break;
          }
       }
-      
+
       lockAuto(strCtl.getMachineUuid(), lockType);
        */
 
@@ -450,7 +450,7 @@ public class VBoxSettingManager {
    private static void loadMediumActions() throws HyperboxException {
       mediumActions = new HashMap<String, _MediumSettingAction>();
 
-      Set<_MediumSettingAction> subTypes = HBoxServer.getAllOrFail(_MediumSettingAction.class);
+      Set<_MediumSettingAction> subTypes = ClassManager.getAllOrFail(_MediumSettingAction.class);
       for (_MediumSettingAction item : subTypes) {
          mediumActions.put(item.getSettingName(), item);
       }
