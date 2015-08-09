@@ -23,9 +23,8 @@ package io.kamax.vbox4_3;
 import io.kamax.hbox.exception.HypervisorException;
 import io.kamax.hboxd.hypervisor.Hypervisor;
 import io.kamax.tool.AxStrings;
-import io.kamax.tool.logging.Logger;
+import io.kamax.vbox.VBoxXPCOM;
 import io.kamax.vbox.VirtualBox;
-import java.io.File;
 import org.virtualbox_4_3.ISession;
 import org.virtualbox_4_3.VirtualBoxManager;
 
@@ -36,8 +35,6 @@ import org.virtualbox_4_3.VirtualBoxManager;
       product = VirtualBox.PRODUCT,
       schemes = { VirtualBox.ID.XPCOM_4_3 })
 public final class VBoxXpcomHypervisor extends VBoxHypervisor {
-
-   private final String defaultHome = "/usr/lib/virtualbox";
 
    @Override
    public String getId() {
@@ -52,14 +49,10 @@ public final class VBoxXpcomHypervisor extends VBoxHypervisor {
    @Override
    protected VirtualBoxManager connect(String options) {
       if (AxStrings.isEmpty(options)) {
-         options = defaultHome;
+         options = VBoxXPCOM.getDefaultHome();
       }
 
-      Logger.debug("Options - " + options);
-      Logger.debug("vbox.home - " + System.getProperty("vbox.home"));
-      File libxpcom = new File(options + "/libvboxjxpcom.so");
-      Logger.debug("Lib exists - " + libxpcom.getAbsolutePath() + " - " + libxpcom.isFile());
-
+      VBoxXPCOM.triggerVBoxSVC(options);
       VirtualBoxManager mgr = VirtualBoxManager.createInstance(options);
       if (mgr.getVBox().getVersion().contains("OSE") && (mgr.getVBox().getRevision() < 50393)) {
          throw new HypervisorException(
