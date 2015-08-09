@@ -23,6 +23,7 @@ package io.kamax.hboxc.gui.vbox4_3;
 import io.kamax.hboxc.gui.hypervisor._GlobalConfigureView;
 import io.kamax.hboxc.gui.hypervisor._NetAdaptorConfigureView;
 import io.kamax.hboxc.gui.vbox.GenericModel;
+import io.kamax.hboxc.gui.vbox.NATNetworkNicEditor;
 import io.kamax.vbox.VBoxNetMode;
 import io.kamax.vbox.VirtualBox;
 import java.util.List;
@@ -36,7 +37,7 @@ public class Model_4_3 extends GenericModel {
 
    @Override
    public _GlobalConfigureView getConfigureView() {
-      return new GlobalConfigureView();
+      return new GlobalConfigureView_4_3();
    }
 
    @Override
