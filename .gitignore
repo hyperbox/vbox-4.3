@@ -1,1 +1,8 @@
 /out/
+
+src/client/gui/.settings/
+src/server/core/.settings/
+src/server/mscom/.settings/
+src/server/ws/.settings/
+src/server/xpcom/.settings/
+
