@@ -20,13 +20,13 @@
 
 package io.kamax.vbox4_3.manager;
 
-import net.engio.mbassy.listener.Handler;
 import io.kamax.hboxd.exception.machine.MachineLockingException;
 import io.kamax.tool.logging.Logger;
 import io.kamax.vbox.utils.EventBusFactory;
 import io.kamax.vbox4_3.VBox;
 import java.util.HashMap;
 import java.util.Map;
+import net.engio.mbassy.listener.Handler;
 import org.virtualbox_4_3.IMachine;
 import org.virtualbox_4_3.IMachineStateChangedEvent;
 import org.virtualbox_4_3.ISession;
