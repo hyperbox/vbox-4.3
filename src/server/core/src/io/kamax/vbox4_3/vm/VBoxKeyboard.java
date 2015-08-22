@@ -34,51 +34,51 @@ import java.util.List;
 
 public final class VBoxKeyboard implements _RawKeyboard {
 
-   private VBoxMachine machine;
+    private VBoxMachine machine;
 
-   public VBoxKeyboard(VBoxMachine machine) {
-      this.machine = machine;
-   }
+    public VBoxKeyboard(VBoxMachine machine) {
+        this.machine = machine;
+    }
 
-   @Override
-   public String getMode() {
-      return ((StringSetting) machine.getSetting(MachineAttribute.KeyboardMode)).getValue();
-   }
+    @Override
+    public String getMode() {
+        return ((StringSetting) machine.getSetting(MachineAttribute.KeyboardMode)).getValue();
+    }
 
-   @Override
-   public void setMode(String mode) {
-      setSetting(new KeyboardModeSetting(mode));
-   }
+    @Override
+    public void setMode(String mode) {
+        setSetting(new KeyboardModeSetting(mode));
+    }
 
-   @Override
-   public void setMode(KeyboardMode mode) {
-      setMode(mode.toString());
-   }
+    @Override
+    public void setMode(KeyboardMode mode) {
+        setMode(mode.toString());
+    }
 
-   @Override
-   public List<_Setting> listSettings() {
-      List<_Setting> settings = new ArrayList<_Setting>();
-      for (MachineAttribute setting : MachineAttribute.values()) {
-         if (setting.getDeviceType().equals(EntityType.Keyboard)) {
-            getSetting(setting);
-         }
-      }
-      return settings;
-   }
+    @Override
+    public List<_Setting> listSettings() {
+        List<_Setting> settings = new ArrayList<_Setting>();
+        for (MachineAttribute setting : MachineAttribute.values()) {
+            if (setting.getDeviceType().equals(EntityType.Keyboard)) {
+                getSetting(setting);
+            }
+        }
+        return settings;
+    }
 
-   @Override
-   public _Setting getSetting(Object getName) {
-      return VBoxSettingManager.get(machine, getName);
-   }
+    @Override
+    public _Setting getSetting(Object getName) {
+        return VBoxSettingManager.get(machine, getName);
+    }
 
-   @Override
-   public void setSetting(_Setting s) {
-      machine.setSetting(Arrays.asList(s));
-   }
+    @Override
+    public void setSetting(_Setting s) {
+        machine.setSetting(Arrays.asList(s));
+    }
 
-   @Override
-   public void setSetting(List<_Setting> s) {
-      machine.setSetting(s);
-   }
+    @Override
+    public void setSetting(List<_Setting> s) {
+        machine.setSetting(s);
+    }
 
 }

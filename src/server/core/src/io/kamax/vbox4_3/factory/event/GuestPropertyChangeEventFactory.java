@@ -27,23 +27,23 @@ import org.virtualbox_4_3.VBoxEventType;
 
 public class GuestPropertyChangeEventFactory implements _PreciseEventFactory {
 
-   @Override
-   public VBoxEventType getType() {
-      return VBoxEventType.OnGuestPropertyChanged;
-   }
+    @Override
+    public VBoxEventType getType() {
+        return VBoxEventType.OnGuestPropertyChanged;
+    }
 
-   @Override
-   public IEvent getRaw(IEvent vbEvent) {
+    @Override
+    public IEvent getRaw(IEvent vbEvent) {
 
-      // TODO Auto-generated method stub
-      return null;
-   }
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-   @Override
-   public _Event getEvent(IEvent vbEvent) {
+    @Override
+    public _Event getEvent(IEvent vbEvent) {
 
-      // TODO Auto-generated method stub
-      return null;
-   }
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

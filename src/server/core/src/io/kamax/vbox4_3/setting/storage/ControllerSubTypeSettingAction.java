@@ -30,25 +30,25 @@ import org.virtualbox_4_3.StorageControllerType;
 
 public class ControllerSubTypeSettingAction implements _StorageControllerSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return StorageControllerAttribute.SubType.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return StorageControllerAttribute.SubType.toString();
+    }
 
-   @Override
-   public void set(IStorageController sct, _Setting setting) {
-      StorageControllerType type = StorageControllerType.valueOf(setting.getValue().toString());
-      sct.setControllerType(type);
-   }
+    @Override
+    public void set(IStorageController sct, _Setting setting) {
+        StorageControllerType type = StorageControllerType.valueOf(setting.getValue().toString());
+        sct.setControllerType(type);
+    }
 
-   @Override
-   public _Setting get(IStorageController sct) {
-      return new ControllerSubTypeSetting(sct.getControllerType().toString());
-   }
+    @Override
+    public _Setting get(IStorageController sct) {
+        return new ControllerSubTypeSetting(sct.getControllerType().toString());
+    }
 
 }

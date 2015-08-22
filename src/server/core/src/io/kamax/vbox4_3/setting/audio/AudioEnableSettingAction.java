@@ -30,24 +30,24 @@ import org.virtualbox_4_3.LockType;
 
 public final class AudioEnableSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.AudioEnable.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.AudioEnable.toString();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      machine.getAudioAdapter().setEnabled(((BooleanSetting) setting).getValue());
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        machine.getAudioAdapter().setEnabled(((BooleanSetting) setting).getValue());
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new AudioEnabled(machine.getAudioAdapter().getEnabled());
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new AudioEnabled(machine.getAudioAdapter().getEnabled());
+    }
 
 }

@@ -25,35 +25,35 @@ import org.virtualbox_4_3.IHost;
 
 public class VBoxHost implements _RawHost {
 
-   private IHost host;
+    private IHost host;
 
-   public VBoxHost(IHost host) {
-      this.host = host;
-   }
+    public VBoxHost(IHost host) {
+        this.host = host;
+    }
 
-   @Override
-   public String getHostname() {
-      return host.getDomainName();
-   }
+    @Override
+    public String getHostname() {
+        return host.getDomainName();
+    }
 
-   @Override
-   public String getOSName() {
-      return host.getOperatingSystem();
-   }
+    @Override
+    public String getOSName() {
+        return host.getOperatingSystem();
+    }
 
-   @Override
-   public String getOSVersion() {
-      return host.getOSVersion();
-   }
+    @Override
+    public String getOSVersion() {
+        return host.getOSVersion();
+    }
 
-   @Override
-   public long getMemorySize() {
-      return host.getMemorySize();
-   }
+    @Override
+    public long getMemorySize() {
+        return host.getMemorySize();
+    }
 
-   @Override
-   public long getMemoryAvailable() {
-      return host.getMemoryAvailable();
-   }
+    @Override
+    public long getMemoryAvailable() {
+        return host.getMemoryAvailable();
+    }
 
 }

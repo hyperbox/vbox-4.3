@@ -25,47 +25,47 @@ import org.virtualbox_4_3.IGuestOSType;
 
 public class VBoxOsType implements _RawOsType {
 
-   private String id;
-   private String name;
-   private String familyName;
-   private long bitness;
+    private String id;
+    private String name;
+    private String familyName;
+    private long bitness;
 
-   public VBoxOsType(IGuestOSType vboxGuestOs) {
-      id = vboxGuestOs.getId();
-      name = vboxGuestOs.getDescription();
-      familyName = vboxGuestOs.getFamilyDescription();
-      bitness = vboxGuestOs.getIs64Bit() ? 64L : 32L;
-   }
+    public VBoxOsType(IGuestOSType vboxGuestOs) {
+        id = vboxGuestOs.getId();
+        name = vboxGuestOs.getDescription();
+        familyName = vboxGuestOs.getFamilyDescription();
+        bitness = vboxGuestOs.getIs64Bit() ? 64L : 32L;
+    }
 
-   /**
-    * @return the id
-    */
-   @Override
-   public String getId() {
-      return id;
-   }
+    /**
+     * @return the id
+     */
+    @Override
+    public String getId() {
+        return id;
+    }
 
-   /**
-    * @return the name
-    */
-   @Override
-   public String getName() {
-      return name;
-   }
+    /**
+     * @return the name
+     */
+    @Override
+    public String getName() {
+        return name;
+    }
 
-   /**
-    * @return the familyName
-    */
-   public String getFamilyName() {
-      return familyName;
-   }
+    /**
+     * @return the familyName
+     */
+    public String getFamilyName() {
+        return familyName;
+    }
 
-   /**
-    * @return the bitness
-    */
-   @Override
-   public long getBitness() {
-      return bitness;
-   }
+    /**
+     * @return the bitness
+     */
+    @Override
+    public long getBitness() {
+        return bitness;
+    }
 
 }

@@ -30,28 +30,28 @@ import org.virtualbox_4_3.USBControllerType;
 
 public class UsbEhciSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.UsbEhci.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.UsbEhci.toString();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      if (!setting.getBoolean() && (machine.getUSBControllerCountByType(USBControllerType.EHCI) > 0)) {
-         machine.removeUSBController(USBControllerType.EHCI.toString());
-      } else {
-         machine.addUSBController(USBControllerType.EHCI.toString(), USBControllerType.EHCI);
-      }
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        if (!setting.getBoolean() && (machine.getUSBControllerCountByType(USBControllerType.EHCI) > 0)) {
+            machine.removeUSBController(USBControllerType.EHCI.toString());
+        } else {
+            machine.addUSBController(USBControllerType.EHCI.toString(), USBControllerType.EHCI);
+        }
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new UsbEhciSetting(machine.getUSBControllerCountByType(USBControllerType.EHCI));
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new UsbEhciSetting(machine.getUSBControllerCountByType(USBControllerType.EHCI));
+    }
 
 }

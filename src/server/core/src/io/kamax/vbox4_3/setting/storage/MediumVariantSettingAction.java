@@ -28,20 +28,20 @@ import org.virtualbox_4_3.IMedium;
 
 public class MediumVariantSettingAction implements _MediumSettingAction {
 
-   @Override
-   public String getSettingName() {
-      return MediumAttribute.Variant.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MediumAttribute.Variant.toString();
+    }
 
-   @Override
-   public void set(IMedium medium, _Setting setting) {
-      throw new HyperboxException("Read-only setting");
-   }
+    @Override
+    public void set(IMedium medium, _Setting setting) {
+        throw new HyperboxException("Read-only setting");
+    }
 
-   @Override
-   public _Setting get(IMedium medium) {
-      // TODO review how to integrate a list-type of setting
-      return null;
-   }
+    @Override
+    public _Setting get(IMedium medium) {
+        // TODO review how to integrate a list-type of setting
+        return null;
+    }
 
 }

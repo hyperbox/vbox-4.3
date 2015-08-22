@@ -33,29 +33,29 @@ import org.junit.Test;
 
 public class VBoxWSTest extends HypervisorTest {
 
-   @BeforeClass
-   public static void beforeClass() throws HyperboxException {
-      hypervisor = new VBoxWSHypervisor();
-      hypervisor.setEventManager(new DummyEventManager());
+    @BeforeClass
+    public static void beforeClass() throws HyperboxException {
+        hypervisor = new VBoxWSHypervisor();
+        hypervisor.setEventManager(new DummyEventManager());
 
-      HypervisorTest.init();
-   }
+        HypervisorTest.init();
+    }
 
-   @Test
-   public void configureHostOnly() {
-      _NetAdaptor adapt = hypervisor.createAdaptor("HostOnly", "");
-      try {
-         _NetService ip4 = new NetService_IP4_IO(true, "10.50.0.254", "255.255.255.0");
-         _NetService_IP4_DHCP dhcp = new NetService_DHCP_IP4_IO(true);
-         dhcp.setAddress("10.50.0.2");
-         dhcp.setNetmask("255.255.255.0");
-         dhcp.setStartAddress("10.50.0.10");
-         dhcp.setEndAddress("10.50.0.20");
-         adapt.setService(ip4);
-         adapt.setService(dhcp);
-      } finally {
-         //hypervisor.removeAdaptor(adapt.getMode().getId(), adapt.getId());
-      }
-   }
+    @Test
+    public void configureHostOnly() {
+        _NetAdaptor adapt = hypervisor.createAdaptor("HostOnly", "");
+        try {
+            _NetService ip4 = new NetService_IP4_IO(true, "10.50.0.254", "255.255.255.0");
+            _NetService_IP4_DHCP dhcp = new NetService_DHCP_IP4_IO(true);
+            dhcp.setAddress("10.50.0.2");
+            dhcp.setNetmask("255.255.255.0");
+            dhcp.setStartAddress("10.50.0.10");
+            dhcp.setEndAddress("10.50.0.20");
+            adapt.setService(ip4);
+            adapt.setService(dhcp);
+        } finally {
+            //hypervisor.removeAdaptor(adapt.getMode().getId(), adapt.getId());
+        }
+    }
 
 }

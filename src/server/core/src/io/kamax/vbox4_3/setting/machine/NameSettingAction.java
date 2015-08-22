@@ -30,24 +30,24 @@ import org.virtualbox_4_3.LockType;
 
 public class NameSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.Name.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.Name.toString();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      machine.setName(((StringSetting) setting).getValue());
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        machine.setName(((StringSetting) setting).getValue());
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new NameSetting(machine.getName());
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new NameSetting(machine.getName());
+    }
 
 }

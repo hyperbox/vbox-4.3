@@ -32,38 +32,38 @@ import org.virtualbox_4_3.LockType;
 
 public class VrdePortSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.VrdePort.getId();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.VrdePort.getId();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      machine.getVRDEServer().setVRDEProperty("TCP/Ports", setting.getString());
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        machine.getVRDEServer().setVRDEProperty("TCP/Ports", setting.getString());
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      // TODO improve by having a getConsole() in SessionManager and throw the appropriate exception
-      try {
-         ISession sess = VBoxSessionManager.get().lockAuto(machine.getId());
-         try {
-            if ((sess.getConsole().getVRDEServerInfo() != null) && (sess.getConsole().getVRDEServerInfo().getPort() > 0)) {
-               return new StringSetting(MachineAttribute.VrdePort, Integer.toString(sess.getConsole().getVRDEServerInfo().getPort()));
-            } else {
-               return new StringSetting(MachineAttribute.VrdePort, machine.getVRDEServer().getVRDEProperty("TCP/Ports"));
+    @Override
+    public _Setting get(IMachine machine) {
+        // TODO improve by having a getConsole() in SessionManager and throw the appropriate exception
+        try {
+            ISession sess = VBoxSessionManager.get().lockAuto(machine.getId());
+            try {
+                if ((sess.getConsole().getVRDEServerInfo() != null) && (sess.getConsole().getVRDEServerInfo().getPort() > 0)) {
+                    return new StringSetting(MachineAttribute.VrdePort, Integer.toString(sess.getConsole().getVRDEServerInfo().getPort()));
+                } else {
+                    return new StringSetting(MachineAttribute.VrdePort, machine.getVRDEServer().getVRDEProperty("TCP/Ports"));
+                }
+            } finally {
+                VBoxSessionManager.get().unlockAuto(machine.getId());
             }
-         } finally {
-            VBoxSessionManager.get().unlockAuto(machine.getId());
-         }
-      } catch (MachineLockingException e) {
-         return new StringSetting(MachineAttribute.VrdePort, machine.getVRDEServer().getVRDEProperty("TCP/Ports"));
-      }
-   }
+        } catch (MachineLockingException e) {
+            return new StringSetting(MachineAttribute.VrdePort, machine.getVRDEServer().getVRDEProperty("TCP/Ports"));
+        }
+    }
 
 }

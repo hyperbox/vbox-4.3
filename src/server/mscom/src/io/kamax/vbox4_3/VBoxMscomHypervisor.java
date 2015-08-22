@@ -26,32 +26,32 @@ import org.virtualbox_4_3.ISession;
 import org.virtualbox_4_3.VirtualBoxManager;
 
 @Hypervisor(
-      id = VirtualBox.ID.MSCOM_4_3,
-      typeId = VirtualBox.Type.MSCOM,
-      vendor = VirtualBox.VENDOR,
-      product = VirtualBox.PRODUCT,
-      schemes = { VirtualBox.ID.MSCOM_4_3 })
+        id = VirtualBox.ID.MSCOM_4_3,
+        typeId = VirtualBox.Type.MSCOM,
+        vendor = VirtualBox.VENDOR,
+        product = VirtualBox.PRODUCT,
+        schemes = { VirtualBox.ID.MSCOM_4_3 })
 public class VBoxMscomHypervisor extends VBoxHypervisor {
 
-   @Override
-   protected VirtualBoxManager connect(String options) {
-      return VirtualBoxManager.createInstance(null);
-   }
+    @Override
+    protected VirtualBoxManager connect(String options) {
+        return VirtualBoxManager.createInstance(null);
+    }
 
-   @Override
-   protected void disconnect() {
-      System.gc();
-   }
+    @Override
+    protected void disconnect() {
+        System.gc();
+    }
 
-   @Override
-   protected ISession getSession() {
-      return getMgr().getSessionObject();
-   }
+    @Override
+    protected ISession getSession() {
+        return getMgr().getSessionObject();
+    }
 
-   @Override
-   public void importAppliance(String applianceFile) {
-      // TODO Auto-generated method stub
+    @Override
+    public void importAppliance(String applianceFile) {
+        // TODO Auto-generated method stub
 
-   }
+    }
 
 }

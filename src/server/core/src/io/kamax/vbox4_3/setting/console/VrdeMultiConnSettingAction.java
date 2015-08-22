@@ -29,24 +29,24 @@ import org.virtualbox_4_3.LockType;
 
 public class VrdeMultiConnSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.VrdeMultiConnection.getId();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.VrdeMultiConnection.getId();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      machine.getVRDEServer().setAllowMultiConnection(setting.getBoolean());
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        machine.getVRDEServer().setAllowMultiConnection(setting.getBoolean());
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new BooleanSetting(MachineAttribute.VrdeMultiConnection, machine.getVRDEServer().getAllowMultiConnection());
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new BooleanSetting(MachineAttribute.VrdeMultiConnection, machine.getVRDEServer().getAllowMultiConnection());
+    }
 
 }

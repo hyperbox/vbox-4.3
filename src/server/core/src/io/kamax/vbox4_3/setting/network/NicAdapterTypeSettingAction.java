@@ -32,30 +32,30 @@ import org.virtualbox_4_3.VBoxException;
 
 public class NicAdapterTypeSettingAction implements _NetworkInterfaceSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return NetworkInterfaceAttribute.AdapterType.getId();
-   }
+    @Override
+    public String getSettingName() {
+        return NetworkInterfaceAttribute.AdapterType.getId();
+    }
 
-   @Override
-   public void set(INetworkAdapter nic, _Setting setting) {
-      try {
-         nic.setAdapterType(NetworkAdapterType.valueOf(setting.getValue().toString()));
-      } catch (VBoxException e) {
-         throw new ConfigurationException(e.getMessage());
-      } catch (IllegalArgumentException e) {
-         throw new ConfigurationException("Unkown adapter type [" + setting.getValue().toString() + "]");
-      }
-   }
+    @Override
+    public void set(INetworkAdapter nic, _Setting setting) {
+        try {
+            nic.setAdapterType(NetworkAdapterType.valueOf(setting.getValue().toString()));
+        } catch (VBoxException e) {
+            throw new ConfigurationException(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new ConfigurationException("Unkown adapter type [" + setting.getValue().toString() + "]");
+        }
+    }
 
-   @Override
-   public _Setting get(INetworkAdapter nic) {
-      return new NicAdapterTypeSetting(nic.getAdapterType().toString());
-   }
+    @Override
+    public _Setting get(INetworkAdapter nic) {
+        return new NicAdapterTypeSetting(nic.getAdapterType().toString());
+    }
 
 }

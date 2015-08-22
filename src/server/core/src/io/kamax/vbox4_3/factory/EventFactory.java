@@ -32,49 +32,49 @@ import org.virtualbox_4_3.VBoxEventType;
 
 public class EventFactory {
 
-   private static Map<VBoxEventType, _PreciseEventFactory> factories;
+    private static Map<VBoxEventType, _PreciseEventFactory> factories;
 
-   static {
-      factories = new HashMap<VBoxEventType, _PreciseEventFactory>();
+    static {
+        factories = new HashMap<VBoxEventType, _PreciseEventFactory>();
 
-      try {
-         Logger.debug("Current class loader: " + EventFactory.class.getClassLoader());
-         Logger.debug("Interface class loader: " + _PreciseEventFactory.class.getClassLoader());
-         Set<_PreciseEventFactory> factoriesSet = ClassManager.getAllOrFail(_PreciseEventFactory.class);
-         for (_PreciseEventFactory factory : factoriesSet) {
-            factories.put(factory.getType(), factory);
-         }
-      } catch (HyperboxException e) {
-         throw new HyperboxException(e);
-      }
-   }
+        try {
+            Logger.debug("Current class loader: " + EventFactory.class.getClassLoader());
+            Logger.debug("Interface class loader: " + _PreciseEventFactory.class.getClassLoader());
+            Set<_PreciseEventFactory> factoriesSet = ClassManager.getAllOrFail(_PreciseEventFactory.class);
+            for (_PreciseEventFactory factory : factoriesSet) {
+                factories.put(factory.getType(), factory);
+            }
+        } catch (HyperboxException e) {
+            throw new HyperboxException(e);
+        }
+    }
 
-   public static IEvent getRaw(IEvent rawEvent) {
-      if (factories.containsKey(rawEvent.getType())) {
-         try {
-            return factories.get(rawEvent.getType()).getRaw(rawEvent);
-         } catch (Throwable t) {
-            Logger.error("Unable to process event: " + t.getMessage());
+    public static IEvent getRaw(IEvent rawEvent) {
+        if (factories.containsKey(rawEvent.getType())) {
+            try {
+                return factories.get(rawEvent.getType()).getRaw(rawEvent);
+            } catch (Throwable t) {
+                Logger.error("Unable to process event: " + t.getMessage());
+                return null;
+            }
+        } else {
+            Logger.debug("Unknown event : " + rawEvent.getType());
             return null;
-         }
-      } else {
-         Logger.debug("Unknown event : " + rawEvent.getType());
-         return null;
-      }
-   }
+        }
+    }
 
-   public static _Event get(IEvent rawEvent) {
-      if (factories.containsKey(rawEvent.getType())) {
-         try {
-            return factories.get(rawEvent.getType()).getEvent(rawEvent);
-         } catch (Throwable t) {
-            Logger.error("Unable to process event: " + t.getMessage());
+    public static _Event get(IEvent rawEvent) {
+        if (factories.containsKey(rawEvent.getType())) {
+            try {
+                return factories.get(rawEvent.getType()).getEvent(rawEvent);
+            } catch (Throwable t) {
+                Logger.error("Unable to process event: " + t.getMessage());
+                return null;
+            }
+        } else {
+            Logger.debug("Unknown event : " + rawEvent.getType());
             return null;
-         }
-      } else {
-         Logger.debug("Unknown event : " + rawEvent.getType());
-         return null;
-      }
-   }
+        }
+    }
 
 }

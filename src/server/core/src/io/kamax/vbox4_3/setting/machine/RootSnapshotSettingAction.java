@@ -29,28 +29,28 @@ import org.virtualbox_4_3.LockType;
 
 public class RootSnapshotSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.RootSnapshotUuid.getId();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.RootSnapshotUuid.getId();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      // nothing will be done
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        // nothing will be done
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      if (machine.getSnapshotCount() != 0) {
-         return new RootSnapshotSetting(machine.findSnapshot(null).getId());
-      } else {
-         return new RootSnapshotSetting("");
-      }
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        if (machine.getSnapshotCount() != 0) {
+            return new RootSnapshotSetting(machine.findSnapshot(null).getId());
+        } else {
+            return new RootSnapshotSetting("");
+        }
+    }
 
 }

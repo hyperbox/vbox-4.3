@@ -30,24 +30,24 @@ import org.virtualbox_4_3.LockType;
 
 public class HasSnapshotSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return null;
-   }
+    @Override
+    public LockType getLockType() {
+        return null;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.HasSnapshot.getId();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.HasSnapshot.getId();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      throw new HyperboxException("Read-only setting");
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        throw new HyperboxException("Read-only setting");
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new BooleanSetting(MachineAttribute.HasSnapshot, machine.getSnapshotCount() != 0);
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new BooleanSetting(MachineAttribute.HasSnapshot, machine.getSnapshotCount() != 0);
+    }
 
 }

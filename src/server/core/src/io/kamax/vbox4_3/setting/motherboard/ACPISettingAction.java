@@ -30,24 +30,24 @@ import org.virtualbox_4_3.LockType;
 
 public class ACPISettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.ACPI.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.ACPI.toString();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      machine.getBIOSSettings().setACPIEnabled(((BooleanSetting) setting).getValue());
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        machine.getBIOSSettings().setACPIEnabled(((BooleanSetting) setting).getValue());
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new ACPISetting(machine.getBIOSSettings().getACPIEnabled());
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new ACPISetting(machine.getBIOSSettings().getACPIEnabled());
+    }
 
 }

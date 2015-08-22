@@ -30,24 +30,24 @@ import org.virtualbox_4_3.LockType;
 
 public class Accelerate2dVideoSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.Accelerate2dVideo.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.Accelerate2dVideo.toString();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      machine.setAccelerate2DVideoEnabled(((BooleanSetting) setting).getValue());
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        machine.setAccelerate2DVideoEnabled(((BooleanSetting) setting).getValue());
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new Accelerate2dVideoSetting(machine.getAccelerate2DVideoEnabled());
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new Accelerate2dVideoSetting(machine.getAccelerate2DVideoEnabled());
+    }
 
 }

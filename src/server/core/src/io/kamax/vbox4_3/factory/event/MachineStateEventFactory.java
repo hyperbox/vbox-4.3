@@ -30,23 +30,23 @@ import org.virtualbox_4_3.VBoxEventType;
 
 public class MachineStateEventFactory implements _PreciseEventFactory {
 
-   @Override
-   public VBoxEventType getType() {
-      return VBoxEventType.OnMachineStateChanged;
-   }
+    @Override
+    public VBoxEventType getType() {
+        return VBoxEventType.OnMachineStateChanged;
+    }
 
-   @Override
-   public IMachineStateChangedEvent getRaw(IEvent vbEvent) {
+    @Override
+    public IMachineStateChangedEvent getRaw(IEvent vbEvent) {
 
-      return IMachineStateChangedEvent.queryInterface(vbEvent);
-   }
+        return IMachineStateChangedEvent.queryInterface(vbEvent);
+    }
 
-   @Override
-   public _Event getEvent(IEvent vbEvent) {
+    @Override
+    public _Event getEvent(IEvent vbEvent) {
 
-      IMachineStateChangedEvent vmEvent = getRaw(vbEvent);
-      _Event event = new MachineStateEvent(vmEvent.getMachineId(), Mappings.get(vmEvent.getState()));
-      return event;
-   }
+        IMachineStateChangedEvent vmEvent = getRaw(vbEvent);
+        _Event event = new MachineStateEvent(vmEvent.getMachineId(), Mappings.get(vmEvent.getState()));
+        return event;
+    }
 
 }

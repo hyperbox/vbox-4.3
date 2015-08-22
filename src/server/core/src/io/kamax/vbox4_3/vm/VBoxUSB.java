@@ -34,56 +34,56 @@ import java.util.List;
 
 public class VBoxUSB implements _RawUSB {
 
-   private VBoxMachine machine;
+    private VBoxMachine machine;
 
-   public VBoxUSB(VBoxMachine machine) {
-      this.machine = machine;
-   }
+    public VBoxUSB(VBoxMachine machine) {
+        this.machine = machine;
+    }
 
-   @Override
-   public boolean isEnabled() {
-      return ((BooleanSetting) machine.getSetting(MachineAttribute.UsbOhci)).getValue();
-   }
+    @Override
+    public boolean isEnabled() {
+        return ((BooleanSetting) machine.getSetting(MachineAttribute.UsbOhci)).getValue();
+    }
 
-   @Override
-   public void setEnabled(boolean isEnabled) {
-      setSetting(new UsbOhciSetting(isEnabled));
-   }
+    @Override
+    public void setEnabled(boolean isEnabled) {
+        setSetting(new UsbOhciSetting(isEnabled));
+    }
 
-   @Override
-   public boolean isEhciEnabled() {
-      return ((BooleanSetting) machine.getSetting(MachineAttribute.UsbEhci)).getValue();
-   }
+    @Override
+    public boolean isEhciEnabled() {
+        return ((BooleanSetting) machine.getSetting(MachineAttribute.UsbEhci)).getValue();
+    }
 
-   @Override
-   public void setEhciEnabled(boolean isEnabled) {
-      setSetting(new UsbEhciSetting(isEnabled));
-   }
+    @Override
+    public void setEhciEnabled(boolean isEnabled) {
+        setSetting(new UsbEhciSetting(isEnabled));
+    }
 
-   @Override
-   public List<_Setting> listSettings() {
-      List<_Setting> settings = new ArrayList<_Setting>();
-      for (MachineAttribute setting : MachineAttribute.values()) {
-         if (setting.getDeviceType().equals(EntityType.USB)) {
-            getSetting(setting);
-         }
-      }
-      return settings;
-   }
+    @Override
+    public List<_Setting> listSettings() {
+        List<_Setting> settings = new ArrayList<_Setting>();
+        for (MachineAttribute setting : MachineAttribute.values()) {
+            if (setting.getDeviceType().equals(EntityType.USB)) {
+                getSetting(setting);
+            }
+        }
+        return settings;
+    }
 
-   @Override
-   public _Setting getSetting(Object getName) {
-      return VBoxSettingManager.get(machine, getName);
-   }
+    @Override
+    public _Setting getSetting(Object getName) {
+        return VBoxSettingManager.get(machine, getName);
+    }
 
-   @Override
-   public void setSetting(_Setting s) {
-      machine.setSetting(Arrays.asList(s));
-   }
+    @Override
+    public void setSetting(_Setting s) {
+        machine.setSetting(Arrays.asList(s));
+    }
 
-   @Override
-   public void setSetting(List<_Setting> s) {
-      machine.setSetting(s);
-   }
+    @Override
+    public void setSetting(List<_Setting> s) {
+        machine.setSetting(s);
+    }
 
 }

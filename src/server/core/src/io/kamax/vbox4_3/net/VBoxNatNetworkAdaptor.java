@@ -38,104 +38,104 @@ import org.virtualbox_4_3.NATProtocol;
 
 public class VBoxNatNetworkAdaptor extends VBoxAdaptor {
 
-   private static final String natRuleSplitChar = ":";
+    private static final String natRuleSplitChar = ":";
 
-   public VBoxNatNetworkAdaptor(INATNetwork natNet) {
-      super(natNet.getNetworkName(), natNet.getNetworkName(), VBoxNetMode.NATNetwork, natNet.getEnabled());
-   }
+    public VBoxNatNetworkAdaptor(INATNetwork natNet) {
+        super(natNet.getNetworkName(), natNet.getNetworkName(), VBoxNetMode.NATNetwork, natNet.getEnabled());
+    }
 
-   @Override
-   public void setLabel(String label) {
-      INATNetwork natNet = VBox.get().findNATNetworkByName(getId());
-      natNet.setNetworkName(label);
-   }
+    @Override
+    public void setLabel(String label) {
+        INATNetwork natNet = VBox.get().findNATNetworkByName(getId());
+        natNet.setNetworkName(label);
+    }
 
-   @Override
-   protected void process(_NetService svc) {
-      NetServiceType svcType = NetServiceType.valueOf(svc.getType());
-      INATNetwork natNet = VBox.get().findNATNetworkByName(getId());
-      switch (svcType) {
-         case IPv4_NetCIDR:
-            natNet.setNetwork(((NetService_IP4_CIDR_IO) svc).getCIDR());
-            break;
-         case DHCP_IPv4:
-            natNet.setNeedDhcpServer(svc.isEnabled());
-            break;
-         case IPv6:
-            natNet.setIPv6Enabled(svc.isEnabled());
-            break;
-         case IPv6_Gateway:
-            natNet.setAdvertiseDefaultIPv6RouteEnabled(svc.isEnabled());
-            break;
-         case NAT_IPv4:
-            NetService_NAT_IO svcNatIp4 = (NetService_NAT_IO) svc;
+    @Override
+    protected void process(_NetService svc) {
+        NetServiceType svcType = NetServiceType.valueOf(svc.getType());
+        INATNetwork natNet = VBox.get().findNATNetworkByName(getId());
+        switch (svcType) {
+            case IPv4_NetCIDR:
+                natNet.setNetwork(((NetService_IP4_CIDR_IO) svc).getCIDR());
+                break;
+            case DHCP_IPv4:
+                natNet.setNeedDhcpServer(svc.isEnabled());
+                break;
+            case IPv6:
+                natNet.setIPv6Enabled(svc.isEnabled());
+                break;
+            case IPv6_Gateway:
+                natNet.setAdvertiseDefaultIPv6RouteEnabled(svc.isEnabled());
+                break;
+            case NAT_IPv4:
+                NetService_NAT_IO svcNatIp4 = (NetService_NAT_IO) svc;
+                for (String ruleRaw : natNet.getPortForwardRules4()) {
+                    natNet.removePortForwardRule(false, ruleRaw.split(natRuleSplitChar)[0]);
+                }
+                for (_NATRule rule : svcNatIp4.getRules()) {
+                    natNet.addPortForwardRule(false, rule.getName(), NATProtocol.valueOf(rule.getProtocol().toUpperCase()), rule.getPublicIp(),
+                            Integer.parseInt(rule.getPublicPort()),
+                            rule.getPrivateIp(), Integer.parseInt(rule.getPrivatePort()));
+                }
+                break;
+            case NAT_IPv6:
+                NetService_NAT_IO svcNatIp6 = (NetService_NAT_IO) svc;
+                for (String ruleRaw : natNet.getPortForwardRules6()) {
+                    natNet.removePortForwardRule(true, ruleRaw.split(natRuleSplitChar)[0]);
+                }
+                for (_NATRule rule : svcNatIp6.getRules()) {
+                    natNet.addPortForwardRule(true, rule.getName(), NATProtocol.valueOf(rule.getProtocol().toUpperCase()), rule.getPublicIp(),
+                            Integer.parseInt(rule.getPublicPort()),
+                            rule.getPrivateIp(), Integer.parseInt(rule.getPrivatePort()));
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Service type " + svc.getType() + " is not supported on " + getMode().getId() + " adaptor");
+        }
+    }
+
+    @Override
+    public _NetService getService(String serviceTypeId) {
+        INATNetwork natNet = VBox.get().findNATNetworkByName(getId());
+
+        if (NetServiceType.IPv4_NetCIDR.is(serviceTypeId)) {
+            return new NetService_IP4_CIDR_IO(natNet.getNetwork());
+        }
+
+        if (NetServiceType.DHCP_IPv4.is(serviceTypeId)) {
+            return new NetService_DHCP_IP4_IO(natNet.getNeedDhcpServer());
+        }
+
+        if (NetServiceType.IPv6.is(serviceTypeId)) {
+            return new NetService_IP6_IO(natNet.getIPv6Enabled());
+        }
+
+        if (NetServiceType.IPv6_Gateway.is(serviceTypeId)) {
+            return new NetService_IP6_Gateway_IO(natNet.getAdvertiseDefaultIPv6RouteEnabled());
+        }
+
+        if (NetServiceType.NAT_IPv4.is(serviceTypeId)) {
+            NetService_NAT_IP4_IO svc = new NetService_NAT_IP4_IO(true);
             for (String ruleRaw : natNet.getPortForwardRules4()) {
-               natNet.removePortForwardRule(false, ruleRaw.split(natRuleSplitChar)[0]);
+                String[] ruleRawSplit = ruleRaw.split(natRuleSplitChar);
+                svc.addRule(new NATRuleIO(ruleRawSplit[0], ruleRawSplit[1], ruleRawSplit[2].replace("[", "").replace("]", ""), ruleRawSplit[3], ruleRawSplit[4]
+                        .replace("[", "").replace("]", ""), ruleRawSplit[5]));
             }
-            for (_NATRule rule : svcNatIp4.getRules()) {
-               natNet.addPortForwardRule(false, rule.getName(), NATProtocol.valueOf(rule.getProtocol().toUpperCase()), rule.getPublicIp(),
-                     Integer.parseInt(rule.getPublicPort()),
-                     rule.getPrivateIp(), Integer.parseInt(rule.getPrivatePort()));
-            }
-            break;
-         case NAT_IPv6:
-            NetService_NAT_IO svcNatIp6 = (NetService_NAT_IO) svc;
+            return svc;
+        }
+
+        if (NetServiceType.NAT_IPv6.is(serviceTypeId)) {
+            NetService_NAT_IP6_IO svc = new NetService_NAT_IP6_IO(true);
             for (String ruleRaw : natNet.getPortForwardRules6()) {
-               natNet.removePortForwardRule(true, ruleRaw.split(natRuleSplitChar)[0]);
+                String[] ruleRawSplit = ruleRaw.split(natRuleSplitChar);
+                svc.addRule(new NATRuleIO(ruleRawSplit[0], ruleRawSplit[1], ruleRawSplit[2].replace("[", "").replace("]", ""), ruleRawSplit[3], ruleRawSplit[4]
+                        .replace("[", "").replace("]", ""), ruleRawSplit[5]));
             }
-            for (_NATRule rule : svcNatIp6.getRules()) {
-               natNet.addPortForwardRule(true, rule.getName(), NATProtocol.valueOf(rule.getProtocol().toUpperCase()), rule.getPublicIp(),
-                     Integer.parseInt(rule.getPublicPort()),
-                     rule.getPrivateIp(), Integer.parseInt(rule.getPrivatePort()));
-            }
-            break;
-         default:
-            throw new IllegalArgumentException("Service type " + svc.getType() + " is not supported on " + getMode().getId() + " adaptor");
-      }
-   }
+            return svc;
+        }
 
-   @Override
-   public _NetService getService(String serviceTypeId) {
-      INATNetwork natNet = VBox.get().findNATNetworkByName(getId());
+        throw new IllegalArgumentException("Service type " + serviceTypeId + " is not supported on " + getMode().getId() + " adaptor");
 
-      if (NetServiceType.IPv4_NetCIDR.is(serviceTypeId)) {
-         return new NetService_IP4_CIDR_IO(natNet.getNetwork());
-      }
-
-      if (NetServiceType.DHCP_IPv4.is(serviceTypeId)) {
-         return new NetService_DHCP_IP4_IO(natNet.getNeedDhcpServer());
-      }
-
-      if (NetServiceType.IPv6.is(serviceTypeId)) {
-         return new NetService_IP6_IO(natNet.getIPv6Enabled());
-      }
-
-      if (NetServiceType.IPv6_Gateway.is(serviceTypeId)) {
-         return new NetService_IP6_Gateway_IO(natNet.getAdvertiseDefaultIPv6RouteEnabled());
-      }
-
-      if (NetServiceType.NAT_IPv4.is(serviceTypeId)) {
-         NetService_NAT_IP4_IO svc = new NetService_NAT_IP4_IO(true);
-         for (String ruleRaw : natNet.getPortForwardRules4()) {
-            String[] ruleRawSplit = ruleRaw.split(natRuleSplitChar);
-            svc.addRule(new NATRuleIO(ruleRawSplit[0], ruleRawSplit[1], ruleRawSplit[2].replace("[", "").replace("]", ""), ruleRawSplit[3], ruleRawSplit[4]
-                  .replace("[", "").replace("]", ""), ruleRawSplit[5]));
-         }
-         return svc;
-      }
-
-      if (NetServiceType.NAT_IPv6.is(serviceTypeId)) {
-         NetService_NAT_IP6_IO svc = new NetService_NAT_IP6_IO(true);
-         for (String ruleRaw : natNet.getPortForwardRules6()) {
-            String[] ruleRawSplit = ruleRaw.split(natRuleSplitChar);
-            svc.addRule(new NATRuleIO(ruleRawSplit[0], ruleRawSplit[1], ruleRawSplit[2].replace("[", "").replace("]", ""), ruleRawSplit[3], ruleRawSplit[4]
-                  .replace("[", "").replace("]", ""), ruleRawSplit[5]));
-         }
-         return svc;
-      }
-
-      throw new IllegalArgumentException("Service type " + serviceTypeId + " is not supported on " + getMode().getId() + " adaptor");
-
-   }
+    }
 
 }

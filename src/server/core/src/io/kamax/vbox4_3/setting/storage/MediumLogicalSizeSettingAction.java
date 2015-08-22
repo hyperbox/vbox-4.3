@@ -29,19 +29,19 @@ import org.virtualbox_4_3.IMedium;
 
 public class MediumLogicalSizeSettingAction implements _MediumSettingAction {
 
-   @Override
-   public String getSettingName() {
-      return MediumAttribute.LogicalSize.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MediumAttribute.LogicalSize.toString();
+    }
 
-   @Override
-   public void set(IMedium medium, _Setting setting) {
-      throw new HyperboxException("Read-only setting");
-   }
+    @Override
+    public void set(IMedium medium, _Setting setting) {
+        throw new HyperboxException("Read-only setting");
+    }
 
-   @Override
-   public _Setting get(IMedium medium) {
-      return new PositiveNumberSetting(MediumAttribute.LogicalSize, medium.getLogicalSize());
-   }
+    @Override
+    public _Setting get(IMedium medium) {
+        return new PositiveNumberSetting(MediumAttribute.LogicalSize, medium.getLogicalSize());
+    }
 
 }

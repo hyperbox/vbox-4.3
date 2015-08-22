@@ -29,22 +29,22 @@ import org.virtualbox_4_3.VBoxEventType;
 
 public class ExtraDataChangeEventFactory implements _PreciseEventFactory {
 
-   @Override
-   public VBoxEventType getType() {
-      return VBoxEventType.OnExtraDataChanged;
-   }
+    @Override
+    public VBoxEventType getType() {
+        return VBoxEventType.OnExtraDataChanged;
+    }
 
-   @Override
-   public IEvent getRaw(IEvent vbEvent) {
-      return IExtraDataChangedEvent.queryInterface(vbEvent);
-   }
+    @Override
+    public IEvent getRaw(IEvent vbEvent) {
+        return IExtraDataChangedEvent.queryInterface(vbEvent);
+    }
 
-   @Override
-   public _Event getEvent(IEvent vbEvent) {
-      IExtraDataChangedEvent ev = (IExtraDataChangedEvent) vbEvent;
-      Logger.debug("ExtraDataChanged event for " + (ev.getMachineId() == null ? "global data" : "Machine ID ") + ev.getMachineId() + " | Key: " + ev.getKey()
-            + " | Value: " + ev.getValue());
-      return null;
-   }
+    @Override
+    public _Event getEvent(IEvent vbEvent) {
+        IExtraDataChangedEvent ev = (IExtraDataChangedEvent) vbEvent;
+        Logger.debug("ExtraDataChanged event for " + (ev.getMachineId() == null ? "global data" : "Machine ID ") + ev.getMachineId() + " | Key: " + ev.getKey()
+                + " | Value: " + ev.getValue());
+        return null;
+    }
 
 }

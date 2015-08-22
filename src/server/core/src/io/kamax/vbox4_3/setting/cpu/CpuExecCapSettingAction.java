@@ -30,24 +30,24 @@ import org.virtualbox_4_3.LockType;
 
 public class CpuExecCapSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.CpuExecCap.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.CpuExecCap.toString();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      machine.setCPUExecutionCap(((PositiveNumberSetting) setting).getValue());
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        machine.setCPUExecutionCap(((PositiveNumberSetting) setting).getValue());
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new CpuExecCapSetting(machine.getCPUExecutionCap());
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new CpuExecCapSetting(machine.getCPUExecutionCap());
+    }
 
 }

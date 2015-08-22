@@ -30,26 +30,26 @@ import org.virtualbox_4_3.LockType;
 
 public final class ControllerNameSettingAction implements _StorageControllerSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return StorageControllerAttribute.Name.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return StorageControllerAttribute.Name.toString();
+    }
 
-   @Override
-   public void set(IStorageController sct, _Setting setting) {
-      if (!setting.getString().contentEquals(get(sct).getString())) {
-         throw new HyperboxException("Read-only setting");
-      }
-   }
+    @Override
+    public void set(IStorageController sct, _Setting setting) {
+        if (!setting.getString().contentEquals(get(sct).getString())) {
+            throw new HyperboxException("Read-only setting");
+        }
+    }
 
-   @Override
-   public _Setting get(IStorageController sct) {
-      return new ControllerNameSetting(sct.getName());
-   }
+    @Override
+    public _Setting get(IStorageController sct) {
+        return new ControllerNameSetting(sct.getName());
+    }
 
 }

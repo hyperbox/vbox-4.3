@@ -29,23 +29,23 @@ import org.virtualbox_4_3.IMedium;
 
 public class MediumBaseUuidSettingAction implements _MediumSettingAction {
 
-   @Override
-   public String getSettingName() {
-      return MediumAttribute.BaseUUID.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MediumAttribute.BaseUUID.toString();
+    }
 
-   @Override
-   public void set(IMedium medium, _Setting setting) {
-      throw new HyperboxException("Read-only setting");
-   }
+    @Override
+    public void set(IMedium medium, _Setting setting) {
+        throw new HyperboxException("Read-only setting");
+    }
 
-   @Override
-   public _Setting get(IMedium medium) {
-      if (medium.getParent() != null) {
-         return new StringSetting(MediumAttribute.BaseUUID, medium.getBase().getId());
-      } else {
-         return new StringSetting(MediumAttribute.BaseUUID, "");
-      }
-   }
+    @Override
+    public _Setting get(IMedium medium) {
+        if (medium.getParent() != null) {
+            return new StringSetting(MediumAttribute.BaseUUID, medium.getBase().getId());
+        } else {
+            return new StringSetting(MediumAttribute.BaseUUID, "");
+        }
+    }
 
 }

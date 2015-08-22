@@ -30,23 +30,23 @@ import java.util.List;
 
 public class Model_4_3 extends GenericModel {
 
-   @Override
-   public List<String> getSupported() {
-      return VirtualBox.ID_GROUP.ALL_4_3;
-   }
+    @Override
+    public List<String> getSupported() {
+        return VirtualBox.ID_GROUP.ALL_4_3;
+    }
 
-   @Override
-   public _GlobalConfigureView getConfigureView() {
-      return new GlobalConfigureView_4_3();
-   }
+    @Override
+    public _GlobalConfigureView getConfigureView() {
+        return new GlobalConfigureView_4_3();
+    }
 
-   @Override
-   public _NetAdaptorConfigureView getNetAdaptorConfig(String srvId, String modeId, String adaptId) {
-      if (VBoxNetMode.NATNetwork.is(modeId)) {
-         return new NATNetworkNicEditor(srvId, modeId, adaptId);
-      } else {
-         return super.getNetAdaptorConfig(srvId, modeId, adaptId);
-      }
-   }
+    @Override
+    public _NetAdaptorConfigureView getNetAdaptorConfig(String srvId, String modeId, String adaptId) {
+        if (VBoxNetMode.NATNetwork.is(modeId)) {
+            return new NATNetworkNicEditor(srvId, modeId, adaptId);
+        } else {
+            return super.getNetAdaptorConfig(srvId, modeId, adaptId);
+        }
+    }
 
 }

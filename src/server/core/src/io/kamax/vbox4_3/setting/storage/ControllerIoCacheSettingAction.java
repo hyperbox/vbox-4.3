@@ -30,24 +30,24 @@ import org.virtualbox_4_3.LockType;
 
 public final class ControllerIoCacheSettingAction implements _StorageControllerSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return StorageControllerAttribute.IoCache.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return StorageControllerAttribute.IoCache.toString();
+    }
 
-   @Override
-   public void set(IStorageController sct, _Setting setting) {
-      sct.setUseHostIOCache(((BooleanSetting) setting).getValue());
-   }
+    @Override
+    public void set(IStorageController sct, _Setting setting) {
+        sct.setUseHostIOCache(((BooleanSetting) setting).getValue());
+    }
 
-   @Override
-   public _Setting get(IStorageController sct) {
-      return new ControllerIoCacheSetting(sct.getUseHostIOCache());
-   }
+    @Override
+    public _Setting get(IStorageController sct) {
+        return new ControllerIoCacheSetting(sct.getUseHostIOCache());
+    }
 
 }

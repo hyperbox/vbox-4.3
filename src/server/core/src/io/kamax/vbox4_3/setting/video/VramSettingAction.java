@@ -30,24 +30,24 @@ import org.virtualbox_4_3.LockType;
 
 public class VramSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.VRAM.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.VRAM.toString();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      machine.setVRAMSize(((PositiveNumberSetting) setting).getValue());
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        machine.setVRAMSize(((PositiveNumberSetting) setting).getValue());
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new VRamSetting(machine.getVRAMSize());
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new VRamSetting(machine.getVRAMSize());
+    }
 
 }

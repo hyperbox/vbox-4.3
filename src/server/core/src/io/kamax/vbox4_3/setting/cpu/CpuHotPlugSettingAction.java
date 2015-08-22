@@ -30,24 +30,24 @@ import org.virtualbox_4_3.LockType;
 
 public class CpuHotPlugSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.CpuHotPlug.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.CpuHotPlug.toString();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      machine.setCPUHotPlugEnabled(((BooleanSetting) setting).getValue());
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        machine.setCPUHotPlugEnabled(((BooleanSetting) setting).getValue());
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new CpuHotPlugSetting(machine.getCPUHotPlugEnabled());
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new CpuHotPlugSetting(machine.getCPUHotPlugEnabled());
+    }
 
 }

@@ -32,32 +32,32 @@ import org.virtualbox_4_3.VBoxException;
 
 public class NicPromiscuousModeSettingAction implements _NetworkInterfaceSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return NetworkInterfaceAttribute.PromiscuousMode.getId();
-   }
+    @Override
+    public String getSettingName() {
+        return NetworkInterfaceAttribute.PromiscuousMode.getId();
+    }
 
-   @Override
-   public void set(INetworkAdapter nic, _Setting setting) {
-      try {
-         NetworkAdapterPromiscModePolicy mode = NetworkAdapterPromiscModePolicy.valueOf(setting.getString());
-         nic.setPromiscModePolicy(mode);
-      } catch (VBoxException e) {
-         throw new ConfigurationException(e.getMessage());
-      } catch (IllegalArgumentException e) {
-         throw new ConfigurationException("Unkown Promiscuous mode: " + setting.getString());
-      }
+    @Override
+    public void set(INetworkAdapter nic, _Setting setting) {
+        try {
+            NetworkAdapterPromiscModePolicy mode = NetworkAdapterPromiscModePolicy.valueOf(setting.getString());
+            nic.setPromiscModePolicy(mode);
+        } catch (VBoxException e) {
+            throw new ConfigurationException(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new ConfigurationException("Unkown Promiscuous mode: " + setting.getString());
+        }
 
-   }
+    }
 
-   @Override
-   public _Setting get(INetworkAdapter nic) {
-      return new NicPromiscuousModeSetting(nic.getPromiscModePolicy().toString());
-   }
+    @Override
+    public _Setting get(INetworkAdapter nic) {
+        return new NicPromiscuousModeSetting(nic.getPromiscModePolicy().toString());
+    }
 
 }

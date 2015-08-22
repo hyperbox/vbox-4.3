@@ -29,25 +29,25 @@ import org.virtualbox_4_3.LockType;
 
 public class SnapshotDescriptionSettingAction implements _SnapshotSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return SnapshotAttribute.Description.getId();
-   }
+    @Override
+    public String getSettingName() {
+        return SnapshotAttribute.Description.getId();
+    }
 
-   @Override
-   public void set(ISnapshot snap, _Setting setting) {
-      String desc = setting.getString();
-      snap.setDescription(desc);
-   }
+    @Override
+    public void set(ISnapshot snap, _Setting setting) {
+        String desc = setting.getString();
+        snap.setDescription(desc);
+    }
 
-   @Override
-   public _Setting get(ISnapshot snap) {
-      return new StringSetting(SnapshotAttribute.Description, snap.getDescription());
-   }
+    @Override
+    public _Setting get(ISnapshot snap) {
+        return new StringSetting(SnapshotAttribute.Description, snap.getDescription());
+    }
 
 }

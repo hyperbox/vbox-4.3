@@ -29,19 +29,19 @@ import org.virtualbox_4_3.IMedium;
 
 public class MediumAutoResetSettingAction implements _MediumSettingAction {
 
-   @Override
-   public String getSettingName() {
-      return MediumAttribute.AutoReset.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MediumAttribute.AutoReset.toString();
+    }
 
-   @Override
-   public void set(IMedium medium, _Setting setting) {
-      medium.setAutoReset(((BooleanSetting) setting).getValue());
-   }
+    @Override
+    public void set(IMedium medium, _Setting setting) {
+        medium.setAutoReset(((BooleanSetting) setting).getValue());
+    }
 
-   @Override
-   public _Setting get(IMedium medium) {
-      return new MediumAutoResetSetting(medium.getAutoReset());
-   }
+    @Override
+    public _Setting get(IMedium medium) {
+        return new MediumAutoResetSetting(medium.getAutoReset());
+    }
 
 }

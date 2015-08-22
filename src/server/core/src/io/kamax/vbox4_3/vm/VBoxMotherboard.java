@@ -36,66 +36,66 @@ import java.util.List;
 
 public class VBoxMotherboard implements _RawMotherboard {
 
-   private VBoxMachine machine;
+    private VBoxMachine machine;
 
-   public VBoxMotherboard(VBoxMachine machine) {
-      this.machine = machine;
-   }
+    public VBoxMotherboard(VBoxMachine machine) {
+        this.machine = machine;
+    }
 
-   @Override
-   public boolean isAcpiEnabled() {
-      return ((BooleanSetting) machine.getSetting(MachineAttribute.ACPI)).getValue();
-   }
+    @Override
+    public boolean isAcpiEnabled() {
+        return ((BooleanSetting) machine.getSetting(MachineAttribute.ACPI)).getValue();
+    }
 
-   @Override
-   public void setAcpi(boolean isEnabled) {
-      setSetting(new ACPISetting(isEnabled));
-   }
+    @Override
+    public void setAcpi(boolean isEnabled) {
+        setSetting(new ACPISetting(isEnabled));
+    }
 
-   @Override
-   public boolean isIoApicEnabled() {
-      return ((BooleanSetting) machine.getSetting(MachineAttribute.IoAPIC)).getValue();
-   }
+    @Override
+    public boolean isIoApicEnabled() {
+        return ((BooleanSetting) machine.getSetting(MachineAttribute.IoAPIC)).getValue();
+    }
 
-   @Override
-   public void setIoApic(boolean isEnabled) {
-      setSetting(new IoAPICSetting(isEnabled));
-   }
+    @Override
+    public void setIoApic(boolean isEnabled) {
+        setSetting(new IoAPICSetting(isEnabled));
+    }
 
-   @Override
-   public String getHardwareUuid() {
-      return ((StringSetting) machine.getSetting(MachineAttribute.HardwareUuid)).getValue();
-   }
+    @Override
+    public String getHardwareUuid() {
+        return ((StringSetting) machine.getSetting(MachineAttribute.HardwareUuid)).getValue();
+    }
 
-   @Override
-   public void setHardwareUuid(String uuid) {
-      setSetting(new HardwareUuidSetting(uuid));
-   }
+    @Override
+    public void setHardwareUuid(String uuid) {
+        setSetting(new HardwareUuidSetting(uuid));
+    }
 
-   @Override
-   public List<_Setting> listSettings() {
-      List<_Setting> settings = new ArrayList<_Setting>();
-      for (MachineAttribute setting : MachineAttribute.values()) {
-         if (setting.getDeviceType().equals(EntityType.Motherboard)) {
-            getSetting(setting);
-         }
-      }
-      return settings;
-   }
+    @Override
+    public List<_Setting> listSettings() {
+        List<_Setting> settings = new ArrayList<_Setting>();
+        for (MachineAttribute setting : MachineAttribute.values()) {
+            if (setting.getDeviceType().equals(EntityType.Motherboard)) {
+                getSetting(setting);
+            }
+        }
+        return settings;
+    }
 
-   @Override
-   public _Setting getSetting(Object getName) {
-      return VBoxSettingManager.get(machine, getName);
-   }
+    @Override
+    public _Setting getSetting(Object getName) {
+        return VBoxSettingManager.get(machine, getName);
+    }
 
-   @Override
-   public void setSetting(_Setting s) {
-      machine.setSetting(Arrays.asList(s));
-   }
+    @Override
+    public void setSetting(_Setting s) {
+        machine.setSetting(Arrays.asList(s));
+    }
 
-   @Override
-   public void setSetting(List<_Setting> s) {
-      machine.setSetting(s);
-   }
+    @Override
+    public void setSetting(List<_Setting> s) {
+        machine.setSetting(s);
+    }
 
 }

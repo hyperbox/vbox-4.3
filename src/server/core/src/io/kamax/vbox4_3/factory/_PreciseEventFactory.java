@@ -26,10 +26,10 @@ import org.virtualbox_4_3.VBoxEventType;
 
 public interface _PreciseEventFactory {
 
-   public VBoxEventType getType();
+    public VBoxEventType getType();
 
-   public IEvent getRaw(IEvent vbEvent);
+    public IEvent getRaw(IEvent vbEvent);
 
-   public _Event getEvent(IEvent vbEvent);
+    public _Event getEvent(IEvent vbEvent);
 
 }

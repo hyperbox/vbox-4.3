@@ -32,28 +32,28 @@ import org.virtualbox_4_3.VBoxException;
 
 public class NicCableConnectedSettingAction implements _NetworkInterfaceSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return NetworkInterfaceAttribute.CableConnected.getId();
-   }
+    @Override
+    public String getSettingName() {
+        return NetworkInterfaceAttribute.CableConnected.getId();
+    }
 
-   @Override
-   public void set(INetworkAdapter nic, _Setting setting) {
-      try {
-         nic.setCableConnected(((BooleanSetting) setting).getValue());
-      } catch (VBoxException e) {
-         throw new ConfigurationException(e.getMessage());
-      }
-   }
+    @Override
+    public void set(INetworkAdapter nic, _Setting setting) {
+        try {
+            nic.setCableConnected(((BooleanSetting) setting).getValue());
+        } catch (VBoxException e) {
+            throw new ConfigurationException(e.getMessage());
+        }
+    }
 
-   @Override
-   public _Setting get(INetworkAdapter nic) {
-      return new NicCableConnectedSetting(nic.getCableConnected());
-   }
+    @Override
+    public _Setting get(INetworkAdapter nic) {
+        return new NicCableConnectedSetting(nic.getCableConnected());
+    }
 
 }

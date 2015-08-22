@@ -32,46 +32,46 @@ import java.util.List;
 
 public final class VBoxCPU implements _RawCPU {
 
-   private VBoxMachine machine;
+    private VBoxMachine machine;
 
-   public VBoxCPU(VBoxMachine machine) {
-      this.machine = machine;
-   }
+    public VBoxCPU(VBoxMachine machine) {
+        this.machine = machine;
+    }
 
-   @Override
-   public long getAmount() {
-      return ((CpuCountSetting) getSetting(MachineAttribute.CpuCount)).getValue();
-   }
+    @Override
+    public long getAmount() {
+        return ((CpuCountSetting) getSetting(MachineAttribute.CpuCount)).getValue();
+    }
 
-   @Override
-   public void setAmount(long amount) {
-      setSetting(new CpuCountSetting(amount));
-   }
+    @Override
+    public void setAmount(long amount) {
+        setSetting(new CpuCountSetting(amount));
+    }
 
-   @Override
-   public List<_Setting> listSettings() {
-      List<_Setting> settings = new ArrayList<_Setting>();
-      for (MachineAttribute setting : MachineAttribute.values()) {
-         if (setting.getDeviceType().equals(EntityType.CPU)) {
-            getSetting(setting);
-         }
-      }
-      return settings;
-   }
+    @Override
+    public List<_Setting> listSettings() {
+        List<_Setting> settings = new ArrayList<_Setting>();
+        for (MachineAttribute setting : MachineAttribute.values()) {
+            if (setting.getDeviceType().equals(EntityType.CPU)) {
+                getSetting(setting);
+            }
+        }
+        return settings;
+    }
 
-   @Override
-   public _Setting getSetting(Object getName) {
-      return VBoxSettingManager.get(machine, getName);
-   }
+    @Override
+    public _Setting getSetting(Object getName) {
+        return VBoxSettingManager.get(machine, getName);
+    }
 
-   @Override
-   public void setSetting(_Setting s) {
-      VBoxSettingManager.set(machine, Arrays.asList(s));
-   }
+    @Override
+    public void setSetting(_Setting s) {
+        VBoxSettingManager.set(machine, Arrays.asList(s));
+    }
 
-   @Override
-   public void setSetting(List<_Setting> s) {
-      VBoxSettingManager.set(machine, s);
-   }
+    @Override
+    public void setSetting(List<_Setting> s) {
+        VBoxSettingManager.set(machine, s);
+    }
 
 }

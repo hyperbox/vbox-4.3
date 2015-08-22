@@ -29,56 +29,56 @@ import org.virtualbox_4_3.ISession;
 import org.virtualbox_4_3.VirtualBoxManager;
 
 @Hypervisor(
-      id = VirtualBox.ID.XPCOM_4_3,
-      typeId = VirtualBox.Type.XPCOM,
-      vendor = VirtualBox.VENDOR,
-      product = VirtualBox.PRODUCT,
-      schemes = { VirtualBox.ID.XPCOM_4_3 })
+        id = VirtualBox.ID.XPCOM_4_3,
+        typeId = VirtualBox.Type.XPCOM,
+        vendor = VirtualBox.VENDOR,
+        product = VirtualBox.PRODUCT,
+        schemes = { VirtualBox.ID.XPCOM_4_3 })
 public final class VBoxXpcomHypervisor extends VBoxHypervisor {
 
-   @Override
-   public String getId() {
-      return this.getClass().getAnnotation(Hypervisor.class).id();
-   }
+    @Override
+    public String getId() {
+        return this.getClass().getAnnotation(Hypervisor.class).id();
+    }
 
-   @Override
-   public String getTypeId() {
-      return this.getClass().getAnnotation(Hypervisor.class).typeId();
-   }
+    @Override
+    public String getTypeId() {
+        return this.getClass().getAnnotation(Hypervisor.class).typeId();
+    }
 
-   @Override
-   protected VirtualBoxManager connect(String options) {
-      if (AxStrings.isEmpty(options)) {
-         options = VBoxXPCOM.getDefaultHome();
-      }
+    @Override
+    protected VirtualBoxManager connect(String options) {
+        if (AxStrings.isEmpty(options)) {
+            options = VBoxXPCOM.getDefaultHome();
+        }
 
-      VBoxXPCOM.triggerVBoxSVC(options);
-      VirtualBoxManager mgr = VirtualBoxManager.createInstance(options);
-      if (mgr.getVBox().getVersion().contains("OSE") && (mgr.getVBox().getRevision() < 50393)) {
-         throw new HypervisorException(
-               "XPCOM is only available on OSE from revision 50393 or greater. See https://www.virtualbox.org/ticket/11232 for more information.");
-      } else if (mgr.getVBox().getRevision() < 92456) {
-         throw new HypervisorException(
-               "XPCOM is only available from revision 92456 or greater. See https://www.virtualbox.org/ticket/11232 for more information.");
-      } else {
-         return mgr;
-      }
-   }
+        VBoxXPCOM.triggerVBoxSVC(options);
+        VirtualBoxManager mgr = VirtualBoxManager.createInstance(options);
+        if (mgr.getVBox().getVersion().contains("OSE") && (mgr.getVBox().getRevision() < 50393)) {
+            throw new HypervisorException(
+                    "XPCOM is only available on OSE from revision 50393 or greater. See https://www.virtualbox.org/ticket/11232 for more information.");
+        } else if (mgr.getVBox().getRevision() < 92456) {
+            throw new HypervisorException(
+                    "XPCOM is only available from revision 92456 or greater. See https://www.virtualbox.org/ticket/11232 for more information.");
+        } else {
+            return mgr;
+        }
+    }
 
-   @Override
-   protected void disconnect() {
-      System.gc();
-   }
+    @Override
+    protected void disconnect() {
+        System.gc();
+    }
 
-   @Override
-   protected ISession getSession() {
-      return getMgr().getSessionObject();
-   }
+    @Override
+    protected ISession getSession() {
+        return getMgr().getSessionObject();
+    }
 
-   @Override
-   public void importAppliance(String applianceFile) {
-      // TODO Auto-generated method stub
+    @Override
+    public void importAppliance(String applianceFile) {
+        // TODO Auto-generated method stub
 
-   }
+    }
 
 }

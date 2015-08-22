@@ -29,56 +29,56 @@ import org.virtualbox_4_3.LockType;
 
 public class NicAttachNameSettingAction implements _NetworkInterfaceSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return NetworkInterfaceAttribute.AttachName.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return NetworkInterfaceAttribute.AttachName.toString();
+    }
 
-   @Override
-   public void set(INetworkAdapter nic, _Setting setting) {
-      switch (nic.getAttachmentType()) {
-         case Bridged:
-            nic.setBridgedInterface(setting.getString());
-            break;
-         case Generic:
-            nic.setGenericDriver(setting.getString());
-            break;
-         case HostOnly:
-            nic.setHostOnlyInterface(setting.getString());
-            break;
-         case Internal:
-            nic.setInternalNetwork(setting.getString());
-            break;
-         default:
-            break;
-      }
-   }
+    @Override
+    public void set(INetworkAdapter nic, _Setting setting) {
+        switch (nic.getAttachmentType()) {
+            case Bridged:
+                nic.setBridgedInterface(setting.getString());
+                break;
+            case Generic:
+                nic.setGenericDriver(setting.getString());
+                break;
+            case HostOnly:
+                nic.setHostOnlyInterface(setting.getString());
+                break;
+            case Internal:
+                nic.setInternalNetwork(setting.getString());
+                break;
+            default:
+                break;
+        }
+    }
 
-   @Override
-   public _Setting get(INetworkAdapter nic) {
-      String value = "";
-      switch (nic.getAttachmentType()) {
-         case Bridged:
-            value = nic.getBridgedInterface();
-            break;
-         case Generic:
-            value = nic.getGenericDriver();
-            break;
-         case HostOnly:
-            value = nic.getHostOnlyInterface();
-            break;
-         case Internal:
-            value = nic.getInternalNetwork();
-            break;
-         default:
-            break;
-      }
-      return new NicAttachNameSetting(value);
-   }
+    @Override
+    public _Setting get(INetworkAdapter nic) {
+        String value = "";
+        switch (nic.getAttachmentType()) {
+            case Bridged:
+                value = nic.getBridgedInterface();
+                break;
+            case Generic:
+                value = nic.getGenericDriver();
+                break;
+            case HostOnly:
+                value = nic.getHostOnlyInterface();
+                break;
+            case Internal:
+                value = nic.getInternalNetwork();
+                break;
+            default:
+                break;
+        }
+        return new NicAttachNameSetting(value);
+    }
 
 }

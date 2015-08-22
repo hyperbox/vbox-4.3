@@ -29,19 +29,19 @@ import org.virtualbox_4_3.IMedium;
 
 public final class MediumNameSettingAction implements _MediumSettingAction {
 
-   @Override
-   public String getSettingName() {
-      return MediumAttribute.Name.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MediumAttribute.Name.toString();
+    }
 
-   @Override
-   public void set(IMedium medium, _Setting setting) {
-      throw new HyperboxException("Read-only setting");
-   }
+    @Override
+    public void set(IMedium medium, _Setting setting) {
+        throw new HyperboxException("Read-only setting");
+    }
 
-   @Override
-   public _Setting get(IMedium medium) {
-      return new StringSetting(MediumAttribute.Name, medium.getName());
-   }
+    @Override
+    public _Setting get(IMedium medium) {
+        return new StringSetting(MediumAttribute.Name, medium.getName());
+    }
 
 }

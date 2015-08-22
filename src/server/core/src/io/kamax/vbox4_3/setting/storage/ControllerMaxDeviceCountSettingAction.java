@@ -30,26 +30,26 @@ import org.virtualbox_4_3.LockType;
 
 public final class ControllerMaxDeviceCountSettingAction implements _StorageControllerSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return StorageControllerAttribute.MaxDeviceCount.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return StorageControllerAttribute.MaxDeviceCount.toString();
+    }
 
-   @Override
-   public void set(IStorageController sct, _Setting setting) {
-      if (setting.getNumber() != get(sct).getNumber()) {
-         throw new HyperboxException("Read-only setting");
-      }
-   }
+    @Override
+    public void set(IStorageController sct, _Setting setting) {
+        if (setting.getNumber() != get(sct).getNumber()) {
+            throw new HyperboxException("Read-only setting");
+        }
+    }
 
-   @Override
-   public _Setting get(IStorageController sct) {
-      return new ControllerMaxDeviceCountSetting(sct.getMaxDevicesPerPortCount());
-   }
+    @Override
+    public _Setting get(IStorageController sct) {
+        return new ControllerMaxDeviceCountSetting(sct.getMaxDevicesPerPortCount());
+    }
 
 }

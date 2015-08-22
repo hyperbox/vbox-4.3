@@ -33,27 +33,27 @@ import org.virtualbox_4_3.LockType;
 
 public final class AudioControllerSettingAction implements _MachineSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Write;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Write;
+    }
 
-   @Override
-   public String getSettingName() {
-      return MachineAttribute.AudioController.toString();
-   }
+    @Override
+    public String getSettingName() {
+        return MachineAttribute.AudioController.toString();
+    }
 
-   @Override
-   public void set(IMachine machine, _Setting setting) {
-      String rawAudioCtrl = ((StringSetting) setting).getValue();
-      AudioController audioCtrl = AudioController.valueOf(rawAudioCtrl);
-      AudioControllerType audioCtrlType = Mappings.get(audioCtrl);
-      machine.getAudioAdapter().setAudioController(audioCtrlType);
-   }
+    @Override
+    public void set(IMachine machine, _Setting setting) {
+        String rawAudioCtrl = ((StringSetting) setting).getValue();
+        AudioController audioCtrl = AudioController.valueOf(rawAudioCtrl);
+        AudioControllerType audioCtrlType = Mappings.get(audioCtrl);
+        machine.getAudioAdapter().setAudioController(audioCtrlType);
+    }
 
-   @Override
-   public _Setting get(IMachine machine) {
-      return new AudioControllerSetting(Mappings.get(machine.getAudioAdapter().getAudioController()));
-   }
+    @Override
+    public _Setting get(IMachine machine) {
+        return new AudioControllerSetting(Mappings.get(machine.getAudioAdapter().getAudioController()));
+    }
 
 }

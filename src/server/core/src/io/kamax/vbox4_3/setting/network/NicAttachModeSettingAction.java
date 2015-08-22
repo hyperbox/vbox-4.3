@@ -32,30 +32,30 @@ import org.virtualbox_4_3.VBoxException;
 
 public class NicAttachModeSettingAction implements _NetworkInterfaceSettingAction {
 
-   @Override
-   public LockType getLockType() {
-      return LockType.Shared;
-   }
+    @Override
+    public LockType getLockType() {
+        return LockType.Shared;
+    }
 
-   @Override
-   public String getSettingName() {
-      return NetworkInterfaceAttribute.AttachMode.getId();
-   }
+    @Override
+    public String getSettingName() {
+        return NetworkInterfaceAttribute.AttachMode.getId();
+    }
 
-   @Override
-   public void set(INetworkAdapter nic, _Setting setting) {
-      try {
-         nic.setAttachmentType(NetworkAttachmentType.valueOf(setting.getValue().toString()));
-      } catch (VBoxException e) {
-         throw new ConfigurationException(e.getMessage());
-      } catch (IllegalArgumentException e) {
-         throw new ConfigurationException("Unkown attach mode [" + setting.getString() + "]");
-      }
-   }
+    @Override
+    public void set(INetworkAdapter nic, _Setting setting) {
+        try {
+            nic.setAttachmentType(NetworkAttachmentType.valueOf(setting.getValue().toString()));
+        } catch (VBoxException e) {
+            throw new ConfigurationException(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new ConfigurationException("Unkown attach mode [" + setting.getString() + "]");
+        }
+    }
 
-   @Override
-   public _Setting get(INetworkAdapter nic) {
-      return new NicAttachModeSetting(nic.getAttachmentType().toString());
-   }
+    @Override
+    public _Setting get(INetworkAdapter nic) {
+        return new NicAttachModeSetting(nic.getAttachmentType().toString());
+    }
 
 }
