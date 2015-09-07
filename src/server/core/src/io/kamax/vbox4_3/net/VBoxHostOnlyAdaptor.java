@@ -29,6 +29,7 @@ import io.kamax.hbox.hypervisor.net._NetService;
 import io.kamax.hbox.hypervisor.net._NetService_IP4;
 import io.kamax.hbox.hypervisor.net._NetService_IP4_DHCP;
 import io.kamax.hbox.hypervisor.net._NetService_IP6;
+import io.kamax.vbox.VBoxNetMode;
 import io.kamax.vbox.net.VBoxAdaptor;
 import io.kamax.vbox4_3.VBox;
 import org.virtualbox_4_3.HostNetworkInterfaceStatus;
