@@ -20,7 +20,6 @@
 
 package io.kamax.vbox4_3;
 
-import io.kamax.hbox.exception.HypervisorException;
 import io.kamax.hboxd.hypervisor.Hypervisor;
 import io.kamax.tool.AxStrings;
 import io.kamax.vbox.VBoxXPCOM;
@@ -54,15 +53,14 @@ public final class VBoxXpcomHypervisor extends VBoxHypervisor {
 
         VBoxXPCOM.triggerVBoxSVC(options);
         VirtualBoxManager mgr = VirtualBoxManager.createInstance(options);
-        if (mgr.getVBox().getVersion().contains("OSE") && (mgr.getVBox().getRevision() < 50393)) {
-            throw new HypervisorException(
-                    "XPCOM is only available on OSE from revision 50393 or greater. See https://www.virtualbox.org/ticket/11232 for more information.");
-        } else if (mgr.getVBox().getRevision() < 92456) {
-            throw new HypervisorException(
-                    "XPCOM is only available from revision 92456 or greater. See https://www.virtualbox.org/ticket/11232 for more information.");
-        } else {
-            return mgr;
+        try {
+            VBoxXPCOM.validate(mgr.getVBox().getVersion(), mgr.getVBox().getRevision());
+        } catch (RuntimeException t) {
+            mgr.cleanup();
+            disconnect();
+            throw t;
         }
+        return mgr;
     }
 
     @Override
