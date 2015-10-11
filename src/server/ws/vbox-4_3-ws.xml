@@ -3,7 +3,7 @@
 	<path>vbox-4_3-ws</path>
 	<name>Virtualbox 4.3 WebServices Connector</name>
 	<desc>This module provides the universal WebServices connector for VirtualBox 4.3.</desc>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<vendor>Kamax.io</vendor>
 	<url>http://kamax.io/hbox/</url>
 	<providers>

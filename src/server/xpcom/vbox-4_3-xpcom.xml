@@ -3,7 +3,7 @@
 	<path>vbox-4_3-xpcom</path>
 	<name>VirtualBox 4.3 XPCOM Connector</name>
 	<desc>This module provides the UNIX-based XPCOM connector for VirtualBox 4.3</desc>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<vendor>Kamax.io</vendor>
 	<url>http://kamax.io/hbox/</url>
 	<providers>
