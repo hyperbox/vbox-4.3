@@ -160,57 +160,63 @@ public abstract class VBoxHypervisor implements _Hypervisor {
 
     @Override
     public void start(String options) throws HypervisorException {
-
         EventManager.register(this);
 
         long start = System.currentTimeMillis();
 
-        vbMgr = connect(options);
-        VBox.set(this);
-
-        Logger.info("Connected in " + (System.currentTimeMillis() - start) + "ms to " + VBox.get().getHost().getDomainName());
-        Logger.info("VB Version: " + vbMgr.getVBox().getVersion());
-        Logger.info("VB Revision: " + vbMgr.getVBox().getRevision());
-        Logger.info("VB Client API Version: " + vbMgr.getClientAPIVersion());
-        Logger.info("VB Server API Version: " + vbMgr.getVBox().getAPIVersion());
-
-        if (!VBox.get().getAPIVersion().contentEquals(VBox.getManager().getClientAPIVersion())) {
-            throw new HypervisorException("Missmatch API Connector: Server is " + VBox.get().getAPIVersion() + " but the connector handles "
-                    + VBox.getManager().getClientAPIVersion());
-        }
-
-        host = new VBoxHost(VBox.get().getHost());
-
-        Mappings.load();
-
-        mediumRegister = new ConcurrentHashMap<String, VBoxMedium>();
-        if (Configuration.getSetting("virtualbox.cache.medium.autoload", "0").contentEquals("1")) {
-            Logger.verbose("Loading media registry");
-            updateMediumRegistry();
-        }
-
-        if (Configuration.getSetting("virtualbox.cache.ostype.autoload", "0").contentEquals("1")) {
-            Logger.verbose("Loading OS Types");
-            buildOsTypeCache();
-        }
-
         try {
-            if (evMgr != null) {
-                evMgrSvc = new EventsManagementService(evMgr);
-                evMgrSvc.startAndRun();
-            } else {
-                throw new HypervisorException("No Event Manager was set to handle events from Virtualbox");
-            }
-        } catch (ServiceException e) {
-            throw new HypervisorException("Unable to start the Event Manager Service : " + e.getMessage());
-        }
+            vbMgr = connect(options);
+            VBox.set(this);
 
-        EventManager.post(new HypervisorConnectedEvent(this));
+            Logger.info("Connected in " + (System.currentTimeMillis() - start) + "ms to " + VBox.get().getHost().getDomainName());
+            Logger.info("VB Version: " + vbMgr.getVBox().getVersion());
+            Logger.info("VB Revision: " + vbMgr.getVBox().getRevision());
+            Logger.info("VB Client API Version: " + vbMgr.getClientAPIVersion());
+            Logger.info("VB Server API Version: " + vbMgr.getVBox().getAPIVersion());
+
+            if (!VBox.get().getAPIVersion().contentEquals(VBox.getManager().getClientAPIVersion())) {
+                throw new HypervisorException("Missmatch API Connector: Server is " + VBox.get().getAPIVersion() + " but the connector handles "
+                        + VBox.getManager().getClientAPIVersion());
+            }
+
+            host = new VBoxHost(VBox.get().getHost());
+
+            Mappings.load();
+
+            mediumRegister = new ConcurrentHashMap<String, VBoxMedium>();
+            if (Configuration.getSetting("virtualbox.cache.medium.autoload", "0").contentEquals("1")) {
+                Logger.verbose("Loading media registry");
+                updateMediumRegistry();
+            }
+
+            if (Configuration.getSetting("virtualbox.cache.ostype.autoload", "0").contentEquals("1")) {
+                Logger.verbose("Loading OS Types");
+                buildOsTypeCache();
+            }
+
+            try {
+                if (evMgr != null) {
+                    evMgrSvc = new EventsManagementService(evMgr);
+                    evMgrSvc.startAndRun();
+                } else {
+                    throw new HypervisorException("No Event Manager was set to handle events from Virtualbox");
+                }
+            } catch (ServiceException e) {
+                throw new HypervisorException("Unable to start the Event Manager Service : " + e.getMessage());
+            }
+
+            EventManager.post(new HypervisorConnectedEvent(this));
+        } catch (HyperboxException e) {
+            stop();
+            throw e;
+        } catch (Throwable t) {
+            stop();
+            throw new HyperboxException("Failed to connect", t);
+        }
     }
 
     @Override
     public void stop() {
-
         host = null;
         mediumRegister = null;
         osTypeCache = null;
@@ -222,9 +228,9 @@ public abstract class VBoxHypervisor implements _Hypervisor {
             evMgrSvc = null;
         }
 
-        disconnect();
         VBox.unset();
         if (vbMgr != null) {
+            disconnect();
             vbMgr.cleanup();
             vbMgr = null;
         }
