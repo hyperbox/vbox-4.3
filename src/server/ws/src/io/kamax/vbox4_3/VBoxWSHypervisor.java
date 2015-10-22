@@ -24,10 +24,10 @@ import io.kamax.hbox.exception.HypervisorException;
 import io.kamax.hboxd.hypervisor.Hypervisor;
 import io.kamax.tool.AxStrings;
 import io.kamax.tool.logging.Logger;
+import io.kamax.vbox.VBoxWSOptions;
 import io.kamax.vbox.VBoxWebSrv;
 import io.kamax.vbox.VirtualBox;
 import io.kamax.vbox._VBoxWebSrv;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -43,14 +43,8 @@ import org.virtualbox_4_3.VirtualBoxManager;
         schemes = { VirtualBox.ID.WS_4_3 })
 public final class VBoxWSHypervisor extends VBoxHypervisor {
 
-    protected final String defaultProtocol = "http";
-    protected final String defaultHost = "localhost";
-    protected final int defaultPort = 18083;
-    protected final String defaultUser = "";
-    protected final String defaultPass = "";
-
+    private VBoxWSOptions options;
     private _VBoxWebSrv webSrv;
-    private String options;
 
     private Map<ISession, VirtualBoxManager> sessions = new WeakHashMap<ISession, VirtualBoxManager>();
 
@@ -64,69 +58,40 @@ public final class VBoxWSHypervisor extends VBoxHypervisor {
         return this.getClass().getAnnotation(Hypervisor.class).typeId();
     }
 
-    protected VirtualBoxManager connect() {
-        return connect(options);
-    }
-
-    @Override
-    protected VirtualBoxManager connect(String options) {
-        this.options = options;
-
-        String protocol = defaultProtocol;
-        String host = defaultHost;
-        int port = defaultPort;
-        String username = defaultUser;
-        String password = defaultPass;
-
-        if ((options != null) && !options.isEmpty()) {
-            try {
-                Logger.debug("Given connect options: " + options);
-                if (!options.contains("://")) {
-                    options = defaultProtocol + "://" + options;
-                }
-                Logger.debug("Adapted raw connect options: " + options);
-                URI uri = new URI(options);
-
-                protocol = uri.getScheme();
-                host = uri.getHost();
-                if (uri.getPort() > 0) {
-                    port = uri.getPort();
-                }
-                if (uri.getUserInfo() != null) {
-                    String[] userInfo = uri.getUserInfo().split(":", 2);
-                    username = userInfo[0];
-                    if (userInfo.length == 2) {
-                        password = userInfo[1];
-                    }
-                }
-            } catch (URISyntaxException e) {
-                throw new HypervisorException("Invalid options syntax: " + e.getMessage(), e);
-            }
-        } else {
+    protected VirtualBoxManager connect(VBoxWSOptions options) {
+        if (!options.hasOptions()) {
             if (webSrv == null) {
-                webSrv = new VBoxWebSrv(defaultHost, defaultPort, "null");
+                webSrv = new VBoxWebSrv(options.getHost(), options.getPort(), "null");
                 webSrv.start();
             } else {
                 Logger.warning("Got an already running VirtualBox WebServices instance!");
             }
-            port = webSrv.getPort();
+            options.setPort(webSrv.getPort());
         }
 
         try {
-            Logger.debug("Using Web Services");
-
             VirtualBoxManager mgr = VirtualBoxManager.createInstance(null);
+            Logger.debug("Connection info: " + options.extractServer());
+            Logger.debug("User: " + options.getUsername());
+            Logger.debug("Password given: " + (AxStrings.isEmpty(options.getPasswd().toString())));
+            mgr.connect(options.extractServer(), options.getUsername(), options.getPasswd().toString());
 
-            String connInfo = protocol + "://" + host + ":" + port;
-            Logger.debug("Connection info: " + connInfo);
-            Logger.debug("User: " + username);
-            Logger.debug("Password given: " + (AxStrings.isEmpty(password)));
-            mgr.connect(connInfo, username, password);
+            this.options = options;
 
             return mgr;
         } catch (VBoxException e) {
             disconnect();
             throw new HypervisorException("Unable to connect to the Virtualbox WebServices : " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    protected VirtualBoxManager connect(String rawOptions) {
+        Logger.debug("Using Web Services");
+        try {
+            return connect(new VBoxWSOptions(rawOptions));
+        } catch (URISyntaxException e) {
+            throw new HypervisorException("Invalid options syntax: " + e.getMessage(), e);
         }
     }
 
@@ -151,7 +116,7 @@ public final class VBoxWSHypervisor extends VBoxHypervisor {
 
     @Override
     protected ISession getSession() {
-        VirtualBoxManager mgr = connect();
+        VirtualBoxManager mgr = connect(options);
         ISession session = mgr.getSessionObject();
         sessions.put(session, mgr);
         return session;
