@@ -24,7 +24,9 @@ import io.kamax.hbox.exception.HypervisorException;
 import io.kamax.hboxd.hypervisor.Hypervisor;
 import io.kamax.tool.AxStrings;
 import io.kamax.tool.logging.Logger;
+import io.kamax.vbox.VBoxWebSrv;
 import io.kamax.vbox.VirtualBox;
+import io.kamax.vbox._VBoxWebSrv;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -47,6 +49,7 @@ public final class VBoxWSHypervisor extends VBoxHypervisor {
     protected final String defaultUser = "";
     protected final String defaultPass = "";
 
+    private _VBoxWebSrv webSrv;
     private String options;
 
     private Map<ISession, VirtualBoxManager> sessions = new WeakHashMap<ISession, VirtualBoxManager>();
@@ -99,6 +102,10 @@ public final class VBoxWSHypervisor extends VBoxHypervisor {
             } catch (URISyntaxException e) {
                 throw new HypervisorException("Invalid options syntax: " + e.getMessage(), e);
             }
+        } else {
+            webSrv = new VBoxWebSrv(defaultHost, defaultPort, "null");
+            webSrv.start();
+            port = webSrv.getPort();
         }
 
         try {
@@ -121,9 +128,18 @@ public final class VBoxWSHypervisor extends VBoxHypervisor {
     @Override
     protected void disconnect() {
         try {
-            vbMgr.disconnect();
+            try {
+                vbMgr.disconnect();
+            } catch (Throwable t) {
+                Logger.warning("Error when disconnecting : " + t.getMessage());
+            }
+            if (webSrv != null) {
+                webSrv.stop();
+            }
         } catch (Throwable t) {
-            Logger.warning("Error when disconnecting : " + t.getMessage());
+            Logger.warning("Failed to stop WebServices", t);
+        } finally {
+            webSrv = null;
         }
     }
 
