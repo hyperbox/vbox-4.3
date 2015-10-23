@@ -37,10 +37,10 @@ import org.virtualbox_4_3.VirtualBoxManager;
 
 @Hypervisor(
         id = VirtualBox.ID.WS_4_3,
-        typeId = VirtualBox.Type.WEB_SERVICES,
         vendor = VirtualBox.VENDOR,
         product = VirtualBox.PRODUCT,
-        schemes = { VirtualBox.ID.WS_4_3 })
+        version = VirtualBox.Version.v4_3,
+        typeId = VirtualBox.Type.WEB_SERVICES)
 public final class VBoxWSHypervisor extends VBoxHypervisor {
 
     private VBoxWSOptions options;
