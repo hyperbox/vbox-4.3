@@ -73,7 +73,7 @@
 	
 	<target name="client.gui.compile">
 		<mkdir dir="${vbox.4_3.client.gui.class.dir}" />
-		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.client.gui.src.dir}" destdir="${vbox.4_3.client.gui.class.dir}" classpathref="vbox.4_3.client.gui.classpath" />
+		<javac source="1.7" target="1.7" debug="on" includeantruntime="false" srcdir="${vbox.4_3.client.gui.src.dir}" destdir="${vbox.4_3.client.gui.class.dir}" classpathref="vbox.4_3.client.gui.classpath" />
 	</target>
 	
 	<target name="client.gui.build" depends="client.gui.compile">
@@ -166,8 +166,8 @@
 	
 	<target name="server.ws.compile" depends="server.build">
 		<mkdir dir="${vbox.4_3.server.ws.class.dir}" />
-		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.ws.class.dir}" classpathref="vbox.4_3.server.ws.classpath" />
-		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.ws.src.dir}" destdir="${vbox.4_3.server.ws.class.dir}" classpathref="vbox.4_3.server.ws.classpath" />
+		<javac source="1.7" target="1.7" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.ws.class.dir}" classpathref="vbox.4_3.server.ws.classpath" />
+		<javac source="1.7" target="1.7" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.ws.src.dir}" destdir="${vbox.4_3.server.ws.class.dir}" classpathref="vbox.4_3.server.ws.classpath" />
 	</target>
 	
 	<target name="server.ws.build" depends="server.ws.compile">
@@ -228,8 +228,8 @@
 	
 	<target name="server.xpcom.compile" depends="server.build">
 		<mkdir dir="${vbox.4_3.server.xpcom.class.dir}" />
-		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.xpcom.class.dir}" classpathref="vbox.4_3.server.xpcom.classpath" />
-		<javac source="1.6" target="1.6" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.xpcom.src.dir}" destdir="${vbox.4_3.server.xpcom.class.dir}" classpathref="vbox.4_3.server.xpcom.classpath" />
+		<javac source="1.7" target="1.7" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.src.dir}" destdir="${vbox.4_3.server.xpcom.class.dir}" classpathref="vbox.4_3.server.xpcom.classpath" />
+		<javac source="1.7" target="1.7" debug="on" includeantruntime="false" srcdir="${vbox.4_3.server.xpcom.src.dir}" destdir="${vbox.4_3.server.xpcom.class.dir}" classpathref="vbox.4_3.server.xpcom.classpath" />
 	</target>
 	
 	<target name="server.xpcom.build" depends="server.xpcom.compile">
